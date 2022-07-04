@@ -4,8 +4,8 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-nnoremap <silent> f :Telescope live_grep<CR>
-nnoremap <silent> F :Telescope find_files<CR>
+nnoremap <silent> f :Telescope find_files<CR>
+nnoremap <silent> F :Telescope live_grep<CR>
 noremap <C-j> :<C-U>tabprevious<CR> 
 noremap <C-k> :<C-U>tabnext<CR> 
 "noremap <C-u> :<C-U>bprevious<CR> 
