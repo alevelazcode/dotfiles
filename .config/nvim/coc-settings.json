@@ -18,7 +18,7 @@
   "javascript.suggest.autoImports": true, 
   "typescript.suggest.autoImports": true,
   //python
-  //"python.linting.enabled": true,
+  "python.linting.enabled": true,
   //explorer
   //"explorer.width": 30,
   //"explorer.icon.enableNerdfont": true,

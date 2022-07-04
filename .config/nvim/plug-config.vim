@@ -60,3 +60,10 @@ au! BufRead,BufNewFile *.rsh setfiletype javascript
 let g:closetag_filetypes= 'html,jsx,javascriptreact,javascript,typescript, typescriptreact, tsx'  
 "let g:node_client_debug= 1
 "
+
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+\   'javascript': ['eslint'],
+\   'typescript': ['eslint'],
+\   'typescriptreact': ['eslint'],
+\}

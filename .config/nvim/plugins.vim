@@ -36,6 +36,7 @@ call plug#begin()
   Plug 'josa42/coc-go', {'do': 'yarn install --frozen-lockfile'}
   Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
   Plug 'fannheyward/telescope-coc.nvim'
+  Plug 'fannheyward/coc-pyright', {'do': 'yarn install --frozen-lockfile'}
   Plug 'felippepuhle/coc-graphql', {'do': 'yarn install --frozen-lockfile'}
 
 
@@ -83,4 +84,7 @@ call plug#begin()
 
   "indent
   Plug 'lukas-reineke/indent-blankline.nvim'
+
+  "fix format
+  Plug 'dense-analysis/ale'
   call plug#end()
