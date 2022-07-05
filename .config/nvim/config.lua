@@ -1,6 +1,14 @@
 
 require("catppuccin").setup({
   transparent_background = true,
+   integrations = {
+     treesitter = true,
+     nvimtree = {
+       enabled = true,
+       show_root = true,
+       transparent_panel = true,
+     },
+   }
 })
 vim.cmd[[set termguicolors]]
 vim.cmd[[syntax enable]]
