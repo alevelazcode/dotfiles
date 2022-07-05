@@ -1,9 +1,13 @@
-require('catppuccin').setup {
+
+require("catppuccin").setup({
   transparent_background = true,
-}
+})
 vim.cmd[[set termguicolors]]
 vim.cmd[[syntax enable]]
 vim.cmd[[colorscheme catppuccin]]
+
+vim.g.catppuccin_flavour = "frappe"
+
 vim.cmd[[syntax enable]]
 vim.cmd[[hi CursorLine guibg=none]]
 vim.cmd[[hi CursorLineNr guifg=#F5C2E7]]
@@ -148,3 +152,20 @@ require("indent_blankline").setup {
     show_current_context = true,
     show_current_context_start = true,
 }
+
+require("nvim-tree").setup()
+
+require("nvim-autopairs").setup()
+
+
+require("bufferline").setup {
+  options = {
+    separator_style = {"", ""},
+    indicator_icon = "",
+    show_buffer_close_icons = false,
+    show_close_icon = false,
+    show_tab_indicators = false
+  }
+}
+
+require("todo-comments").setup { }

@@ -1,60 +1,15 @@
 
-[battery]
-full_symbol = "🔋"
-charging_symbol = "🔌"
-discharging_symbol = "⚡"
+format = "$all"
+right_format = """$git_branch$git_status$directory"""
 
-[[battery.display]]
-threshold = 30
-style = "bold red"
-
-[character]
-error_symbol = "[✖](bold red) "
-
-[cmd_duration]
-min_time = 10_000  # Show command duration over 10,000 milliseconds (=10 sec)
-format = "[$duration]($style)"
-
-[directory]
-truncation_length = 5
-format = "[$path]($style)[$lock_symbol]($lock_style) "
-style = "bold green"
-[git_branch]
-format = "[$symbol$branch]($style) "
-style = "bold red"
-
-[git_commit]
-commit_hash_length = 8
-style = "bold white"
-
-[git_state]
-format = '[\($state( $progress_current of $progress_total)\)]($style) '
-
-[git_status]
-conflicted = "⚔️ "
-ahead = "🏎️ 💨 ×${count}"
-behind = "🐢 ×${count}"
-diverged = "🔱 🏎️ 💨 ×${ahead_count} 🐢 ×${behind_count}"
-untracked = "🛤️  ×${count}"
-stashed = "📦 "
-modified = "📝 ×${count}"
-staged = "🗃️  ×${count}"
-renamed = "📛 ×${count}"
-deleted = "🗑️  ×${count}"
-style = "bright-white"
-format = "$all_status$ahead_behind"
-
-[hostname]
-ssh_only = false
-format = "<[$hostname]($style)>"
-trim_at = "-"
-style = "bold dimmed white"
+[line_break]
 disabled = true
 
-[julia]
-format = "[$symbol$version]($style) "
-symbol = "ஃ "
-style = "bold green"
+[time]
+time_format = "%T"
+format = "羽$time($style)"
+style = "bold blue"
+disabled = false
 
 [memory_usage]
 format = "$symbol[${ram}]($style) "
@@ -62,8 +17,59 @@ threshold = 70
 style = "bold dimmed purple"
 disabled = false
 
-[package]
+[character]
+success_symbol = " [](#6791c9)"
+error_symbol = " [](#df5b61)"
+vicmd_symbol = "[  ](#78b892)"
+
+[hostname]
+ssh_only = true
+format = "[$hostname](bold blue) "
+disabled = false
+
+[cmd_duration]
 disabled = true
+
+[directory]
+format = "[](fg:#1c252c bg:none)[$path]($style)[](fg:#1c252c bg:#1c252c)[](fg:#6791c9 bg:#1c252c)[](fg:#1c252c bg:#6791c9)[](fg:#6791c9 bg:none)"
+style = "fg:#d9d7d6 bg:#1c252c"
+truncation_length = 2
+truncate_to_repo=false
+
+[git_branch]
+format = "[](fg:#1c252c bg:none)[$branch]($style)[](fg:#1c252c bg:#1c252c)[](fg:#78b892 bg:#1c252c)[](fg:#282c34 bg:#78b892)[](fg:#78b892 bg:none) "
+style = "fg:#d9d7d6 bg:#1c252c"
+
+[git_status]
+format="[](fg:#1c252c bg:none)[$all_status$ahead_behind]($style)[](fg:#1c252c bg:#1c252c)[](fg:#bc83e3 bg:#1c252c)[](fg:#1c252c bg:#bc83e3)[](fg:#bc83e3 bg:none) "
+style = "fg:#d9d7d6 bg:#1c252c"
+conflicted = "="
+ahead =	"⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+up_to_date = ""
+untracked = "?${count}"
+stashed = ""
+modified = "!${count}"
+staged = "+${count}"
+renamed = "»${count}"
+deleted = "${count}"
+
+[git_commit]
+format = "[\\($hash\\)]($style) [\\($tag\\)]($style)"
+style = "green"
+
+[git_state]
+rebase = "REBASING"
+merge =	"MERGING"
+revert = "REVERTING"
+cherry_pick = "CHERRY-PICKING"
+bisect = "BISECTING"
+am = "AM"
+am_or_rebase = "AM/REBASE"
+style =	"yellow"
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+
 
 [nodejs]
 format = "[$symbol$version]($style) "
@@ -77,22 +83,11 @@ style = "bold green"
 format = "[$symbol$version]($style) "
 style = "bold green"
 
-[time]
-time_format = "%T"
-format = "🕙 $time($style)"
-style = "bold dimmed blue"
-disabled = false
-
-[username]
-style_user = "bg:red;"
-show_always = false 
-format = '[$user ]($style)'
-
-
 [directory.substitutions]
+"~" = ""
 "Documents" = " "
 "Downloads" = " "
 "Music" = " "
 "Pictures" = " "
-"wallet-frontend" = "Vendible Frontend"
-"wallet-backend" = "Vendible Backend"
+'wallet' = ""
+".config" = "אּ"

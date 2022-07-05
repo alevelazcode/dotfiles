@@ -7,20 +7,21 @@ call plug#begin()
   Plug 'gregsexton/MatchTag'
   "Plug 'mattn/Emmet-vim'
   Plug 'psliwka/vim-smoothie'
-  Plug 'tpope/vim-fugitive'
-  Plug 'airblade/vim-gitgutter'
-  Plug 'itchyny/vim-gitbranch'
-
+  
+  "Search
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
+  Plug 'justinmk/vim-sneak'
 
   Plug 'junegunn/goyo.vim'
-  Plug 'justinmk/vim-sneak'
 
   Plug 'phaazon/hop.nvim'
 
   Plug 'tpope/vim-surround'
   Plug 'leafOfTree/vim-vue-plugin' 
+
+  "shorcuts html
+  Plug 'mattn/emmet-vim'
 
   "Coc autocomplete
   Plug 'SirVer/ultisnips'
@@ -41,32 +42,24 @@ call plug#begin()
 
 
   Plug 'neovim/nvim-lspconfig'
-  "{'branch':'master', 'do': 'yarn install --frozen-lockfile'}
   Plug 'sheerun/vim-polyglot'
-  "Plug 'tpope/vim-rails'
-  Plug 'jiangmiao/auto-pairs'
+  Plug 'windwp/nvim-autopairs'
   Plug 'jparise/vim-graphql'
-  Plug 'itchyny/lightline.vim'
-  Plug 'fatih/vim-go'
-"  Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
-"
 
+  Plug 'fatih/vim-go'
+"
   "git
   " the hidden message from Git under the cursor quickly. It shows the history of commits under the cursor in popup window.
   Plug 'rhysd/git-messenger.vim'
   Plug 'lewis6991/gitsigns.nvim'
+  Plug 'tpope/vim-fugitive'
+  Plug 'itchyny/vim-gitbranch'
 
   Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
   "Theme
-  Plug 'projekt0n/github-nvim-theme'
-  Plug 'habamax/vim-gruvbit'
-  Plug 'dracula/vim'
-  Plug 'morhetz/gruvbox'
-  Plug 'arcticicestudio/nord-vim'
   Plug 'xiyaowong/nvim-transparent'
   Plug 'catppuccin/nvim', {'as': 'catppuccin'}
-
   Plug 'norcalli/nvim-colorizer.lua'
 
   "Icons
@@ -87,4 +80,20 @@ call plug#begin()
 
   "fix format
   Plug 'dense-analysis/ale'
-  call plug#end()
+
+  "Rust
+  Plug 'rust-lang/rust.vim'
+  
+  " Navigation
+  Plug 'kyazdani42/nvim-tree.lua'
+
+  "Greteer
+  Plug 'goolord/alpha-nvim'
+
+
+  Plug 'folke/todo-comments.nvim'
+  Plug 'github/copilot.vim'
+  Plug 'godlygeek/tabular'
+
+  Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
+call plug#end()
