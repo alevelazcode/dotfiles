@@ -1,6 +1,7 @@
 call plug#begin()
-  "GIt
 
+  "GIt
+  "
   Plug 'ap/vim-css-color'
   Plug 'iamcco/markdown-preview.nvim'
   Plug 'alvan/vim-closetag'
@@ -97,4 +98,8 @@ call plug#begin()
   Plug 'godlygeek/tabular'
 
   Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
+
+  Plug 'folke/trouble.nvim'
+
+  Plug 'samoshkin/vim-mergetool'
 call plug#end()
