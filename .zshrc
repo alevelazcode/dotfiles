@@ -113,6 +113,8 @@ alias y='yarn'
 alias g='git'
 alias dc='docker compose'
 alias d='docker'
+alias python="python3" 
+alias pip="pip3"
 alias ll='lsd -lh --group-dirs=first'
 alias la='lsd -a --group-dirs=first'
 alias l='lsd --group-dirs=first'
@@ -124,18 +126,5 @@ export PATH="$PATH:$HOME/.spicetify"
 
 eval "$(starship init zsh)"
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/alejandrovelazco/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/alejandrovelazco/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/alejandrovelazco/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/alejandrovelazco/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
 
+export PATH="/opt/homebrew/sbin:$PATH"

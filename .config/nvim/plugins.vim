@@ -24,7 +24,8 @@ call plug#begin()
   Plug 'mattn/emmet-vim'
 
   "Coc autocomplete
-  Plug 'SirVer/ultisnips'
+  " Plug 'SirVer/ultisnips'
+
   Plug 'neoclide/coc.nvim', {'branch': 'release'} 
   Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
   Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
@@ -92,7 +93,7 @@ call plug#begin()
 
 
   Plug 'folke/todo-comments.nvim'
-  Plug 'github/copilot.vim'
+  " Plug 'github/copilot.vim'
   Plug 'godlygeek/tabular'
 
   Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }

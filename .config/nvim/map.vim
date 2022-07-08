@@ -7,17 +7,12 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <silent> f :Telescope find_files<CR>
 nnoremap <silent> F :Telescope live_grep<CR>
 noremap <C-j> :<C-U>tabprevious<CR> 
-noremap <C-k> :<C-U>tabnext<CR> 
-"noremap <C-u> :<C-U>bprevious<CR> 
-"noremap <C-i> :<C-U>bnext<CR> 
+noremap <C-k> :<C-U>bnext<CR> 
+noremap <C-u> :<C-U>bprevious<CR> 
+noremap <C-i> :<C-U>bnext<CR> 
 
-
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-nmap <F1> :CocCommand explorer<CR>
-"nmap <F1> :CHADopen<CR>
 
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
