@@ -50,10 +50,10 @@ nmap <leader>m :MaximizerToggle!<cr>
 nmap <leader>n :bn<cr>
 nmap <leader>o :<C-u>CocList outline<cr>
 nmap <leader>p :bp<cr>
-nmap <leader>q :wq!<cr>
+nmap <leader>q :q!<cr>
 nmap <leader>rn <Plug>(coc-rename)
 nmap <leader>s :<C-u>CocList -I symbols<cr>
-nmap <leader>w :bd<cr>
+nmap <leader>w :w<cr>
 nnoremap <leader>\ <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>bb <cmd>lua require('telescope.builtin').buffers()<cr>
 omap ag <Plug>(coc-git-chunk-outer)

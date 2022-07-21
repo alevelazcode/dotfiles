@@ -18,6 +18,7 @@ set nostartofline
 set ruler
 set cmdheight=1
 set laststatus=2
+set clipboard+=unnamedplus
 set confirm
 set mouse=a
 set number
