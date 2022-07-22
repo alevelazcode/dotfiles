@@ -109,6 +109,7 @@ source $(brew --prefix nvm)/nvm.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 alias cat="bat --style=plain"
 alias vim="nvim"
+alias vi="nvim"
 alias y='yarn'
 alias g='git'
 alias dc='docker compose'
