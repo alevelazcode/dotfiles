@@ -1,8 +1,9 @@
-
+require'nvim-web-devicons'.setup()
 require("catppuccin").setup({
   transparent_background = true,
    integrations = {
      treesitter = true,
+     coc_nvim = true,
      nvimtree = {
        enabled = true,
        show_root = true,
@@ -10,22 +11,19 @@ require("catppuccin").setup({
      },
    }
 })
+
 vim.cmd[[set termguicolors]]
 vim.cmd[[syntax enable]]
 vim.cmd[[colorscheme catppuccin]]
 
 vim.g.catppuccin_flavour = "frappe"
 
-vim.cmd[[syntax enable]]
-vim.cmd[[hi CursorLine guibg=none]]
-vim.cmd[[hi CursorLineNr guifg=#F5C2E7]]
 
 
 require('colorizer').setup()
 require('Comment').setup()
 require'hop'.setup()
 
-require'nvim-web-devicons'.setup()
 
 require("transparent").setup({
   enable = true,
@@ -127,6 +125,11 @@ require('gitsigns').setup {
 vim.cmd[[command! -nargs=0 GitFiles :Telescope git_files ]]
 vim.cmd[[command! -nargs=0 Commands :Telescope commands ]]
 vim.cmd[[command! -nargs=0 GitStatus :Telescope git_status ]]
+
+
+vim.cmd[[autocmd BufWritePost *tmux.conf !tmux source <afile>]]
+vim.cmd[[autocmd BufWritePost *yabairc !brew services restart yabai]]
+vim.cmd[[autocmd BufWritePost *skhdrc !brew services restart skhd]]
 
 
 require("indent_blankline").setup {

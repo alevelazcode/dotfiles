@@ -102,4 +102,8 @@ call plug#begin()
   Plug 'folke/trouble.nvim'
 
   Plug 'samoshkin/vim-mergetool'
+
+  Plug 'tpope/vim-dadbod'
+  Plug 'tpope/vim-dotenv'
+  Plug 'kristijanhusak/vim-dadbod-ui'
 call plug#end()

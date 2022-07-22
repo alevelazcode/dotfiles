@@ -1,6 +1,5 @@
 source $HOME/.config/nvim/general.vim
 source $HOME/.config/nvim/plugins.vim
-source $HOME/.config/nvim/theme.vim
 source $HOME/.config/nvim/map.vim
 source $HOME/.config/nvim/plug-config.vim
 source $HOME/.config/nvim/leader.vim
@@ -10,6 +9,7 @@ source $HOME/.config/nvim/treesitter.lua
 source $HOME/.config/nvim/lualine.lua
 source $HOME/.config/nvim/alpha.lua
 source $HOME/.config/nvim/coc.vim
+source $HOME/.config/nvim/theme.vim
 
 " Miscellaneous
 let g:python3_host_prog='/opt/homebrew/bin/python3'

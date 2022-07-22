@@ -47,7 +47,7 @@ nmap <leader>j :<C-u>CocNext<CR>
 nmap <leader>k :<C-u>CocPrev<CR>
 nmap <leader>l :HopLine<cr>
 nmap <leader>m :MaximizerToggle!<cr>
-nmap <leader>n :bn<cr>
+nmap <leader>n :NvimTreeToggle<cr>
 nmap <leader>o :<C-u>CocList outline<cr>
 nmap <leader>p :bp<cr>
 nmap <leader>q :q!<cr>
