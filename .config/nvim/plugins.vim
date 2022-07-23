@@ -36,11 +36,13 @@ call plug#begin()
   Plug 'neoclide/coc-sources', {'do': 'yarn install --frozen-lockfile'}
   Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
   Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'iamcco/coc-spell-checker', {'do': 'yarn install --frozen-lockfile'}
   Plug 'josa42/coc-go', {'do': 'yarn install --frozen-lockfile'}
   Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
   Plug 'fannheyward/telescope-coc.nvim'
   Plug 'fannheyward/coc-pyright', {'do': 'yarn install --frozen-lockfile'}
   Plug 'felippepuhle/coc-graphql', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'kkiyama117/coc-toml', {'do': 'yarn install --frozen-lockfile'}
 
 
   Plug 'neovim/nvim-lspconfig'
@@ -101,6 +103,7 @@ call plug#begin()
 
   Plug 'folke/trouble.nvim'
 
+  Plug 'pwntester/octo.nvim'
   Plug 'samoshkin/vim-mergetool'
 
   Plug 'tpope/vim-dadbod'

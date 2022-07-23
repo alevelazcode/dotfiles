@@ -24,7 +24,6 @@ nmap <leader>cl  <Plug>(coc-codelens-action)
 nmap <leader>e :<C-u>CocList extensions<cr>
 nmap <leader>en <Plug>(coc-diagnostic-next)
 nmap <leader>ep <Plug>(coc-diagnostic-prev)
-nmap <leader>f :Lfcd<cr>
 nmap <leader>gb <Plug>(coc-git-blame)<cr>
 nmap <leader>gc :CocCommand git.showCommit<cr>
 nmap <leader>gdc :CocCommand git.diffCached<cr>
@@ -56,7 +55,11 @@ nmap <leader>s :<C-u>CocList -I symbols<cr>
 nmap <leader>w :w<cr>
 nnoremap <leader>\ <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>bb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>f :Telescope find_files<CR>
 omap ag <Plug>(coc-git-chunk-outer)
 omap ig <Plug>(coc-git-chunk-inner)
 xmap ag <Plug>(coc-git-chunk-outer)
 xmap ig <Plug>(coc-git-chunk-inner)
+
+nnoremap <leader>x :deno %<cr>
+nnoremap <leader>r :!python %<cr>
