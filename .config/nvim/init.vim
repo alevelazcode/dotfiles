@@ -12,7 +12,10 @@ source $HOME/.config/nvim/coc.vim
 source $HOME/.config/nvim/theme.vim
 
 " Miscellaneous
-let g:python3_host_prog='/opt/homebrew/bin/python3'
+if has("gui_macvim")
+  let g:python3_host_prog='/opt/homebrew/bin/python3'
+else
+  let g:python3_host_prog='/usr/bin/python3'
 
 let g:airline#extensions#tabline#enabled=1
 let g:vim_markdown_folding_disabled = 1
