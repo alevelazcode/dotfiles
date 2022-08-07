@@ -1,4 +1,4 @@
-" cSpell:ignore prevchunk prevconflict lfcd goyo
+" cSpell:ignore prevchunk prevconflict lfcd goyoasas
 let mapleader=" "
 
 nnoremap <silent><leader>0 :lua require("harpoon.ui").toggle_quick_menu()<CR>
@@ -14,7 +14,6 @@ nnoremap <silent><leader>8 :lua require("harpoon.ui").nav_file(8)<CR>
 nnoremap <silent><leader>9 :lua require("harpoon.ui").nav_file(9)<CR>
 
 nmap <leader>% :source %<cr>
-nmap <leader>/ :noh<cr>
 nmap <leader><leader> <Plug>(coc-fix-current)
 nmap <leader><tab> :bp<cr>
 nmap <leader>a <Plug>(coc-codeaction)
@@ -55,11 +54,11 @@ nmap <leader>s :<C-u>CocList -I symbols<cr>
 nmap <leader>w :w<cr>
 nnoremap <leader>\ <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>bb <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>f :Telescope find_files<CR>
+nmap <leader>/ :Telescope find_files<cr>
 omap ag <Plug>(coc-git-chunk-outer)
 omap ig <Plug>(coc-git-chunk-inner)
 xmap ag <Plug>(coc-git-chunk-outer)
 xmap ig <Plug>(coc-git-chunk-inner)
 
-nnoremap <leader>x :deno %<cr>
-nnoremap <leader>r :!python %<cr>
+nnoremap <leader>x :!deno run %<cr>
+nnoremap <leader>r :!python3 %<cr>

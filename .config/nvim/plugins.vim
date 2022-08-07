@@ -83,7 +83,7 @@ call plug#begin()
   Plug 'lukas-reineke/indent-blankline.nvim'
 
   "fix format
-  Plug 'dense-analysis/ale'
+"   Plug 'dense-analysis/ale'
 
   "Rust
   Plug 'rust-lang/rust.vim'
@@ -109,4 +109,9 @@ call plug#begin()
   Plug 'tpope/vim-dadbod'
   Plug 'tpope/vim-dotenv'
   Plug 'kristijanhusak/vim-dadbod-ui'
+
+  "tmux
+  Plug 'tmux-plugins/vim-tmux'
+  Plug 'roxma/vim-tmux-clipboard'
+  Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
