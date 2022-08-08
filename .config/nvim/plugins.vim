@@ -4,11 +4,12 @@ call plug#begin()
   "
   Plug 'ap/vim-css-color'
   Plug 'iamcco/markdown-preview.nvim'
-  Plug 'alvan/vim-closetag'
+" Plug 'alvan/vim-closetag'
+  Plug 'windwp/nvim-ts-autotag'
   Plug 'gregsexton/MatchTag'
   "Plug 'mattn/Emmet-vim'
   Plug 'psliwka/vim-smoothie'
-  
+  Plug 'olimorris/persisted.nvim' 
   "Search
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'

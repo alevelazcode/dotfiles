@@ -8,6 +8,7 @@ source $HOME/.config/nvim/config.lua
 source $HOME/.config/nvim/treesitter.lua
 source $HOME/.config/nvim/lualine.lua
 source $HOME/.config/nvim/alpha.lua
+source $HOME/.config/nvim/telescope.lua
 source $HOME/.config/nvim/coc.vim
 source $HOME/.config/nvim/theme.vim
 

@@ -19,6 +19,7 @@ set ruler
 set cmdheight=1
 set laststatus=2
 set clipboard+=unnamedplus
+set shell=fish
 set confirm
 set mouse=a
 set number
@@ -26,6 +27,9 @@ set hid
 set notimeout ttimeout ttimeoutlen=200
 set nowrap
 set t_Co=256
+
+set ai "Auto indent
+set si "Smart indent
 
 " No annoying sound on errors
 set noerrorbells

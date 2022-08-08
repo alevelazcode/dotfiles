@@ -18,7 +18,7 @@ vim.cmd[[colorscheme catppuccin]]
 
 vim.g.catppuccin_flavour = "frappe"
 
-
+require("persisted").setup {}
 
 require('colorizer').setup()
 require('Comment').setup()
@@ -46,80 +46,7 @@ require("harpoon").setup({
 require'nvim-web-devicons'.setup()
 
 
-local telescope = require('telescope')
 
-telescope.setup {
-  defaults = {
-    sorting_strategy = "ascending",
-    prompt_prefix = " ",
-    prompt_position = "top",
-    selection_caret = "  ",
-    entry_prefix = "  ",
-    initial_mode = "insert",
-    selection_strategy = "reset",
-    layout_strategy = "horizontal",
-    layout_config = {
-      horizontal = {
-        prompt_position = "top",
-        preview_width = 0.55,
-        results_width = 0.8,
-      },
-      vertical = {
-        mirror = false,
-      },
-      width = 0.87,
-      height = 0.80,
-      preview_cutoff = 120,
-    },
-    file_sorter = require("telescope.sorters").get_fuzzy_file,
-    file_ignore_patterns = { "node_modules" },
-    generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
-    path_display = { "truncate" },
-    winblend = 0,
-    border = {},
-    borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-    color_devicons = true,
-    set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
-    file_previewer = require("telescope.previewers").vim_buffer_cat.new,
-    grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
-    qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
-    -- Developer configurations: Not meant for general override
-    buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
-    mappings = {
-      n = { ["q"] = require("telescope.actions").close },
-    },
-  vimgrep_arguments = {
-      "rg",
-      "--color=never",
-      "--no-heading",
-      "--with-filename",
-      "--line-number",
-      "--column",
-      "--smart-case",
-    },
-  },
-  pickers = {
-    git_files = {
-      layout_config = {
-        preview_width = 0.6,
-        prompt_position = "top"
-      }
-    },
-    commands = {
-      layout_config = {
-        prompt_position = "top"
-      }
-    },
-    git_status = {
-      layout_config = {
-        prompt_position = "top"
-      }
-    }
-  }
-}
-
-telescope.load_extension('coc')
-telescope.load_extension('harpoon')
 
 
 require('gitsigns').setup {
@@ -166,9 +93,6 @@ require('gitsigns').setup {
   },
 }
 
-vim.cmd[[command! -nargs=0 GitFiles :Telescope git_files ]]
-vim.cmd[[command! -nargs=0 Commands :Telescope commands ]]
-vim.cmd[[command! -nargs=0 GitStatus :Telescope git_status ]]
 
 
 vim.cmd[[autocmd BufWritePost *tmux.conf !tmux source <afile>]]
