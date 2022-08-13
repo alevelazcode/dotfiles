@@ -4,8 +4,8 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-noremap <C-j> :<C-U>tabprevious<CR> 
-noremap <C-k> :<C-U>bnext<CR> 
+" noremap <C-j> :<C-U>tabprevious<CR> 
+" noremap <C-k> :<C-U>bnext<CR> 
 noremap <C-u> :<C-U>bprevious<CR> 
 noremap <C-i> :<C-U>bnext<CR> 
 

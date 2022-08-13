@@ -114,5 +114,8 @@ call plug#begin()
   "tmux
   Plug 'tmux-plugins/vim-tmux'
   Plug 'roxma/vim-tmux-clipboard'
+
+
   Plug 'christoomey/vim-tmux-navigator'
+Plug 'karb94/neoscroll.nvim'
 call plug#end()
