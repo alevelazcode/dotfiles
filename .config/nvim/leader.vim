@@ -54,7 +54,7 @@ nmap <leader>s :<C-u>CocList -I symbols<cr>
 nmap <leader>w :w<cr>
 nnoremap <leader>\ <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>bb <cmd>lua require('telescope.builtin').buffers()<cr>
-nmap <leader>/ :Telescope find_files<cr>
+nmap <leader>f :Telescope find_files<cr>
 omap ag <Plug>(coc-git-chunk-outer)
 omap ig <Plug>(coc-git-chunk-inner)
 xmap ag <Plug>(coc-git-chunk-outer)
