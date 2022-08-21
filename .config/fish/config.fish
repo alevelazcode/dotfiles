@@ -6,8 +6,8 @@ set -gx EDITOR nvim
 
 
 # NodeJS
-set -gx PATH node_modules/.bin $PATH
 set -gx TERM xterm-256color
+
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 alias cat="bat --style=plain"
