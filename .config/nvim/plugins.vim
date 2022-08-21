@@ -25,6 +25,7 @@ call plug#begin()
   "shorcuts html
   Plug 'mattn/emmet-vim'
 
+
   "Coc autocomplete
   " Plug 'SirVer/ultisnips'
 
@@ -75,7 +76,7 @@ call plug#begin()
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-lualine/lualine.nvim'
   Plug 'nvim-telescope/telescope.nvim'
-
+  Plug 'nvim-telescope/telescope-file-browser.nvim'
   Plug 'ThePrimeagen/harpoon'
   
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
