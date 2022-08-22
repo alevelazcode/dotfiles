@@ -8,6 +8,35 @@ set -gx EDITOR nvim
 # NodeJS
 set -gx TERM xterm-256color
 
+set -gx PATH bin $PATH
+set -gx PATH ~/bin $PATH
+set -gx PATH ~/.local/bin $PATH
+
+# NodeJS
+set -gx PATH node_modules/.bin $PATH
+# NVM
+function __check_rvm --on-variable PWD --description 'Do nvm stuff'
+  status --is-command-substitution; and return
+
+  if test -f .nvmrc; and test -r .nvmrc;
+    nvm use
+  else
+  end
+end
+
+switch (uname)
+  case Darwin
+    source (dirname (status --current-filename))/config-osx.fish
+  case Linux
+    source (dirname (status --current-filename))/config-linux.fish
+  case '*'
+    source (dirname (status --current-filename))/config-windows.fish
+end
+
+set LOCAL_CONFIG (dirname (status --current-filename))/config-local.fish
+if test -f $LOCAL_CONFIG
+  source $LOCAL_CONFIG
+end
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 alias cat="bat --style=plain"
