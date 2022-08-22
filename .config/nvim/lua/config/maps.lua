@@ -35,14 +35,16 @@ keymap.set('n', '<C-w><right>', '<C-w>>')
 keymap.set('n', '<C-w><up>', '<C-w>+')
 keymap.set('n', '<C-w><down>', '<C-w>-')
 
-keymap.set("n", '<Leader>f', ':Telescope find_files<CR>')
-keymap.set("n", '<Leader>\\', ':Telescope live_grep<CR>')
-keymap.set("n", '<Leader>bb', ':Telescope buffers<CR>')
-keymap.set('n', '<Leader>w', ':write!<CR>')
-keymap.set('n', '<Leader>q', ':q!<CR>')
 
-keymap.set('n', '<Leader>h', ':HopWord<CR>')
-keymap.set('n', '<Leader>l', ':HopLine<CR>')
-keymap.set('n', '<Leader>gs', ':GitStatus<CR>')
-keymap.set('n', '<Leader>a', ":Lspsaga code_action<CR>")
+local opts = { noremap = true, silent = true }
+keymap.set("n", '<Leader>f', ':Telescope find_files<CR>', opts)
+keymap.set("n", '<Leader>\\', ':Telescope live_grep<CR>', opts)
+keymap.set("n", '<Leader>bb', ':Telescope buffers<CR>', opts)
+keymap.set('n', '<Leader>w', ':write!<CR>', opts)
+keymap.set('n', '<Leader>q', ':q!<CR>', opts)
+
+keymap.set('n', '<Leader>h', ':HopWord<CR>', opts)
+keymap.set('n', '<Leader>l', ':HopLine<CR>', opts)
+keymap.set('n', '<Leader>gs', ':GitStatus<CR>', opts)
+keymap.set('n', '<Leader>a', ":Lspsaga code_action<CR>", opts)
 
