@@ -50,3 +50,5 @@ keymap.set('n', '<Leader>a', ":Lspsaga code_action<CR>", opts)
 
 keymap.set('n', '<Leader>n', ":NvimTreeToggle <CR>", opts)
 keymap.set('n', '<Leader>e', ":NvimTreeFocus <CR>", opts)
+
+keymap.set('n', '<Leader><tab>' , ':bp<CR>' , opts)
