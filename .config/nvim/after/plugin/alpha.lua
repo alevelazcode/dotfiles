@@ -18,6 +18,15 @@ dashboard.section.header.val = {
   '    █  ▄▀  █    ▀██▀    ▀▀ ▀▀  ▄▀  ',
   '   █   █  █      ▄▄           ▄▀   ',
 }
+
+math.randomseed(os.time())
+local header_color = "AlphaAscii"
+
+dashboard.section.header.opts = {
+  h1 = header_color,
+  position = "center"
+
+}
 dashboard.section.buttons.val = {
   dashboard.button("l", "  Load last session", ":SessionLoadLast<CR>"),
   dashboard.button("s", "  Select sessions", ":Telescope persisted<CR>"),

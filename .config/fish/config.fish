@@ -111,8 +111,8 @@ set fish_cursor_replace_one underscore
 set fish_cursor_visual block
 
 # fish colors
-set -U fish_color_autosuggestion black
-set -U fish_color_command purple 
+set -U fish_color_autosuggestion grey 
+set -U fish_color_command green 
 set -U fish_color_error red
 set -U fish_color_param cyan
 set -U fish_color_redirections yellow
