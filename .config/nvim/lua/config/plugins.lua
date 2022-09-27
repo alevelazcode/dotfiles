@@ -8,6 +8,8 @@ vim.cmd [[packadd packer.nvim]]
 
 packer.startup(function(use)
   use 'wbthomason/packer.nvim'
+
+  use 'kyazdani42/nvim-tree.lua'
   use 'nvim-lualine/lualine.nvim' -- Statusline
   use 'nvim-lua/plenary.nvim' -- Common utilities
   use 'folke/trouble.nvim'
@@ -47,7 +49,8 @@ packer.startup(function(use)
 
   use {
     'goolord/alpha-nvim',
-    requires = { 'kyazdani42/nvim-web-devicons' }}
+    requires = { 'kyazdani42/nvim-web-devicons' }
+  }
   use 'gregsexton/MatchTag'
 
 
@@ -57,20 +60,18 @@ packer.startup(function(use)
   use 'ThePrimeagen/harpoon'
 
   use 'tpope/vim-surround'
-  use 'leafOfTree/vim-vue-plugin' 
+  use 'leafOfTree/vim-vue-plugin'
   use 'mattn/emmet-vim'
 
   use 'folke/todo-comments.nvim'
   use 'numToStr/Comment.nvim'
 
   use 'lukas-reineke/indent-blankline.nvim'
-  use 'kyazdani42/nvim-tree.lua'
 
   use 'xiyaowong/nvim-transparent'
-  use {'catppuccin/nvim', as= 'catppuccin'}
+  use { 'catppuccin/nvim', as = 'catppuccin' }
 
   use 'kyazdani42/nvim-web-devicons'
-  use'olimorris/persisted.nvim' 
 
   use 'karb94/neoscroll.nvim'
 
@@ -81,8 +82,8 @@ packer.startup(function(use)
       'nvim-telescope/telescope.nvim',
       'kyazdani42/nvim-web-devicons',
     },
-    config = function ()
-      require"octo".setup()
+    config = function()
+      require "octo".setup()
     end
   }
 

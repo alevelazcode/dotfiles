@@ -15,7 +15,7 @@ local on_attach = function(client, bufnr)
   --Enable completion triggered by <c-x><c-o>
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  -- Mappings.
+  -- Mappingns.
   local opts = { noremap = true, silent = true }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -118,3 +118,5 @@ vim.diagnostic.config({
     source = "always", -- Or "if_many"
   },
 })
+nvim_lsp.pyright.setup {}
+nvim_lsp.tailwindcss.setup {}

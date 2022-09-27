@@ -8,5 +8,5 @@ mason.setup({
 })
 
 lspconfig.setup {
-  ensure_installed = { "sumneko_lua", "typescript", "javascript", "tsx" },
+  ensure_installed = { "sumneko_lua", "typescript", "javascript", "tsx", "tailwindcss", "pyright" },
 }
