@@ -29,6 +29,7 @@ null_ls.setup {
     b.formatting.eslint_d,
     b.formatting.prettierd,
     b.code_actions.gitsigns,
+    b.code_actions.eslint_d,
     b.code_actions.gitrebase,
     with_root_file(b.formatting.stylua, "stylua.toml"),
     b.formatting.shfmt,
