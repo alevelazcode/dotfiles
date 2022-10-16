@@ -11,6 +11,7 @@ set -gx TERM xterm-256color
 set -gx PATH bin $PATH
 set -gx PATH ~/bin $PATH
 set -gx PATH ~/.local/bin $PATH
+# Rust
 set -gx PATH ~/.cargo/bin $PATH
 # NodeJS
 set -gx PATH node_modules/.bin $PATH
