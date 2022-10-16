@@ -13,5 +13,9 @@ if is_mac then
 end
 
 if is_linux then
-  require('config.macos')
+  require('config.linux')
+end
+
+if is_win then
+  require('config.win')
 end
