@@ -112,11 +112,14 @@ require("nvim-autopairs").setup()
 require("bufferline").setup {
   options = {
     separator_style = { "", "" },
-    indicator_icon = "",
     show_buffer_close_icons = false,
     show_close_icon = false,
+    indicator = {
+      style = 'none'
+    },
     show_tab_indicators = false
   }
+
 }
 require("todo-comments").setup
 {
