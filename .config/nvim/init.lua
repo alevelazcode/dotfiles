@@ -3,9 +3,7 @@ require("config.highlights")
 require("config.maps")
 require("config.plugins")
 
-local has = function(x)
-  return vim.fn.has(x) == 1
-end
+local has = vim.fn.has
 local is_mac = has "macunix"
 local is_win = has "win32"
 local is_linux = has "unix" and not has "macunix"
@@ -15,5 +13,9 @@ if is_mac then
 end
 
 if is_linux then
-  require('config.macos')
+  require('config.linux')
+end
+
+if is_win then
+  require('config.win')
 end

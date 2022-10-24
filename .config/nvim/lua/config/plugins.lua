@@ -8,6 +8,8 @@ vim.cmd [[packadd packer.nvim]]
 
 packer.startup(function(use)
   use 'wbthomason/packer.nvim'
+
+  use 'kyazdani42/nvim-tree.lua'
   use 'nvim-lualine/lualine.nvim' -- Statusline
   use 'nvim-lua/plenary.nvim' -- Common utilities
   use 'folke/trouble.nvim'
@@ -17,7 +19,6 @@ packer.startup(function(use)
   use 'hrsh7th/nvim-cmp' -- Completion
   use 'neovim/nvim-lspconfig' -- LSP
   use 'jose-elias-alvarez/null-ls.nvim' -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
-  use 'MunifTanjim/prettier.nvim' -- Prettier plugin for Neovim's built-in LSP client
   use 'williamboman/mason.nvim'
   use 'williamboman/mason-lspconfig.nvim'
 
@@ -30,6 +31,7 @@ packer.startup(function(use)
   use 'kyazdani42/nvim-web-devicons' -- File icons
   use 'nvim-telescope/telescope.nvim'
   use 'nvim-telescope/telescope-file-browser.nvim'
+  use 'nvim-telescope/telescope-symbols.nvim'
   use 'windwp/nvim-autopairs'
   use 'windwp/nvim-ts-autotag'
   use 'norcalli/nvim-colorizer.lua'
@@ -47,7 +49,8 @@ packer.startup(function(use)
 
   use {
     'goolord/alpha-nvim',
-    requires = { 'kyazdani42/nvim-web-devicons' }}
+    requires = { 'kyazdani42/nvim-web-devicons' }
+  }
   use 'gregsexton/MatchTag'
 
 
@@ -57,20 +60,18 @@ packer.startup(function(use)
   use 'ThePrimeagen/harpoon'
 
   use 'tpope/vim-surround'
-  use 'leafOfTree/vim-vue-plugin' 
+  use 'leafOfTree/vim-vue-plugin'
   use 'mattn/emmet-vim'
 
   use 'folke/todo-comments.nvim'
   use 'numToStr/Comment.nvim'
 
   use 'lukas-reineke/indent-blankline.nvim'
-  use 'kyazdani42/nvim-tree.lua'
 
   use 'xiyaowong/nvim-transparent'
-  use {'catppuccin/nvim', as= 'catppuccin'}
+  use { 'catppuccin/nvim', as = 'catppuccin' }
 
   use 'kyazdani42/nvim-web-devicons'
-  use'olimorris/persisted.nvim' 
 
   use 'karb94/neoscroll.nvim'
 
@@ -81,8 +82,8 @@ packer.startup(function(use)
       'nvim-telescope/telescope.nvim',
       'kyazdani42/nvim-web-devicons',
     },
-    config = function ()
-      require"octo".setup()
+    config = function()
+      require "octo".setup()
     end
   }
 

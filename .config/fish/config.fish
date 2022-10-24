@@ -12,8 +12,15 @@ set -gx PATH bin $PATH
 set -gx PATH ~/bin $PATH
 set -gx PATH ~/.local/bin $PATH
 
+# Ruby rbenv
+set -x PATH $HOME/.rbenv/bin $PATH
+
+set -Ux ANDROID_HOME "/opt/android-sdk"
+# Rust
+set -gx PATH ~/.cargo/bin $PATH
 # NodeJS
 set -gx PATH node_modules/.bin $PATH
+
 # NVM
 function __check_rvm --on-variable PWD --description 'Do nvm stuff'
   status --is-command-substitution; and return
@@ -123,3 +130,4 @@ set -U fish_color_valid_path green
 
 starship init fish | source
 zoxide init fish | source
+rbenv init - | source
