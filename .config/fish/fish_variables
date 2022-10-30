@@ -1,6 +1,6 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
-SETUVAR --export ANDROID_HOME:/opt/android\x2dsdk
+SETUVAR --export ANDROID_HOME:/Users/alejandrovelazco/Library/Android/sdk
 SETUVAR EDITOR:nvim
 SETUVAR __fish_initialized:3400
 SETUVAR _fish_abbr__3A_bd:exit

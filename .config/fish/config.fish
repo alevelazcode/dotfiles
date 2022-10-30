@@ -15,11 +15,21 @@ set -gx PATH ~/.local/bin $PATH
 # Ruby rbenv
 set -x PATH $HOME/.rbenv/bin $PATH
 
-set -Ux ANDROID_HOME "/opt/android-sdk"
+set --export ANDROID_HOME $HOME/Library/Android/sdk
+set --export  JAVA_HOME /Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home/
+set -gx PATH $ANDROID_HOME/emulator $PATH;
+set -gx PATH $ANDROID_HOME/tools $PATH;
+set -gx PATH $ANDROID_HOME/tools/bin $PATH;
+set -gx PATH $ANDROID_HOME/platform-tools $PATH
+
 # Rust
 set -gx PATH ~/.cargo/bin $PATH
 # NodeJS
 set -gx PATH node_modules/.bin $PATH
+
+# code
+string match -q "$TERM_PROGRAM" "vscode"
+and . (code --locate-shell-integration-path fish)
 
 # NVM
 function __check_rvm --on-variable PWD --description 'Do nvm stuff'
