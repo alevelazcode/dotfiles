@@ -27,10 +27,6 @@ set -gx PATH ~/.cargo/bin $PATH
 # NodeJS
 set -gx PATH node_modules/.bin $PATH
 
-# code
-string match -q "$TERM_PROGRAM" "vscode"
-and . (code --locate-shell-integration-path fish)
-
 # NVM
 function __check_rvm --on-variable PWD --description 'Do nvm stuff'
   status --is-command-substitution; and return
@@ -72,7 +68,8 @@ alias runner="ssh root@206.189.115.220"
 alias algo-node="ssh root@159.89.181.135"
 alias testnet-node="ssh root@137.184.44.109"
 alias wallet-dev-="ssh root@159.65.221.171"
-alias wallet-prod="ssh root@137.184.202.212"
+alias wallet-prod="ssh vendible@137.184.202.212"
+alias cd="z"
 # export PATH="$PATH:$HOME/.spicetify"
 
 
@@ -141,3 +138,8 @@ set -U fish_color_valid_path green
 starship init fish | source
 zoxide init fish | source
 rbenv init - | source
+
+function code
+  set location "$PWD/$argv"
+  open -n -b "com.microsoft.VSCode" --args $location
+end
