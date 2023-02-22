@@ -44,5 +44,6 @@ require 'nvim-treesitter.configs'.setup {
   },
   autotag = {
     enable = true,
-  }
+  },
+  auto_install = true,
 }

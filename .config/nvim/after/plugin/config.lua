@@ -106,7 +106,6 @@ require("indent_blankline").setup {
 
 require("nvim-tree").setup()
 
-require("nvim-autopairs").setup()
 
 
 require("bufferline").setup {
