@@ -4,7 +4,6 @@ local actions = require('telescope.actions')
 local builtin = require("telescope.builtin")
 local fb_actions = require "telescope".extensions.file_browser.actions
 telescope.setup({
-
   defaults = {
 
     mappings = {
@@ -58,7 +57,7 @@ telescope.setup({
     -- Developer configurations: Not meant for general override
     buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
   },
- extensions = {
+  extensions = {
     file_browser = {
       theme = "dropdown",
       -- disables netrw and use telescope-file-browser in its place
@@ -84,6 +83,9 @@ telescope.setup({
 telescope.load_extension('harpoon')
 telescope.load_extension("file_browser")
 
-vim.cmd[[command! -nargs=0 Commands :Telescope commands ]]
-vim.cmd[[command! -nargs=0 GitFiles :Telescope git_files ]]
-vim.cmd[[command! -nargs=0 GitStatus :Telescope git_status ]]
+vim.cmd [[command! -nargs=0 Commands :Telescope commands ]]
+vim.cmd [[command! -nargs=0 GitFiles :Telescope git_files ]]
+vim.cmd [[command! -nargs=0 GitStatus :Telescope git_status ]]
+
+
+telescope.load_extension("fzf")

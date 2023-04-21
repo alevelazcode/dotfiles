@@ -1,12 +1,32 @@
+-- auto install packer if not installed
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+    vim.cmd([[packadd packer.nvim]])
+    return true
+  end
+  return false
+end
+local packer_bootstrap = ensure_packer() -- true if packer was just installed
+
+-- autocommand that reloads neovim and installs/updates/removes plugins
+-- when file is saved
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins-setup.lua source <afile> | PackerSync
+  augroup end
+]])
+
+-- import packer safely
 local status, packer = pcall(require, "packer")
-if (not status) then
-  print("Packer is not installed")
+if not status then
   return
 end
 
-vim.cmd [[packadd packer.nvim]]
-
-packer.startup(function(use)
+return packer.startup(function(use)
   use 'wbthomason/packer.nvim'
 
   use 'kyazdani42/nvim-tree.lua'
@@ -15,6 +35,7 @@ packer.startup(function(use)
   use 'folke/trouble.nvim'
   use 'onsails/lspkind-nvim' -- vscode-like pictograms
   use 'hrsh7th/cmp-buffer' -- nvim-cmp source for buffer words
+  use("hrsh7th/cmp-path") -- source for file system paths
   use 'hrsh7th/cmp-nvim-lsp' -- nvim-cmp source for neovim's built-in LSP
   use 'hrsh7th/nvim-cmp' -- Completion
   use 'neovim/nvim-lspconfig' -- LSP
@@ -34,7 +55,9 @@ packer.startup(function(use)
     run = ':TSUpdate'
   }
   use 'kyazdani42/nvim-web-devicons' -- File icons
-  use 'nvim-telescope/telescope.nvim'
+  -- fuzzy finding w/ telescope
+  use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- dependency for better sorting performance
+  use({ "nvim-telescope/telescope.nvim", branch = "0.1.x" }) -- fuzzy finder
   use 'nvim-telescope/telescope-file-browser.nvim'
   use 'nvim-telescope/telescope-symbols.nvim'
   -- auto closing
@@ -85,6 +108,8 @@ packer.startup(function(use)
 
   use 'karb94/neoscroll.nvim'
 
+  use("szw/vim-maximizer") -- maximizes and restores current window
+
   use {
     'pwntester/octo.nvim',
     requires = {
@@ -96,4 +121,17 @@ packer.startup(function(use)
       require "octo".setup()
     end
   }
+
+  -- Lua
+  use({
+    "folke/persistence.nvim",
+    event = "BufReadPre", -- this will only start session saving when an actual file was opened
+    module = "persistence",
+    config = function()
+      require("persistence").setup()
+    end,
+  })
+  if packer_bootstrap then
+    require("packer").sync()
+  end
 end)

@@ -1,54 +1,64 @@
+vim.g.mapleader = ' '
 local keymap = vim.keymap
 
-vim.g.mapleader = ' '
+-- use jk to exit insert mode
+keymap.set("i", "jk", "<ESC>")
 
-keymap.set('n', 'x', '"_x')
+-- clear search highlights
+keymap.set("n", "<leader>nh", ":nohl<CR>")
 
--- Increment/decrement
-keymap.set('n', '+', '<C-a>')
-keymap.set('n', '-', '<C-x>')
+-- delete single character without copying into register
+keymap.set("n", "x", '"_x')
 
--- Delete a word backwards
-keymap.set('n', 'dw', 'vb"_d')
+-- increment/decrement numbers
+keymap.set("n", "<leader>+", "<C-a>") -- increment
+keymap.set("n", "<leader>-", "<C-x>") -- decrement
 
--- Select all
-keymap.set('n', '<C-a>', 'gg<S-v>G')
+-- window management
+keymap.set("n", "<leader>sv", "<C-w>v") -- split window vertically
+keymap.set("n", "<leader>sh", "<C-w>s") -- split window horizontally
+keymap.set("n", "<leader>se", "<C-w>=") -- make split windows equal width & height
+keymap.set("n", "<leader>sx", ":close<CR>") -- close current split window
 
--- Save with root permission (not working for now)
---vim.api.nvim_create_user_command('W', 'w !sudo tee > /dev/null %', {})
+keymap.set("n", "<leader>to", ":tabnew<CR>") -- open new tab
+keymap.set("n", "<leader>tx", ":tabclose<CR>") -- close current tab
+keymap.set("n", "<leader>tn", ":tabn<CR>") --  go to next tab
+keymap.set("n", "<leader>tp", ":tabp<CR>") --  go to previous tab
 
--- New tab
-keymap.set('n', 'te', ':tabedit')
--- Split window
-keymap.set('n', 'ss', ':split<Return><C-w>w')
-keymap.set('n', 'sv', ':vsplit<Return><C-w>w')
--- Move window
---[[ keymap.set('n', '<Space>', '<C-w>w') ]]
-keymap.set('', 'sh', '<C-w>h')
-keymap.set('', 'sk', '<C-w>k')
-keymap.set('', 'sj', '<C-w>j')
-keymap.set('', 'sl', '<C-w>l')
---
--- Resize window
-keymap.set('n', '<C-w><left>', '<C-w><')
-keymap.set('n', '<C-w><right>', '<C-w>>')
-keymap.set('n', '<C-w><up>', '<C-w>+')
-keymap.set('n', '<C-w><down>', '<C-w>-')
+----------------------
+-- Plugin Keybinds
+----------------------
 
+-- vim-maximizer
+keymap.set("n", "<leader>sm", ":MaximizerToggle<CR>") -- toggle split window maximization
+
+-- nvim-tree
+keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>") -- toggle file explorer
 
 local opts = { noremap = true, silent = true }
-keymap.set("n", '<Leader>f', ':Telescope find_files<CR>', opts)
-keymap.set("n", '<Leader>\\', ':Telescope live_grep<CR>', opts)
-keymap.set("n", '<Leader>bb', ':Telescope buffers<CR>', opts)
+-- telescope
+keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", opts) -- find files within current working directory, respects .gitignore
+keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>", opts) -- find string in current working directory as you type
+keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", opts) -- find string under cursor in current working directory
+keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", opts) -- list open buffers in current neovim instance
+keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", opts) -- list available help tags
+
+
 keymap.set('n', '<Leader>w', ':write!<CR>', opts)
 keymap.set('n', '<Leader>q', ':q!<CR>', opts)
 
 keymap.set('n', '<Leader>h', ':HopWord<CR>', opts)
 keymap.set('n', '<Leader>l', ':HopLine<CR>', opts)
-keymap.set('n', '<Leader>gs', ':GitStatus<CR>', opts)
+-- telescope git commands (not on youtube nvim video)
+keymap.set("n", "<leader>gc", "<cmd>Telescope git_commits<cr>", opts) -- list all git commits (use <cr> to checkout) ["gc" for git commits]
+keymap.set("n", "<leader>gfc", "<cmd>Telescope git_bcommits<cr>", opts) -- list git commits for current file/buffer (use <cr> to checkout) ["gfc" for git file commits]
+keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", opts) -- list git branches (use <cr> to checkout) ["gb" for git branch]
+keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<cr>", opts) -- list current changes per file with diff preview ["gs" for git status]
+
 keymap.set('n', '<Leader>a', ":Lspsaga code_action<CR>", opts)
 
-keymap.set('n', '<Leader>n', ":NvimTreeToggle <CR>", opts)
-keymap.set('n', '<Leader>e', ":NvimTreeFocus <CR>", opts)
 
-keymap.set('n', '<Leader><tab>' , ':bp<CR>' , opts)
+keymap.set('n', '<Leader><tab>', ':bp<CR>', opts)
+
+
+keymap.set("n", "<leader>rs", ":LspRestart<CR>") -- mapping to restart lsp if necessary
