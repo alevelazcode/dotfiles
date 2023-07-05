@@ -11,7 +11,6 @@ set -gx TERM xterm-256color
 set -gx PATH bin $PATH
 set -gx PATH ~/bin $PATH
 set -gx PATH ~/.local/bin $PATH
-
 # Ruby rbenv
 set -x PATH $HOME/.rbenv/bin $PATH
 
@@ -122,6 +121,8 @@ set fish_cursor_replace_one underscore
 # The following variable can be used to configure cursor shape in
 # visual mode, but due to fish_cursor_default, is redundant here
 set fish_cursor_visual block
+
+fish_add_path /opt/homebrew/sbin
 
 # fish colors
 set -U fish_color_autosuggestion grey 
