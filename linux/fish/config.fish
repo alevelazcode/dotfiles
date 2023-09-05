@@ -10,6 +10,10 @@ if test (uname) = "Darwin"
   # Config in Mac os
 else if test (uname) = "Linux"
   # Config in Linux 
+
+  # WSL
+  set -x WSL_HOST (tail -1 /etc/resolv.conf | cut -d' ' -f2)
+  set -x ADB_SERVER_SOCKET tcp:$WSL_HOST:5037
 end
 
 # NodeJS
@@ -46,8 +50,6 @@ set -gx PATH ~/.cargo/bin $PATH
 # NodeJS
 set -gx PATH node_modules/.bin $PATH
 
-set -x WSL_HOST (tail -1 /etc/resolv.conf | cut -d' ' -f2)
-set -x ADB_SERVER_SOCKET tcp:$WSL_HOST:5037
 
 
 # NVM
@@ -162,5 +164,7 @@ zoxide init fish | source
 
 starship init fish | source
 
-conda init fish | source 
+if test -f /home/ale/miniconda3/bin/conda
+    eval /home/ale/miniconda3/bin/conda "shell.fish" "hook" $argv | source
+end
 # rbenv init - | source
