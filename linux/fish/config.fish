@@ -1,8 +1,16 @@
+#import module function from fish
+source ~/.config/fish/functions/copy_to_clipboard.fish
+
 if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 set -gx EDITOR nvim
 
+if test (uname) = "Darwin"
+  # Config in Mac os
+else if test (uname) = "Linux"
+  # Config in Linux 
+end
 
 # NodeJS
 set -gx TERM xterm-256color
