@@ -30,15 +30,15 @@ return packer.startup(function(use)
   use 'wbthomason/packer.nvim'
 
   use 'kyazdani42/nvim-tree.lua'
-  use 'nvim-lualine/lualine.nvim' -- Statusline
-  use 'nvim-lua/plenary.nvim' -- Common utilities
+  use 'nvim-lualine/lualine.nvim'       -- Statusline
+  use 'nvim-lua/plenary.nvim'           -- Common utilities
   use 'folke/trouble.nvim'
-  use 'onsails/lspkind-nvim' -- vscode-like pictograms
-  use 'hrsh7th/cmp-buffer' -- nvim-cmp source for buffer words
-  use("hrsh7th/cmp-path") -- source for file system paths
-  use 'hrsh7th/cmp-nvim-lsp' -- nvim-cmp source for neovim's built-in LSP
-  use 'hrsh7th/nvim-cmp' -- Completion
-  use 'neovim/nvim-lspconfig' -- LSP
+  use 'onsails/lspkind-nvim'            -- vscode-like pictograms
+  use 'hrsh7th/cmp-buffer'              -- nvim-cmp source for buffer words
+  use("hrsh7th/cmp-path")               -- source for file system paths
+  use 'hrsh7th/cmp-nvim-lsp'            -- nvim-cmp source for neovim's built-in LSP
+  use 'hrsh7th/nvim-cmp'                -- Completion
+  use 'neovim/nvim-lspconfig'           -- LSP
   use 'jose-elias-alvarez/null-ls.nvim' -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
   use 'williamboman/mason.nvim'
   use 'williamboman/mason-lspconfig.nvim'
@@ -48,22 +48,22 @@ return packer.startup(function(use)
   use 'glepnir/lspsaga.nvim' -- LSP UIs
 
   -- snippets
-  use("L3MON4D3/LuaSnip") -- snippet engine
-  use("saadparwaiz1/cmp_luasnip") -- for autocompletion
+  use("L3MON4D3/LuaSnip")             -- snippet engine
+  use("saadparwaiz1/cmp_luasnip")     -- for autocompletion
   use("rafamadriz/friendly-snippets") -- useful snippets
 
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate'
   }
-  use 'kyazdani42/nvim-web-devicons' -- File icons
+  use 'kyazdani42/nvim-web-devicons'                                -- File icons
   -- fuzzy finding w/ telescope
   use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- dependency for better sorting performance
-  use({ "nvim-telescope/telescope.nvim", branch = "0.1.x" }) -- fuzzy finder
+  use({ "nvim-telescope/telescope.nvim", branch = "0.1.x" })        -- fuzzy finder
   use 'nvim-telescope/telescope-file-browser.nvim'
   use 'nvim-telescope/telescope-symbols.nvim'
   -- auto closing
-  use("windwp/nvim-autopairs") -- autoclose parens, brackets, quotes, etc...
+  use("windwp/nvim-autopairs")                                 -- autoclose parens, brackets, quotes, etc...
   use({ "windwp/nvim-ts-autotag", after = "nvim-treesitter" }) -- autoclose tags
 
 
@@ -92,7 +92,7 @@ return packer.startup(function(use)
 
   use 'ThePrimeagen/harpoon'
 
-  use("tpope/vim-surround") -- add, delete, change surroundings (it's awesome)
+  use("tpope/vim-surround")               -- add, delete, change surroundings (it's awesome)
   use("inkarkat/vim-ReplaceWithRegister") -- replace with register contents using motion (gr + motion)
 
   use 'leafOfTree/vim-vue-plugin'
@@ -111,6 +111,15 @@ return packer.startup(function(use)
   use 'karb94/neoscroll.nvim'
 
   use("szw/vim-maximizer") -- maximizes and restores current window
+
+  use {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup({})
+    end,
+  }
 
   use {
     'pwntester/octo.nvim',

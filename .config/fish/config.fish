@@ -10,7 +10,6 @@ set -gx TERM xterm-256color
 set -gx PATH bin $PATH
 set -gx PATH ~/bin $PATH
 set -gx PATH ~/.local/bin $PATH
-
 # Ruby rbenv
 set -x PATH $HOME/.rbenv/bin $PATH
 
