@@ -43,6 +43,8 @@ return packer.startup(function(use)
   use 'williamboman/mason.nvim'
   use 'williamboman/mason-lspconfig.nvim'
 
+  use 'EtiamNullam/deferred-clipboard.nvim' -- Clipboard
+
   use 'glepnir/lspsaga.nvim' -- LSP UIs
 
   -- snippets
