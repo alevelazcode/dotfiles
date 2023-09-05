@@ -1,7 +1,6 @@
-
-# export PATH=/opt/homebrew/bin:$PATH
-# export NVM_DIR=~/.nvm
-# source $(brew --prefix nvm)/nvm.sh
+if status is-interactive
+    # Commands to run in interactive sessions can go here
+end
 set -gx EDITOR nvim
 
 
@@ -15,60 +14,66 @@ set -gx PATH ~/.local/bin $PATH
 # Ruby rbenv
 set -x PATH $HOME/.rbenv/bin $PATH
 
-set --export ANDROID_HOME $HOME/Library/Android/sdk
-set --export  JAVA_HOME /Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home/
-set -gx PATH $ANDROID_HOME/emulator $PATH;
-set -gx PATH $ANDROID_HOME/tools $PATH;
-set -gx PATH $ANDROID_HOME/tools/bin $PATH;
+set --export JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64
+set --export ANDROID_HOME $HOME/Android
+set --export ANDROID_SDK_ROOT $HOME/Android
+
+set -gx EDITOR nvim
+
+
+# Rust
+set -gx PATH ~/.cargo/bin $PATH
+# NodeJS
+set -gx PATH node_modules/.bin $PATH
+set -gx PATH $ANDROID_HOME/cmdline-tools/tools $PATH;
+set -gx PATH $ANDROID_HOME/cmdline-tools/tools/bin $PATH;
+set -gx PATH $ANDROID_HOME/cmdline-tools/tools/lib $PATH;
 set -gx PATH $ANDROID_HOME/platform-tools $PATH
+set -gx PATH $ANDROID_HOME/emulator $PATH
+set -gx PATH $ANDROID_HOME/tools $PATH
+set -gx PATH $ANDROID_HOME/tools/bin $PATH
+set -gx PATH ~/miniconda3/bin $PATH
 
 # Rust
 set -gx PATH ~/.cargo/bin $PATH
 # NodeJS
 set -gx PATH node_modules/.bin $PATH
 
+set -x WSL_HOST (tail -1 /etc/resolv.conf | cut -d' ' -f2)
+set -x ADB_SERVER_SOCKET tcp:$WSL_HOST:5037
+
+
 # NVM
 function __check_rvm --on-variable PWD --description 'Do nvm stuff'
   status --is-command-substitution; and return
-
   if test -f .nvmrc; and test -r .nvmrc;
     nvm use
   else
   end
 end
 
-switch (uname)
-  case Darwin
-    source (dirname (status --current-filename))/config-osx.fish
-  case Linux
-    source (dirname (status --current-filename))/config-linux.fish
-  case '*'
-    source (dirname (status --current-filename))/config-windows.fish
-end
-
-set LOCAL_CONFIG (dirname (status --current-filename))/config-local.fish
-if test -f $LOCAL_CONFIG
-  source $LOCAL_CONFIG
-end
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+alias bat="batcat"
 alias cat="bat --style=plain"
 alias vim="nvim"
 alias vi="nvim"
 alias g='git'
 alias python="python3" 
 alias pip="pip3"
-alias ll='lsd -lh --group-dirs=first'
+alias ll='ls -alF'
 alias la='lsd -a --group-dirs=first'
 alias l='lsd --group-dirs=first'
 alias lla='lsd -lha --group-dirs=first'
 alias htop='btm'
-alias ls='lsd --group-dirs=first'
+alias ls='exa --icons -F -H --group-directories-first --git -1'
 alias runner="ssh root@206.189.115.220"
 alias algo-node="ssh root@159.89.181.135"
 alias testnet-node="ssh root@137.184.44.109"
 alias wallet-dev-="ssh root@159.65.221.171"
 alias wallet-prod="ssh vendible@137.184.202.212"
+
+#Add the following line after the case statement
+alias jupyter-notebook="~/.local/bin/jupyter-notebook --no-browser"
 # export PATH="$PATH:$HOME/.spicetify"
 
 
@@ -123,6 +128,17 @@ set fish_cursor_replace_one underscore
 # visual mode, but due to fish_cursor_default, is redundant here
 set fish_cursor_visual block
 
+function fish_user_key_bindings
+    # Execute this once per mode that emacs bindings should be used in
+    fish_default_key_bindings -M insert
+
+    # Then execute the vi-bindings so they take precedence when there's a conflict.
+    # Without --no-erase fish_vi_key_bindings will default to
+    # resetting all bindings.
+    # The argument specifies the initial mode (insert, "default" or visual).
+    fish_vi_key_bindings --no-erase insert
+end
+
 # fish colors
 set -U fish_color_autosuggestion grey 
 set -U fish_color_command green 
@@ -133,12 +149,11 @@ set -U fish_color_terminators white
 set -U fish_color_valid_path green
 
 
+# oh-my-posh init fish | source
+zoxide init fish | source
+# ~/.config/fish/config.fish
 
 starship init fish | source
-zoxide init fish | source
-rbenv init - | source
 
-function code
-  set location "$PWD/$argv"
-  open -n -b "com.microsoft.VSCode" --args $location
-end
+conda init fish | source 
+# rbenv init - | source
