@@ -3,6 +3,7 @@
 Your one-stop repository for macOS 🍎, Windows 🖥️, Arch Linux 🏹, Red Hat 🎩, and Debian-based 📦 distributions.
 
 ---
+![Screenshot 2023-09-05 105241](https://github.com/spectrox0/dotfiles/assets/43557525/02cffd17-18fa-4d78-91a8-b30e44bce6cb)
 
 ## 📑 Table of Contents
 
