@@ -25,7 +25,7 @@ Your one-stop repository for macOS 🍎, Windows 🖥️, Arch Linux 🏹, Red H
 - **NeoVim Config** for the modern Vim experience
 - **PowerShell Profiles** for Windows environments
 - **Homebrew Formulas** for macOS package management
-- **BSPWM & Rofi** for Linux window management
+- **BSPWM, Qtile & Rofi** for Linux window management
 - **NeoFetch Config** for system information display
 - **TMUX Configuration** for terminal multiplexing
 - **Ranger Setup** for terminal file management
@@ -45,4 +45,45 @@ cd dotfiles
 # Run your setup script (this is just an example, add your setup instructions)
 cd macos;
 ./setup.sh
+```
+
+## 🔧 Configuration Files
+
+- `~/.zshrc` for ZSH
+- `~/.config/fish/config.fish` for Fish
+- `~/.config/starship.toml` for Starship
+- `~/.yabairc` & `~/.skhdrc` for Yabai (macOS window tiling manager)
+- `~/.config/nvim/init.vim` for NeoVim
+- `~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1` for PowerShell
+- `~/.Brewfile` for Homebrew
+- `~/.config/bspwm/bspwmrc` BSPWM (Linux window tiling manager)
+- `~/.config/rofi/config.rasi` for Rofi
+- `~/.config/neofetch/config.conf` for NeoFetch
+- `~/.tmux.conf` for TMUX
+- `~/.config/ranger/rc.conf` for Ranger
+- `~/.config/conky/conky.conf` for Conky
+- `~/.config/qtile/config.py` for Qtile (Linux window tiling manager)
+
+```markdown
+## 📝 Scripts
+
+- Common Bash scripts for everyday tasks
+- PowerShell scripts tailored for Windows
+- Personal Python, Golang, Rust, and JavaScript scripts
+
+---
+
+## 📦 Dependencies
+
+- ZSH or Fish shell
+- Homebrew (macOS)
+- NeoVim
+- Yabai & SKHD (macOS)
+- BSPWM (Linux)
+- Rofi (Linux)
+- PowerShell (Windows) to can download from Windows Store
+- Conky (Linux)
+- Qtile (Linux)
+
+---
 ```
