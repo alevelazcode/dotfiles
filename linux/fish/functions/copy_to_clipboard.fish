@@ -26,3 +26,30 @@ function copy_to_clipboard
         return 1
     end
 end
+
+
+# Define function called 'paste_from_clipboard'
+function  paste_from_clipboard
+    set -l input $argv
+
+    # Check if the input is a file that exists
+    if test -f "$input"
+        echo "No input provided."
+        return 1
+    end
+   
+    # Detect the operating system
+    if test (uname) = "Darwin"
+        # macOS with pbpaste paste from clipboard
+        pbpaste > $input 
+    else if type -q xclip
+        # Linux with xclip paste from clipboard
+        xclip -sel clip -o > $input 
+
+    else
+        echo "pbpaste or xclip not available. Cannot paste from clipboard."
+        return 1
+    end 
+end 
+    
+        
