@@ -1,5 +1,5 @@
 #import module function from fish
-source ~/.config/fish/functions/copy_to_clipboard.fish
+source ~/.config/fish/custom_functions/copy_to_clipboard.fish
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
@@ -75,11 +75,8 @@ alias l='lsd --group-dirs=first'
 alias lla='lsd -lha --group-dirs=first'
 alias htop='btm'
 alias ls='exa --icons -F -H --group-directories-first --git -1'
-alias runner="ssh root@206.189.115.220"
-alias algo-node="ssh root@159.89.181.135"
-alias testnet-node="ssh root@137.184.44.109"
-alias wallet-dev-="ssh root@159.65.221.171"
-alias wallet-prod="ssh vendible@137.184.202.212"
+alias gc="git commit"
+alias gp="gp"
 
 #Add the following line after the case statement
 alias jupyter-notebook="~/.local/bin/jupyter-notebook --no-browser"
@@ -99,16 +96,18 @@ abbr bo "brew outdated"
 abbr bs "brew services"
 abbr bsr "brew services restart"
 
-abbr y "yarn"
-abbr ya "yarn add"
-abbr yad "yarn add -D"
-abbr yb "yarn build"
-abbr yd "yarn dev"
-abbr ye "yarn e2e"
-abbr yg "yarn generate"
-abbr yl "yarn lint"
-abbr yt "yarn test"
-abbr yu "yarn ui"
+# abbr y "yarn"
+# abbr ya "yarn add"
+# abbr yad "yarn add -D"
+# abbr yb "yarn build"
+# abbr yd "yarn dev"
+# abbr ye "yarn e2e"
+# abbr yg "yarn generate"
+# abbr yl "yarn lint"
+# abbr yt "yarn test"
+# abbr yu "yarn ui"
+
+abbr ns = "npm run serve"
 
 abbr c "clear"
 abbr cl "clear"

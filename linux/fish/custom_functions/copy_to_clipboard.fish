@@ -1,7 +1,7 @@
 
 # Define a function called 'copy_to_clipboard'
 function copy_to_clipboard
-    set -l input $argv
+    set input $argv
 
     # Check if input is empty
     if test -z "$input"
@@ -9,18 +9,13 @@ function copy_to_clipboard
         return 1
     end
 
-    # Check if the input is a file that exists
-    if test -f "$input"
-        set input (cat $input)
-    end
-
     # Detect the operating system
     if test (uname) = "Darwin"
         # macOS
-        echo -n $input | pbcopy
+        cat $input | pbcopy
     else if type -q xclip
         # Linux with xclip
-        echo -n $input | xclip -selection clipboard
+        cat $input | xclip -sel clip
     else
         echo "pbcopy or xclip not available. Cannot copy to clipboard."
         return 1
@@ -33,9 +28,8 @@ function  paste_from_clipboard
     set -l input $argv
 
     # Check if the input is a file that exists
-    if test -f "$input"
-        echo "No input provided."
-        return 1
+    if not test -z "$input"
+        touch $input
     end
    
     # Detect the operating system
