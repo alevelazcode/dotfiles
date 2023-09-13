@@ -43,3 +43,12 @@ npm install --global yarn
 
 echo "Installing PNPM" 
 npm install -g pnpm
+
+
+# If rust is not installed, install it
+
+# Install rustup
+echo "<--- Installing rustup ---> "	
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# Check rust version
+rustup --version

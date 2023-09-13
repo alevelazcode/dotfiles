@@ -1,0 +1,288 @@
+{
+  "[csharp]": {
+    "editor.maxTokenizationLineLength": 2500
+  },
+  "[go]": {
+    "editor.defaultFormatter": "golang.go",
+    "editor.formatOnSave": true
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.pylint",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true
+  },
+  "[rust]": {
+    "editor.formatOnSave": true
+  },
+  "console-ninja.fontSize": 12,
+  "dart.flutterSdkPath": "/Users/alejandrovelazco/development/flutter",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.cursorBlinking": "expand",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.cursorSurroundingLines": 8,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.fontFamily": "'Cascursive', 'CaskaydiaCove Nerd Font'  , Menlo ",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 14,
+  "editor.fontWeight": "normal",
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": false,
+  "editor.formatOnType": true,
+  "editor.glyphMargin": false,
+  "editor.guides.bracketPairs": true,
+  "editor.guides.indentation": false,
+  "editor.hideCursorInOverviewRuler": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.lineHeight": 2.3,
+  "editor.linkedEditing": true,
+  "editor.minimap.enabled": false,
+  "editor.overviewRulerBorder": false,
+  "editor.renderWhitespace": "selection",
+  "editor.scrollbar.vertical": "hidden",
+  "editor.smoothScrolling": true,
+  "editor.stickyScroll.enabled": true,
+  "editor.tabCompletion": "on",
+  "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?",
+  //  Emmet
+  "emmet.triggerExpansionOnTab": true,
+  "errorLens.excludeBySource": [
+    "eslint(no-undef)",
+    "ts(2786)"
+  ],
+  "eslint.validate": [
+    "vue",
+    "javascript",
+    "typescript",
+    "javascriptreact",
+    "typescriptreact"
+  ],
+  "explorer.compactFolders": false,
+  "explorer.confirmDelete": false,
+  "files.eol": "\n",
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "git.ignoreRebaseWarning": true,
+  "git.openRepositoryInParentFolders": "always",
+  "github.copilot.editor.enableAutoCompletions": true,
+  "github.copilot.enable": {
+    "*": true,
+    "markdown": false,
+    "plaintext": false,
+    "scminput": false
+  },
+  "github.copilot.inlineSuggest.enable": true,
+  "glassit.alpha": 235,
+  "gopls": {
+    "formatting.gofumpt": true
+  },
+  "json.sortOnSave.enable": true,
+  "jupyter.interactiveWindow.textEditor.executeSelection": true,
+  "notebook.output.scrolling": true,
+  "notebook.output.textLineLimit": 100,
+  "oneDarkPro.bold": true,
+  "oneDarkPro.editorTheme": "One Dark Pro Darker",
+  "oneDarkPro.vivid": true,
+  "php-cs-fixer.config": ".php-cs-fixer.php",
+  "php-cs-fixer.executablePath": "${workspaceFolder}/vendor/bin/php-cs-fixer",
+  "phpfmt.exclude": [
+    "ReindentComments",
+    "StripNewlineWithinClassBody"
+  ],
+  "phpfmt.passes": [
+    "PSR2KeywordsLowerCase",
+    "PSR2LnAfterNamespace",
+    "PSR2CurlyOpenNextLine",
+    "PSR2ModifierVisibilityStaticOrder",
+    "PSR2SingleEmptyLineAndStripClosingTag",
+    "ReindentSwitchBlocks"
+  ],
+  "phpfmt.psr2": true,
+  "python.analysis.autoSearchPath": true,
+  "python.analysis.extraPaths": [
+    "src/lib",
+    "all-stubs/cpython_patch",
+    "all-stubs/mpy_1_13-nightly_frozen/esp32/GENERIC",
+    "all-stubs/esp32_1_13_0-103"
+  ],
+  "python.autoComplete.extraPaths": [
+    "src/lib",
+    "all-stubs/cpython_patch",
+    "all-stubs/mpy_1_13-nightly_frozen/esp32/GENERIC",
+    "all-stubs/esp32_1_13_0-103"
+  ],
+  "python.languageServer": "Pylance",
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  "rapidapi.terminalLink.enabled": false,
+  "security.workspace.trust.untrustedFiles": "open",
+  "symbols.hidesExplorerArrows": false,
+  "synthwave84.brightness": 0.1,
+  "synthwave84.disableGlow": false,
+  "tabnine.experimentalAutoImports": true,
+  "tailwindCSS.emmetCompletions": true,
+  "terminal.external.linuxExec": "kitty",
+  "terminal.external.osxExec": "iTerm2.app",
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.defaultProfile.osx": "fish",
+  "terminal.integrated.env.linux": {},
+  "terminal.integrated.env.osx": {},
+  "terminal.integrated.env.windows": {},
+  "terminal.integrated.fontSize": 16,
+  "terminal.integrated.gpuAcceleration": "on",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "vetur.validation.template": false,
+  "vim.easymotion": true,
+  "vim.handleKeys": {
+    "<C-d>": true,
+    "<C-f>": true,
+    "<C-p>": false,
+    "<C-s>": false,
+    "<C-z>": false
+  },
+  "vim.highlightedyank.color": "#a9dc7660",
+  "vim.highlightedyank.duration": 250,
+  "vim.highlightedyank.enable": true,
+  "vim.hlsearch": true,
+  "vim.leader": ",",
+  "vim.normalModeKeyBindings": [
+    {
+      "before": [
+        "g",
+        "q"
+      ],
+      "commands": [
+        "editor.action.quickFix"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "p",
+        "d"
+      ],
+      "commands": [
+        "editor.action.peekDefinition"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "i"
+      ],
+      "commands": [
+        "editor.action.goToImplementation"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "e"
+      ],
+      "commands": [
+        "workbench.view.explorer"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "h"
+      ],
+      "commands": [
+        "editor.action.showDefinitionPreviewHover"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "r"
+      ],
+      "commands": [
+        "editor.action.referenceSearch.trigger"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "t"
+      ],
+      "commands": [
+        "editor.action.goToTypeDefinition"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "p",
+        "t"
+      ],
+      "commands": [
+        "editor.action.peekTypeDefinition"
+      ]
+    }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "<space>"
+      ],
+      "commands": [
+        "workbench.action.files.save"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "c"
+      ],
+      "commands": [
+        "editor.action.commentLine"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "f"
+      ],
+      "commands": [
+        "revealInExplorer"
+      ]
+    }
+  ],
+  "vim.smartRelativeLine": false,
+  "vim.useSystemClipboard": true,
+  "vim.visualModeKeyBindings": [
+    {
+      "before": [
+        "<leader>",
+        "c"
+      ],
+      "commands": [
+        "editor.action.commentLine",
+        "extension.vim_escape"
+      ]
+    }
+  ],
+  "vs-kubernetes": {
+    "vscode-kubernetes.helm-path.mac": "/Users/alejandrovelazco/.vs-kubernetes/tools/helm/darwin-arm64/helm"
+  },
+  "workbench.activityBar.visible": true,
+  "workbench.colorCustomizations": {},
+  "workbench.colorTheme": "Tokyo Night",
+  "workbench.editor.showTabs": false,
+  "workbench.iconTheme": "symbols",
+  "workbench.layoutControl.enabled": false,
+  "workbench.preferredDarkColorTheme": "One Dark Pro Darker",
+  "workbench.preferredHighContrastColorTheme": "One Dark Pro Darker",
+  "workbench.productIconTheme": "fluent-icons",
+  "workbench.sideBar.location": "right",
+  "workbench.statusBar.visible": false,
+  "workbench.tree.indent": 20,
+  "yaml.schemas": {
+    "file:///Users/alejandrovelazco/.vscode/extensions/atlassian.atlascode-3.0.3/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+  }
+}

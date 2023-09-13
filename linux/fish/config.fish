@@ -83,6 +83,9 @@ alias jupyter-notebook="~/.local/bin/jupyter-notebook --no-browser"
 # export PATH="$PATH:$HOME/.spicetify"
 
 
+alias opratel-vpn="sudo openvpn --config $HOME/opratelVpn/client.ovpn"
+
+
 abbr :bd "exit"
 abbr :q "tmux kill-server"
 abbr ast "aw set -t (aw list | fzf-tmux -p --reverse --preview 'aw set -t {}')"
@@ -107,7 +110,7 @@ abbr bsr "brew services restart"
 # abbr yt "yarn test"
 # abbr yu "yarn ui"
 
-abbr ns = "npm run serve"
+abbr ns "npm run serve"
 
 abbr c "clear"
 abbr cl "clear"
