@@ -103,6 +103,8 @@ return packer.startup(function(use)
 
   use 'lukas-reineke/indent-blankline.nvim'
 
+  use "sindrets/diffview.nvim" 
+
   use 'xiyaowong/nvim-transparent'
   use { 'catppuccin/nvim', as = 'catppuccin' }
 
