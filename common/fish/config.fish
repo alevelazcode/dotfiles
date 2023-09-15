@@ -1,20 +1,10 @@
 #import module function from fish
 source ~/.config/fish/custom_functions/copy_to_clipboard.fish
 
-if status is-interactive
-    # Commands to run in interactive sessions can go here
-end
+# Set neovim as default editor
 set -gx EDITOR nvim
 
-if test (uname) = "Darwin"
-  # Config in Mac os
-else if test (uname) = "Linux"
-  # Config in Linux 
 
-  # WSL
-  set -x WSL_HOST (tail -1 /etc/resolv.conf | cut -d' ' -f2)
-  set -x ADB_SERVER_SOCKET tcp:$WSL_HOST:5037
-end
 
 # NodeJS
 set -gx TERM xterm-256color
@@ -25,17 +15,13 @@ set -gx PATH ~/.local/bin $PATH
 # Ruby rbenv
 set -x PATH $HOME/.rbenv/bin $PATH
 
-set --export JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64
 set --export ANDROID_HOME $HOME/Android
 set --export ANDROID_SDK_ROOT $HOME/Android
 
 set -gx EDITOR nvim
 
 
-# Rust
-set -gx PATH ~/.cargo/bin $PATH
-# NodeJS
-set -gx PATH node_modules/.bin $PATH
+# Android SDK
 set -gx PATH $ANDROID_HOME/cmdline-tools/tools $PATH;
 set -gx PATH $ANDROID_HOME/cmdline-tools/tools/bin $PATH;
 set -gx PATH $ANDROID_HOME/cmdline-tools/tools/lib $PATH;
@@ -43,10 +29,18 @@ set -gx PATH $ANDROID_HOME/platform-tools $PATH
 set -gx PATH $ANDROID_HOME/emulator $PATH
 set -gx PATH $ANDROID_HOME/tools $PATH
 set -gx PATH $ANDROID_HOME/tools/bin $PATH
+
+
+# Miniconda 3 (Python) 
 set -gx PATH ~/miniconda3/bin $PATH
+
+# Go
+set -g GOPATH $HOME/go
+set -gx PATH $GOPATH/bin $PATH
 
 # Rust
 set -gx PATH ~/.cargo/bin $PATH
+
 # NodeJS
 set -gx PATH node_modules/.bin $PATH
 
@@ -69,46 +63,29 @@ alias vi="nvim"
 alias g='git'
 alias python="python3" 
 alias pip="pip3"
-alias ll='ls -alF'
-alias la='lsd -a --group-dirs=first'
-alias l='lsd --group-dirs=first'
-alias lla='lsd -lha --group-dirs=first'
 alias htop='btm'
 alias ls='exa --icons -F -H --group-directories-first --git -1'
+alias ll='ls -alF'
 alias gc="git commit"
-alias gp="gp"
+alias gp="git push"
+alias gpl="git pull"
+alias gc="git commit -m"
+
 
 #Add the following line after the case statement
 alias jupyter-notebook="~/.local/bin/jupyter-notebook --no-browser"
 # export PATH="$PATH:$HOME/.spicetify"
 
-
-alias opratel-vpn="sudo openvpn --config $HOME/opratelVpn/client.ovpn"
-
-
 abbr :bd "exit"
 abbr :q "tmux kill-server"
 abbr ast "aw set -t (aw list | fzf-tmux -p --reverse --preview 'aw set -t {}')"
-abbr bc "brew cleanup"
-abbr bd "brew doctor"
-abbr bi "brew install"
-abbr bic "brew install --cask"
-abbr bif "brew info"
-abbr bifc "brew info --cask"
-abbr bo "brew outdated"
-abbr bs "brew services"
-abbr bsr "brew services restart"
 
-# abbr y "yarn"
-# abbr ya "yarn add"
-# abbr yad "yarn add -D"
-# abbr yb "yarn build"
-# abbr yd "yarn dev"
-# abbr ye "yarn e2e"
-# abbr yg "yarn generate"
-# abbr yl "yarn lint"
-# abbr yt "yarn test"
-# abbr yu "yarn ui"
+abbr pn "pnpm"
+abbr pni "pnpm i"
+abbr pnd "pnpm dev"
+abbr pbs "pnpm serve"
+abbr pnb = "pnpm build"
+
 
 abbr ns "npm run serve"
 
@@ -166,7 +143,21 @@ zoxide init fish | source
 
 starship init fish | source
 
-if test -f /home/ale/miniconda3/bin/conda
-    eval /home/ale/miniconda3/bin/conda "shell.fish" "hook" $argv | source
+if test -f $HOME/miniconda3/bin/conda
+    eval $HOME/miniconda3/bin/conda "shell.fish" "hook" $argv | source
 end
 # rbenv init - | source
+
+switch (uname)
+  case Darwin
+    source (dirname (status --current-filename))/config-osx.fish
+  case Linux
+    source (dirname (status --current-filename))/config-linux.fish
+  case '*'
+    source (dirname (status --current-filename))/config-windows.fish
+end
+
+set LOCAL_CONFIG (dirname (status --current-filename))/config-local.fish
+if test -f $LOCAL_CONFIG
+  source $LOCAL_CONFIG
+end
