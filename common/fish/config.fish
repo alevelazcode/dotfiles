@@ -1,3 +1,16 @@
+switch (uname)
+  case Darwin
+    source (dirname (status --current-filename))/config-osx.fish
+  case Linux
+    source (dirname (status --current-filename))/config-linux.fish
+  case '*'
+    source (dirname (status --current-filename))/config-windows.fish
+end
+
+set LOCAL_CONFIG (dirname (status --current-filename))/config-local.fish
+if test -f $LOCAL_CONFIG
+  source $LOCAL_CONFIG
+end
 #import module function from fish
 source ~/.config/fish/custom_functions/copy_to_clipboard.fish
 
@@ -15,8 +28,6 @@ set -gx PATH ~/.local/bin $PATH
 # Ruby rbenv
 set -x PATH $HOME/.rbenv/bin $PATH
 
-set --export ANDROID_HOME $HOME/Android
-set --export ANDROID_SDK_ROOT $HOME/Android
 
 set -gx EDITOR nvim
 
@@ -116,16 +127,6 @@ set fish_cursor_replace_one underscore
 # visual mode, but due to fish_cursor_default, is redundant here
 set fish_cursor_visual block
 
-function fish_user_key_bindings
-    # Execute this once per mode that emacs bindings should be used in
-    fish_default_key_bindings -M insert
-
-    # Then execute the vi-bindings so they take precedence when there's a conflict.
-    # Without --no-erase fish_vi_key_bindings will default to
-    # resetting all bindings.
-    # The argument specifies the initial mode (insert, "default" or visual).
-    fish_vi_key_bindings --no-erase insert
-end
 
 # fish colors
 set -U fish_color_autosuggestion grey 
@@ -145,19 +146,4 @@ starship init fish | source
 
 if test -f $HOME/miniconda3/bin/conda
     eval $HOME/miniconda3/bin/conda "shell.fish" "hook" $argv | source
-end
-# rbenv init - | source
-
-switch (uname)
-  case Darwin
-    source (dirname (status --current-filename))/config-osx.fish
-  case Linux
-    source (dirname (status --current-filename))/config-linux.fish
-  case '*'
-    source (dirname (status --current-filename))/config-windows.fish
-end
-
-set LOCAL_CONFIG (dirname (status --current-filename))/config-local.fish
-if test -f $LOCAL_CONFIG
-  source $LOCAL_CONFIG
 end

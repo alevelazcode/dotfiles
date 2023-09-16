@@ -12,6 +12,9 @@ brew upgrade
 echo "Installing from Brewfile"
 brew bundle --file=~/dotfiles/macos/Brewfile
 
+echo $(which fish) | sudo tee -a /etc/shells
+chsh -s $(which fish)
+
 # Install fish plugins with fisher 
 echo "Installing fish plugins with fisher"
 fish -c "fisher update"
