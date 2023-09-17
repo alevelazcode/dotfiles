@@ -48,13 +48,22 @@
 [mergetool "nvimdiff"]
 	cmd = nvim -d \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	required = true
 	process = git-lfs filter-process
+
 [ghq]
   root = ~/.ghq
+
 [user]
-    email = alejanvelazco2008@hotmail.com
-    name = Alejandro Velazco
+  email = alejanvelazco2008@hotmail.com
+  name = Alejandro Velazco
+
+[pull]
+  rebase = true
+
+[init]
+  defaultBranch = master 
