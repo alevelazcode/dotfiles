@@ -147,3 +147,7 @@ starship init fish | source
 if test -f $HOME/miniconda3/bin/conda
     eval $HOME/miniconda3/bin/conda "shell.fish" "hook" $argv | source
 end
+
+function fish_user_key_bindings
+  fish_vi_key_bindings
+end
