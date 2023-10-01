@@ -67,7 +67,7 @@ function __check_rvm --on-variable PWD --description 'Do nvm stuff'
 end
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-alias bat="batcat"
+# alias bat="batcat"
 alias cat="bat --style=plain"
 alias vim="nvim"
 alias vi="nvim"
