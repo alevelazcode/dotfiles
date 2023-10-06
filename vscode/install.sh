@@ -12,6 +12,9 @@ fi
 
 for name in settings.json keybindings.json; do
   target="$CODE_PATH/$name"
-  backup $target
-  symlink $PWD/$name $target
+  if [ -e "$target" ]; then
+    rm "$target"
+  fi
+  # Crear el enlace simbólico
+  ln -s "$PWD/$name" "$target"
 done
