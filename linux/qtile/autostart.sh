@@ -36,11 +36,11 @@ pamac-tray-icon-plasma &
 
 ### UNCOMMENT ONLY ONE OF THE FOLLOWING THREE OPTIONS! ###
 # 1. Uncomment to restore last saved wallpaper
-xargs xwallpaper --stretch < ~/.cache/wall &
+# xargs xwallpaper --stretch < ~/.cache/wall &
 # 2. Uncomment to set a random wallpaper on login
 # find /usr/share/backgrounds/dtos-backgrounds/ -type f | shuf -n 1 | xargs xwallpaper --stretch &
 # 3. Uncomment to set wallpaper with nitrogen
-# nitrogen --restore &
+nitrogen --restore &
 
 ### SETS CONKY STYLE BASED ON SCREEN RESOLUTION
 # Checks screen resolution.  If 1080p or higher, then we use '01' conky.
