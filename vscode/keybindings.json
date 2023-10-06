@@ -55,4 +55,22 @@
         "key": "p",
         "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceReadonly && !inputFocus"
     },
+    {
+        "command": "selectNextSuggestion",
+        "key": "tab",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "command": "selectPrevSuggestion",
+        "key": "ctrl+tab",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "args": {
+            "apply": "first",
+            "kind": "source.fixAll.eslint"
+        },
+        "command": "editor.action.codeAction",
+        "key": "ctrl+."
+    }
 ]
