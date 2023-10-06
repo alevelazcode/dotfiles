@@ -11,7 +11,7 @@ from qtile_extras.widget.decorations import BorderDecoration
 import colors
 
 mod = "mod4"              # Sets mod key to SUPER/WINDOWS
-myTerm = "alacritty"      # My terminal of choice
+myTerm = "kitty"      # My terminal of choice
 myBrowser = "brave" # My browser of choice
 myEmacs = "emacsclient -c -a 'emacs' " # The space at the end is IMPORTANT!
 
