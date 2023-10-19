@@ -1,7 +1,12 @@
 #Install Brew in MacOs
 
 # Install Brew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# Verify if Brew exist
+if which brew &> /dev/null; then
+    echo "brew is installed"
+else 
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
 
 # Update Brew
 echo "Updating Brew"
@@ -30,15 +35,14 @@ fish -c "fisher add jethrokuan/fzf"
 
 
 
-
 # Linked files config
 echo "Linking files"
 ln -s ~/dotfiles/fish/* ~/.config/fish/
 
-ln -s  ../common/neofetch ~/.config
-ln -s ../common/startship/starship.toml ~/.config
-
-ln -s ../unix/zsh/.zshrc ~/.zshrc
+ln -s  ~/dotfiles/common/neofetch ~/.config
+ln -s ~/dotfiles/startship/starship.toml ~/.config
+ln -s ~/dotfiles/nvim ~/.config
+ln -s ~/dotfiles/unix/zsh/.zshrc ~/.zshrc
 
 
 

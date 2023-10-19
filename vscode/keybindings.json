@@ -1,76 +1,84 @@
 // Place your key bindings in this file to override the defaults
 [
-    {
-        "command": "editor.action.scrollLeftHover",
-        "key": "h",
-        "when": "editorHoverFocused"
-    },
-    {
-        "command": "editor.action.scrollDownHover",
-        "key": "j",
-        "when": "editorHoverFocused"
-    },
-    {
-        "command": "editor.action.scrollUpHover",
-        "key": "k",
-        "when": "editorHoverFocused"
-    },
-    {
-        "command": "editor.action.scrollRightHover",
-        "key": "l",
-        "when": "editorHoverFocused"
-    },
-    {
-        "command": "workbench.action.toggleSidebarVisibility",
-        "key": "space e",
-        "when": "filesExplorerFocus && !inputFocus"
-    },
-    {
-        "command": "explorer.newFile",
-        "key": "a",
-        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-    },
-    {
-        "command": "explorer.newFolder",
-        "key": "f",
-        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-    },
-    {
-        "command": "renameFile",
-        "key": "r",
-        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-    },
-    {
-        "command": "filesExplorer.cut",
-        "key": "x",
-        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-    },
-    {
-        "command": "filesExplorer.copy",
-        "key": "y",
-        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !inputFocus"
-    },
-    {
-        "command": "filesExplorer.paste",
-        "key": "p",
-        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceReadonly && !inputFocus"
-    },
-    {
-        "command": "selectNextSuggestion",
-        "key": "tab",
-        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
-    },
-    {
-        "command": "selectPrevSuggestion",
-        "key": "ctrl+tab",
-        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
-    },
-    {
-        "args": {
-            "apply": "first",
-            "kind": "source.fixAll.eslint"
-        },
-        "command": "editor.action.codeAction",
-        "key": "ctrl+."
+  {
+    "command": "editor.action.scrollLeftHover",
+    "key": "h",
+    "when": "editorHoverFocused"
+  },
+  {
+    "command": "editor.action.scrollDownHover",
+    "key": "j",
+    "when": "editorHoverFocused"
+  },
+  {
+    "command": "editor.action.scrollUpHover",
+    "key": "k",
+    "when": "editorHoverFocused"
+  },
+  {
+    "command": "editor.action.scrollRightHover",
+    "key": "l",
+    "when": "editorHoverFocused"
+  },
+  {
+    "command": "workbench.action.toggleSidebarVisibility",
+    "key": "space e",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  {
+    "command": "explorer.newFile",
+    "key": "a",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "command": "explorer.newFolder",
+    "key": "f",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "command": "renameFile",
+    "key": "r",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "command": "filesExplorer.cut",
+    "key": "x",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "command": "filesExplorer.copy",
+    "key": "y",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !inputFocus"
+  },
+  {
+    "command": "filesExplorer.paste",
+    "key": "p",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "command": "selectNextSuggestion",
+    "key": "tab",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "command": "selectPrevSuggestion",
+    "key": "ctrl+tab",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": "ctrl+s",
+    "command": "editor.action.sourceAction",
+    "args": {
+      "kind": "source.addMissingImports",
+      "apply": "first"
     }
+  },
+  {
+    "args": {
+      "apply": "first",
+      "kind": "source.fixAll.eslint"
+    },
+    "command": "editor.action.codeAction",
+    "key": "ctrl+."
+  }
 ]
