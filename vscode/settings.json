@@ -2,6 +2,7 @@
   "[csharp]": {
     "editor.maxTokenizationLineLength": 2500
   },
+  "editor.semanticHighlighting.enabled": true,
   "[go]": {
     "editor.defaultFormatter": "golang.go",
     "editor.formatOnSave": true
@@ -15,19 +16,26 @@
   "[rust]": {
     "editor.formatOnSave": true
   },
+  "[vue]": {
+    "editor.formatOnSave": true
+  },
   "console-ninja.fontSize": 12,
+  "css.format.spaceAroundSelectorSeparator": true,
   "dart.flutterSdkPath": "/Users/alejandrovelazco/development/flutter",
+  // "dart.flutterSdkPath": "/Users/alejandrovelazco/development/flutter",
   "editor.bracketPairColorization.enabled": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": true,
+    "source.organizeImports": true,
+    "source.addMissingImports": true
   },
   "editor.cursorBlinking": "expand",
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.cursorSurroundingLines": 8,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.fontFamily": "'Cascursive', 'CaskaydiaCove Nerd Font'  , Menlo ",
+  "editor.fontFamily": "'Cascursive', 'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
   "editor.fontLigatures": true,
-  "editor.fontSize": 14,
+  "editor.fontSize": 15,
   "editor.fontWeight": "normal",
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
@@ -133,7 +141,7 @@
   "vim.easymotion": true,
   "vim.handleKeys": {
     "<C-d>": true,
-    "<C-f>": true,
+    "<C-f>": false,
     "<C-p>": false,
     "<C-s>": false,
     "<C-z>": false
@@ -142,7 +150,7 @@
   "vim.highlightedyank.duration": 250,
   "vim.highlightedyank.enable": true,
   "vim.hlsearch": true,
-  "vim.leader": ",",
+  "vim.leader": "<space>",
   "vim.normalModeKeyBindings": [
     {
       "before": ["g", "q"],
@@ -179,7 +187,7 @@
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": ["<space>"],
+      "before": ["<leader>", "w"],
       "commands": ["workbench.action.files.save"]
     },
     {
@@ -199,22 +207,30 @@
       "commands": ["editor.action.commentLine", "extension.vim_escape"]
     }
   ],
-  "vs-kubernetes": {
-    "vscode-kubernetes.helm-path.mac": "/Users/alejandrovelazco/.vs-kubernetes/tools/helm/darwin-arm64/helm"
-  },
-  "workbench.activityBar.visible": true,
+  "window.commandCenter": false,
   "workbench.colorCustomizations": {},
-  "workbench.colorTheme": "Tokyo Night",
-  "workbench.editor.showTabs": false,
+  "workbench.editor.showTabs": "single",
   "workbench.iconTheme": "symbols",
   "workbench.layoutControl.enabled": false,
-  "workbench.preferredDarkColorTheme": "One Dark Pro Darker",
-  "workbench.preferredHighContrastColorTheme": "One Dark Pro Darker",
+  "workbench.preferredDarkColorTheme": "Moonlight II Italic",
+  "workbench.preferredHighContrastColorTheme": "Moonlight II",
   "workbench.productIconTheme": "fluent-icons",
   "workbench.sideBar.location": "right",
   "workbench.statusBar.visible": false,
   "workbench.tree.indent": 20,
-  "yaml.schemas": {
-    "file:///Users/alejandrovelazco/.vscode/extensions/atlassian.atlascode-3.0.3/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
-  }
+  "remote.extensionKind": {
+    "adpyke.codesnap": ["ui"]
+  },
+  "console-ninja.featureSet": "Community",
+  "window.zoomLevel": 1,
+  "workbench.colorTheme": "Moonlight II Italic",
+  "workbench.preferredHighContrastLightColorTheme": "Moonlight II",
+  "workbench.preferredLightColorTheme": "Moonlight II Italic",
+  "markdown-preview-enhanced.revealjsTheme": "night.css",
+  "errorLens.fontFamily": "'Cascursive', 'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
+  "editor.codeLensFontFamily": "'Cascursive', 'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
+  "markdown.preview.fontFamily": "'Cascursive', 'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
+  "terminal.integrated.fontFamily": "'Cascursive', 'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
+  "notebook.output.fontFamily": "'Cascursive', 'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
+  "codesnap.shutterAction": "copy"
 }
