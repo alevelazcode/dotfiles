@@ -56,6 +56,11 @@ set -gx PATH ~/.cargo/bin $PATH
 set -gx PATH node_modules/.bin $PATH
 
 
+# Personal Scripts
+
+set -gx PATH ~/personal_scripts $PATH
+
+
 
 # NVM
 function __check_rvm --on-variable PWD --description 'Do nvm stuff'
@@ -151,3 +156,11 @@ end
 function fish_user_key_bindings
   fish_vi_key_bindings
 end
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH

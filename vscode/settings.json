@@ -30,7 +30,7 @@
   "editor.fontSize": 14,
   "editor.fontWeight": "normal",
   "editor.formatOnPaste": true,
-  "editor.formatOnSave": false,
+  "editor.formatOnSave": true,
   "editor.formatOnType": true,
   "editor.glyphMargin": false,
   "editor.guides.bracketPairs": true,
@@ -49,10 +49,7 @@
   "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?",
   //  Emmet
   "emmet.triggerExpansionOnTab": true,
-  "errorLens.excludeBySource": [
-    "eslint(no-undef)",
-    "ts(2786)"
-  ],
+  "errorLens.excludeBySource": ["eslint(no-undef)", "ts(2786)"],
   "eslint.validate": [
     "vue",
     "javascript",
@@ -89,10 +86,7 @@
   "oneDarkPro.vivid": true,
   "php-cs-fixer.config": ".php-cs-fixer.php",
   "php-cs-fixer.executablePath": "${workspaceFolder}/vendor/bin/php-cs-fixer",
-  "phpfmt.exclude": [
-    "ReindentComments",
-    "StripNewlineWithinClassBody"
-  ],
+  "phpfmt.exclude": ["ReindentComments", "StripNewlineWithinClassBody"],
   "phpfmt.passes": [
     "PSR2KeywordsLowerCase",
     "PSR2LnAfterNamespace",
@@ -151,120 +145,58 @@
   "vim.leader": ",",
   "vim.normalModeKeyBindings": [
     {
-      "before": [
-        "g",
-        "q"
-      ],
-      "commands": [
-        "editor.action.quickFix"
-      ]
+      "before": ["g", "q"],
+      "commands": ["editor.action.quickFix"]
     },
     {
-      "before": [
-        "g",
-        "p",
-        "d"
-      ],
-      "commands": [
-        "editor.action.peekDefinition"
-      ]
+      "before": ["g", "p", "d"],
+      "commands": ["editor.action.peekDefinition"]
     },
     {
-      "before": [
-        "g",
-        "i"
-      ],
-      "commands": [
-        "editor.action.goToImplementation"
-      ]
+      "before": ["g", "i"],
+      "commands": ["editor.action.goToImplementation"]
     },
     {
-      "before": [
-        "<leader>",
-        "e"
-      ],
-      "commands": [
-        "workbench.view.explorer"
-      ]
+      "before": ["<leader>", "e"],
+      "commands": ["workbench.view.explorer"]
     },
     {
-      "before": [
-        "g",
-        "h"
-      ],
-      "commands": [
-        "editor.action.showDefinitionPreviewHover"
-      ]
+      "before": ["g", "h"],
+      "commands": ["editor.action.showDefinitionPreviewHover"]
     },
     {
-      "before": [
-        "g",
-        "r"
-      ],
-      "commands": [
-        "editor.action.referenceSearch.trigger"
-      ]
+      "before": ["g", "r"],
+      "commands": ["editor.action.referenceSearch.trigger"]
     },
     {
-      "before": [
-        "g",
-        "t"
-      ],
-      "commands": [
-        "editor.action.goToTypeDefinition"
-      ]
+      "before": ["g", "t"],
+      "commands": ["editor.action.goToTypeDefinition"]
     },
     {
-      "before": [
-        "g",
-        "p",
-        "t"
-      ],
-      "commands": [
-        "editor.action.peekTypeDefinition"
-      ]
+      "before": ["g", "p", "t"],
+      "commands": ["editor.action.peekTypeDefinition"]
     }
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": [
-        "<space>"
-      ],
-      "commands": [
-        "workbench.action.files.save"
-      ]
+      "before": ["<space>"],
+      "commands": ["workbench.action.files.save"]
     },
     {
-      "before": [
-        "<leader>",
-        "c"
-      ],
-      "commands": [
-        "editor.action.commentLine"
-      ]
+      "before": ["<leader>", "c"],
+      "commands": ["editor.action.commentLine"]
     },
     {
-      "before": [
-        "<leader>",
-        "f"
-      ],
-      "commands": [
-        "revealInExplorer"
-      ]
+      "before": ["<leader>", "f"],
+      "commands": ["revealInExplorer"]
     }
   ],
   "vim.smartRelativeLine": false,
   "vim.useSystemClipboard": true,
   "vim.visualModeKeyBindings": [
     {
-      "before": [
-        "<leader>",
-        "c"
-      ],
-      "commands": [
-        "editor.action.commentLine",
-        "extension.vim_escape"
-      ]
+      "before": ["<leader>", "c"],
+      "commands": ["editor.action.commentLine", "extension.vim_escape"]
     }
   ],
   "vs-kubernetes": {
