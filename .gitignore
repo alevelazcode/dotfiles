@@ -1,1 +1,9 @@
+config-local.zsh
+
+./common/zsh/config-local.zsh
+./common/zsh/config-local.zsh
+
 config.local.zsh
+
+./common/zsh/config.local.zsh
+./common/zsh/config.local.zsh
