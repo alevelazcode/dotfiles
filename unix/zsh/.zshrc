@@ -5,19 +5,21 @@ export TERM=xterm-256color
 
 export ZSH=$HOME/.zsh
 
+export CONFIG_ZSH=$HOME/config_zsh
+
 # Load and initialise completion system
 autoload -Uz compinit && compinit
 
 # Determine OS and source the appropriate config file
 case "$(uname)" in
   Darwin)
-    . "$ZSH/config-osx.zsh"
+    . "$CONFIG_ZSH/config-osx.zsh"
     ;;
   Linux)
-    . "$ZSH/config-linux.zsh"
+    . "$CONFIG_ZSH/config-linux.zsh"
     ;;
   *)
-    . "$ZSH/config-windows.zsh"
+    . "$CONFIG_ZSH/config-windows.zsh"
     ;;
 esac
 
@@ -25,7 +27,7 @@ esac
 
 
 # Check if local configuration file exists and source it
-LOCAL_CONFIG="$ZSH/config-local.zsh"
+LOCAL_CONFIG="$CONFIG_ZSH/config-local.zsh"
 [[ -f $LOCAL_CONFIG ]] && source $LOCAL_CONFIG
 
 # Import module function from fish, need to convert to zsh equivalent
@@ -67,8 +69,12 @@ export PATH="$HOME/personal_scripts/:$PATH"
 
 export PATH=$HOME/bin:$PATH
 
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
+
 
 # Plugins 
-[[ -f $ZSH/aliases.zsh ]] && source $ZSH/aliases.zsh
-[[ -f "$ZSH/functions.zsh" ]] && source "$ZSH/functions.zsh"
-[[ -f $ZSH/plugins.zsh ]] && source $ZSH/plugins.zsh
+[[ -f $CONFIG_ZSH/aliases.zsh ]] && source $CONFIG_ZSH/aliases.zsh
+[[ -f "$CONFIG_ZSH/functions.zsh" ]] && source "$CONFIG_ZSH/functions.zsh"
+[[ -f $CONFIG_ZSH/plugins.zsh ]] && source $CONFIG_ZSH/plugins.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
