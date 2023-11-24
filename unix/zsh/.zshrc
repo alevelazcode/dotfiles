@@ -69,8 +69,6 @@ export PATH="$HOME/personal_scripts/:$PATH"
 
 export PATH=$HOME/bin:$PATH
 
-export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
 
 
 # Plugins 

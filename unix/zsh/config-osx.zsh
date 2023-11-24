@@ -13,11 +13,8 @@ path_append() {
 
 path_append "/opt/homebrew/bin"
 
-# Aliases for 'exa' if it exists
-if type exa &>/dev/null; then
-  alias ll="exa -l -g --icons"
-  alias lla="ll -a"
-fi
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
 
 # Abbreviations as functions for brew
 bc() { brew cleanup "$@" }
