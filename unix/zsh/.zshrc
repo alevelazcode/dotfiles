@@ -1,7 +1,7 @@
 
 export TERM=xterm-256color
 
-export ZSH=$HOME/.zsh
+export ZSH=$HOME/.oh-my-zsh
 
 export CONFIG_ZSH=$HOME/config_zsh
 
