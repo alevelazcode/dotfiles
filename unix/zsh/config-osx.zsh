@@ -16,6 +16,8 @@ path_append "/opt/homebrew/bin"
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 # Abbreviations as functions for brew
 bc() { brew cleanup "$@" }
 bd() { brew doctor "$@" }
