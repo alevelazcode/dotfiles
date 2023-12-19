@@ -11,6 +11,13 @@ path_append() {
   done
 }
 
+if type brew &>/dev/null; then
+    FPATH=$(brew --prefix)/share/zsh-abbr:$FPATH
+
+    autoload -Uz compinit
+    compinit
+  fi
+
 path_append "/opt/homebrew/bin"
 
 export NVM_DIR=~/.nvm

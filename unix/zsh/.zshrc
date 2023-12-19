@@ -73,3 +73,5 @@ export PATH=$HOME/bin:$PATH
 [[ -f $CONFIG_ZSH/aliases.zsh ]] && source $CONFIG_ZSH/aliases.zsh
 [[ -f "$CONFIG_ZSH/functions.zsh" ]] && source "$CONFIG_ZSH/functions.zsh"
 [[ -f $CONFIG_ZSH/plugins.zsh ]] && source $CONFIG_ZSH/plugins.zsh
+export PATH="/opt/homebrew/sbin:$PATH"
+export PATH="/opt/homebrew/sbin:$PATH"
