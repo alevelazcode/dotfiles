@@ -17,24 +17,32 @@
     "editor.formatOnSave": true
   },
   "[vue]": {
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+      "source.organizeImports": "explicit",
+      "source.addMissingImports": "explicit"
+    }
   },
   "console-ninja.fontSize": 12,
   "css.format.spaceAroundSelectorSeparator": true,
   "dart.flutterSdkPath": "/Users/alejandrovelazco/development/flutter",
-  // "dart.flutterSdkPath": "/Users/alejandrovelazco/development/flutter",
   "editor.bracketPairColorization.enabled": true,
+  "javascript.format.semicolons": "remove",
+  "typescript.format.semicolons": "remove",
+  "typescript.preferences.quoteStyle": "single",
+  "javascript.preferences.quoteStyle": "single",
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
-    "source.organizeImports": true,
-    "source.addMissingImports": true
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit",
+    "source.addMissingImports": "explicit"
   },
   "editor.cursorBlinking": "expand",
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.cursorSurroundingLines": 8,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.fontFamily": "'Cascursive', 'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
-  "editor.fontLigatures": true,
+  "editor.fontFamily": " 'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
+  "editor.fontLigatures": "'calt', 'ss01'",
   "editor.fontSize": 15,
   "editor.fontWeight": "normal",
   "editor.formatOnPaste": true,
@@ -73,14 +81,13 @@
   "git.enableSmartCommit": true,
   "git.ignoreRebaseWarning": true,
   "git.openRepositoryInParentFolders": "always",
-  "github.copilot.editor.enableAutoCompletions": true,
   "github.copilot.enable": {
     "*": true,
     "markdown": false,
     "plaintext": false,
     "scminput": false
   },
-  "github.copilot.inlineSuggest.enable": true,
+  "github.copilot.editor.enableAutoCompletions": true,
   "glassit.alpha": 235,
   "gopls": {
     "formatting.gofumpt": true
@@ -130,7 +137,7 @@
   "terminal.external.linuxExec": "kitty",
   "terminal.external.osxExec": "iTerm2.app",
   "terminal.integrated.cursorBlinking": true,
-  "terminal.integrated.defaultProfile.osx": "fish",
+  "terminal.integrated.defaultProfile.osx": "zsh",
   "terminal.integrated.env.linux": {},
   "terminal.integrated.env.osx": {},
   "terminal.integrated.env.windows": {},
@@ -227,10 +234,11 @@
   "workbench.preferredHighContrastLightColorTheme": "Moonlight II",
   "workbench.preferredLightColorTheme": "Moonlight II Italic",
   "markdown-preview-enhanced.revealjsTheme": "night.css",
-  "errorLens.fontFamily": "'Cascursive', 'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
-  "editor.codeLensFontFamily": "'Cascursive', 'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
-  "markdown.preview.fontFamily": "'Cascursive', 'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
-  "terminal.integrated.fontFamily": "'Cascursive', 'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
-  "notebook.output.fontFamily": "'Cascursive', 'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
-  "codesnap.shutterAction": "copy"
+  "errorLens.fontFamily": "'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
+  "editor.codeLensFontFamily": "'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
+  "markdown.preview.fontFamily": "'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
+  "terminal.integrated.fontFamily": "'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
+  "notebook.output.fontFamily": "'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
+  "codesnap.shutterAction": "copy",
+  "security.promptForLocalFileProtocolHandling": false
 }

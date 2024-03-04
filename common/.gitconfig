@@ -66,11 +66,12 @@
   root = ~/.ghq
 
 [user]
-  email = alejanvelazco2008@hotmail.com
+  email = alejanvelazco2008@proton.me
   name = Alejandro Velazco
+  username = spectrox0
 
 [pull]
-  rebase = true
+  rebase = false
 
 [init]
-  defaultBranch = master 
+  defaultBranch = master

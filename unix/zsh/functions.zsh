@@ -19,6 +19,9 @@ function dcdv() { docker compose down -v }
 function dcr() { docker compose restart }
 function dcu() { docker compose up -d }
 
+copy() {
+    printf "%s" "$*" | tr -d "\n" | pbcopy
+}
 
 
 

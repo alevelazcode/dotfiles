@@ -25,7 +25,13 @@ else
     echo "El archivo /etc/os-release no existe en este sistema. No se pudo determinar la distro."
 fi
 
+# Check if Mac OS is running
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    echo "Are you running Mac OS"
+    chmod +x ./macos/install.sh
+fi
 
+# Run VSCode installation
 
 chmod +x ./vscode/install.sh
 ./vscode/install.sh

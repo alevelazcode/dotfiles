@@ -1,107 +1,129 @@
-tap "federico-terzi/espanso"
-tap "mongodb/brew"
-tap "homebrew/bundle"
-tap "homebrew/cask"
-tap "homebrew/core"
-tap "homebrew/services"
-tap "jesseduffield/lazygit"
-tap "khanhas/tap"
-tap "koekeishiya/formulae"
-tap "lucassabreu/tap"
-tap "xorpse/formulae"
-tap "oven-sh/bun"
-tap "xwmx/taps"
+# Install Python
 brew "python@3.9"
+
+# Install bat to use bat command instead of cat
+brew "bat"
+
+# Install bat extras to use bat command with syntax highlighting
+brew "bat-extras"
+
+# Install Bun
 brew "bun"
+# Install glib to use gsettings command
 brew "glib"
-brew "pkg-config"
-brew "dash"
+# Install pkg-config to use gsettings command
+
+# FD is a simple, fast and user-friendly alternative to find command in Unix
+# Install fd to use fd command instead of find
 brew "fd"
+
+# install fzf
 brew "fzf"
+
+# Install github cli
 brew "gh"
+
+# Install dorker
 brew "docker"
+
+# Instgall git
 brew "git"
+
+# Git delta is a syntax highlighter for git diff output
 brew "git-delta"
-brew "libusb"
+
+# Install zoxide to use z command instead of cd command
 brew "zoxide"
-#brew "gnupg"
+
+# Languages
+# Goland is a statically typed, compiled language that feels like a dynamically typed, interpreted language.
 brew "go"
-#brew "hasura-cli"
-#brew "hyperfine"
+# Rustup init
+brew "rustup-init"
+
+
+# JQ is a lightweight and flexible command-line JSON processor to use jq command to process JSON data in terminal
 brew "jq"
+
+# Install lazydocker to use lazydocker command instead of docker command for docker operations in terminal
 brew "lazydocker"
 brew "lf"
-brew "lsd"
 brew "luajit", args: ["HEAD"]
+
+# Install mackup to backup and restore application settings in macOS so you can restore your configuration on a new machine
 brew "mackup"
-brew "mosh"
-# brew "ncdu"
+
+# Install pkg-config to use gsettings command
+brew 'pkg-config' # https://github.com/driesvints/dotfiles/issues/20
+
+# Install neofetch to display system information
 brew "neofetch"
+
+# Install neovim to use nvim command instead of vim
 brew "neovim", args: ["HEAD"]
-brew "exa"
 
+# Install nvm to manage node versions and npm
 brew "nvm"
+
+# Install tmux to use tmux command
 brew "tmux"
-brew "overmind"
+# Install pgcli to use pgcli command
 brew "pgcli"
+# Install postgresql to use psql command
 brew "postgresql"
+
+# Install ripgrep to use rg command instead of grep command
 brew "ripgrep"
-brew "spotify-tui"
+
+# Install starship to display system information in terminal prompt
 brew "starship"
-brew "switchaudio-osx"
-brew "tealdeer"
-brew "terminal-notifier"
-brew "wallpaper"
-brew "wget"
-brew "yarn"
-brew "zlib"
-brew "pipenv"
-brew "zoxide"
-brew "bottom"
-brew "federico-terzi/espanso/espanso"
+
+# Install the_silver_searcher to use ag command instead of grep
+# brew "terminal-notifier"
+
+# Install lazygit to use lazygit command instead of git command for git operations in terminal
 brew "jesseduffield/lazygit/lazygit"
-brew "koekeishiya/formulae/skhd"
-# brew "stripe/stripe-cli/stripe"
-brew "xorpse/formulae/yabai", args: ["HEAD"]
-# cask "kitty"
-cask "balenaetcher"
-cask "discord"
-# cask "evernote"
-# cask "fantastical"
-cask "figma"
-# cask "ganache"
-# cask "home-assistant"
-# cask "hyper"
-# cask "imageoptim"
-# cask "inkscape"
-# cask "ipfs"
-cask "keycastr"
-# cask "obs"
-# cask "obsidian"
-# cask "plover"
-cask "postman"
-# cask "qutebrowser"
-cask "raycast"
-cask "rocket"
-#  cask "sequel-pro"
-# cask "signal"
-# cask "skitch"
 
-cask "telegram"
-cask "slack"
-# cask "spacelauncher"
-cask "spotify"
-cask "visual-studio-code"
-# cask "vivaldi"
-cask "whatsapp"
-cask "pycharm"
-cask "iterm2"
-# cask "microsoft-edge"
-# cask "google-chrome"
-cask "hammerspoon"
-cask "fish"
-cask "fisher"
-cask "wget"
-cask "curl"
-cask "zoxide"
 
+
+
+# Install wget and curl
+brew "wget"
+brew "curl"
+
+
+brew "mas" # Install Mas to install apps from Mac App Store using command line
+brew "mackup" # Install Mackup to backup and restore application settings in macOS so you can restore your configuration on a new machine
+
+
+# Apps
+cask '1password'
+cask 'caffeine'
+cask 'dbngin'
+cask 'discord'
+cask 'docker'
+cask 'figma'
+cask 'firefox'
+cask 'github'
+cask 'google-chrome'
+cask 'helo'
+cask 'herd'
+cask 'imageoptim'
+cask 'insomnia'
+cask 'pastebot'
+cask 'readdle-spark'
+cask 'screenflow'
+cask 'slack'
+cask 'tableplus'
+cask 'telegram'
+cask 'the-unarchiver'
+cask 'tinkerwell'
+cask 'transmit'
+cask 'tunnelbear'
+cask 'tuple'
+cask 'visual-studio-code'
+cask 'raycast'
+cask 'rocket'
+cask 'spotify'
+cask 'zoom'
+cask 'zwift'

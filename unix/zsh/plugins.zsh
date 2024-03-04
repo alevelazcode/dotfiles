@@ -4,6 +4,8 @@ plugins=(
 git
 zsh-autosuggestions
 zsh-syntax-highlighting
+fzf
+z
 )
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"

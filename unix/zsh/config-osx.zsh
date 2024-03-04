@@ -1,5 +1,5 @@
-# Set PATH
-export PATH="/opt/homebrew/bin:$PATH"
+# # Set PATH
+# export PATH="/opt/homebrew/bin:$PATH"
 
 # This function adds the specified path to PATH without duplicates
 # Equivalent to fish_add_path
@@ -48,3 +48,13 @@ export JAVA_HOME="/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents
 
 # Initialize rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init - zsh)"; fi
+
+
+
+# Alias 
+# Mac App Store (https://github.com/argon/mas)
+alias masi='mas install'
+alias masl='mas list'
+alias maso='mas outdated'
+alias mass='mas search'
+alias masu='mas upgrade'

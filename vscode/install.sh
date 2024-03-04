@@ -10,6 +10,8 @@ else
   fi
 fi
 
+echo "Creating symlinks for settings.json and keybindings.json in $CODE_PATH"
+
 for name in settings.json keybindings.json; do
   target="$CODE_PATH/$name"
   if [ -e "$target" ]; then
