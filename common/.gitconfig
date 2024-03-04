@@ -2,6 +2,7 @@
 	excludesfile = ~/.gitignore
 	editor = nvim
 	ignorecase = false
+  pager = delta
 
 [push]
   default = simple
@@ -47,6 +48,7 @@
 
 [diff]
   tool = nvimdiff
+  colorMoved = default
 
 [difftool "nvimdiff"]
 	cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
@@ -75,3 +77,13 @@
 
 [init]
   defaultBranch = master
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true    # use n and N to move between diff sections
+    light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+
+[merge]
+    conflictstyle = diff3

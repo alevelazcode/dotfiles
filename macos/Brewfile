@@ -1,5 +1,6 @@
+
 # Install Python
-brew "python@3.9"
+brew "python"
 
 # Install bat to use bat command instead of cat
 brew "bat"
@@ -8,7 +9,8 @@ brew "bat"
 brew "bat-extras"
 
 # Install Bun
-brew "bun"
+brew "oven-sh/bun/bun"
+
 # Install glib to use gsettings command
 brew "glib"
 # Install pkg-config to use gsettings command
@@ -32,9 +34,6 @@ brew "git"
 # Git delta is a syntax highlighter for git diff output
 brew "git-delta"
 
-# Install zoxide to use z command instead of cd command
-brew "zoxide"
-
 # Languages
 # Goland is a statically typed, compiled language that feels like a dynamically typed, interpreted language.
 brew "go"
@@ -47,11 +46,6 @@ brew "jq"
 
 # Install lazydocker to use lazydocker command instead of docker command for docker operations in terminal
 brew "lazydocker"
-brew "lf"
-brew "luajit", args: ["HEAD"]
-
-# Install mackup to backup and restore application settings in macOS so you can restore your configuration on a new machine
-brew "mackup"
 
 # Install pkg-config to use gsettings command
 brew 'pkg-config' # https://github.com/driesvints/dotfiles/issues/20
@@ -67,6 +61,7 @@ brew "nvm"
 
 # Install tmux to use tmux command
 brew "tmux"
+
 # Install pgcli to use pgcli command
 brew "pgcli"
 # Install postgresql to use psql command
@@ -86,6 +81,8 @@ brew "jesseduffield/lazygit/lazygit"
 
 
 
+brew "sf-symbols"
+
 
 # Install wget and curl
 brew "wget"
@@ -98,32 +95,11 @@ brew "mackup" # Install Mackup to backup and restore application settings in mac
 
 # Apps
 cask '1password'
-cask 'caffeine'
-cask 'dbngin'
-cask 'discord'
+
 cask 'docker'
-cask 'figma'
-cask 'firefox'
 cask 'github'
-cask 'google-chrome'
-cask 'helo'
-cask 'herd'
-cask 'imageoptim'
-cask 'insomnia'
-cask 'pastebot'
-cask 'readdle-spark'
-cask 'screenflow'
 cask 'slack'
-cask 'tableplus'
-cask 'telegram'
-cask 'the-unarchiver'
-cask 'tinkerwell'
-cask 'transmit'
-cask 'tunnelbear'
-cask 'tuple'
 cask 'visual-studio-code'
 cask 'raycast'
 cask 'rocket'
 cask 'spotify'
-cask 'zoom'
-cask 'zwift'

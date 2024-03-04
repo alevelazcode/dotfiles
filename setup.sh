@@ -35,3 +35,5 @@ fi
 
 chmod +x ./vscode/install.sh
 ./vscode/install.sh
+
+ln -sf $HOME/dotfiles/.gitconfig $HOME/.gitconfig
