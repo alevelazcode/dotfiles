@@ -43,7 +43,7 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.fontFamily": " 'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
   "editor.fontLigatures": "'calt', 'ss01'",
-  "editor.fontSize": 15,
+  "editor.fontSize": 14,
   "editor.fontWeight": "normal",
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
@@ -220,7 +220,7 @@
   "workbench.iconTheme": "symbols",
   "workbench.layoutControl.enabled": false,
   "workbench.preferredDarkColorTheme": "Moonlight II Italic",
-  "workbench.preferredHighContrastColorTheme": "Moonlight II",
+  "workbench.preferredHighContrastColorTheme": "Moonlight II Italic",
   "workbench.productIconTheme": "fluent-icons",
   "workbench.sideBar.location": "right",
   "workbench.statusBar.visible": false,
@@ -231,7 +231,7 @@
   "console-ninja.featureSet": "Community",
   "window.zoomLevel": 1,
   "workbench.colorTheme": "Moonlight II Italic",
-  "workbench.preferredHighContrastLightColorTheme": "Moonlight II",
+  "workbench.preferredHighContrastLightColorTheme": "Moonlight II Italic",
   "workbench.preferredLightColorTheme": "Moonlight II Italic",
   "markdown-preview-enhanced.revealjsTheme": "night.css",
   "errorLens.fontFamily": "'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
@@ -240,5 +240,9 @@
   "terminal.integrated.fontFamily": "'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
   "notebook.output.fontFamily": "'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
   "codesnap.shutterAction": "copy",
-  "security.promptForLocalFileProtocolHandling": false
+  "security.promptForLocalFileProtocolHandling": false,
+  "markdown.extension.print.theme": "dark",
+  "markdown-preview-enhanced.previewTheme": "one-dark.css",
+  "react-native-tools.networkInspector.consoleLogsColorTheme": "Dark",
+  "markdown-preview-enhanced.mermaidTheme": "dark"
 }

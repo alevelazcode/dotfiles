@@ -1,4 +1,3 @@
-
 # Install last version Node JS with NVM
 echo "Installing Node JS LTS with NVM"
 nvm install --lts

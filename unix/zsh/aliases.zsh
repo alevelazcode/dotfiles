@@ -17,7 +17,13 @@ alias gs="git status -s"
 alias gpl="git pull"
 alias gc="(){git commit -m $1}"
 alias gco="git checkout"
-alias gcb="git checkout -b"
+alias gcb="git pull && git checkout -b"
+# Alias to checkout master and pull
+alias gcm="git checkout master"
+
+alias copilot='gh copilot'
+alias gcs='gh copilot suggest'
+alias gce='gh copilot explain' 
 
 # Additional aliases
 alias jupyter-notebook="~/.local/bin/jupyter-notebook --no-browser"

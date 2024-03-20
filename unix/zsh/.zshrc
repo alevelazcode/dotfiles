@@ -1,4 +1,3 @@
-
 export TERM=xterm-256color
 
 export ZSH=$HOME/.oh-my-zsh
@@ -75,4 +74,7 @@ PATH=~/.console-ninja/.bin:$PATH
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
+
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
