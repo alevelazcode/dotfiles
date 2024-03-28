@@ -2,6 +2,8 @@
   "[csharp]": {
     "editor.maxTokenizationLineLength": 2500
   },
+  "editor.formatOnSaveMode": "file", // required to format on save
+  "files.autoSave": "onFocusChange", // optional but recommended
   "editor.semanticHighlighting.enabled": true,
   "[go]": {
     "editor.defaultFormatter": "golang.go",
@@ -217,7 +219,7 @@
   "window.commandCenter": false,
   "workbench.colorCustomizations": {},
   "workbench.editor.showTabs": "single",
-  "workbench.iconTheme": "symbols",
+  "workbench.iconTheme": "catppuccin-mocha",
   "workbench.layoutControl.enabled": false,
   "workbench.preferredDarkColorTheme": "Moonlight II Italic",
   "workbench.preferredHighContrastColorTheme": "Moonlight II Italic",
@@ -244,5 +246,7 @@
   "markdown.extension.print.theme": "dark",
   "markdown-preview-enhanced.previewTheme": "one-dark.css",
   "react-native-tools.networkInspector.consoleLogsColorTheme": "Dark",
-  "markdown-preview-enhanced.mermaidTheme": "dark"
+  "markdown-preview-enhanced.mermaidTheme": "dark",
+  "cSpell.userWords": ["pnpx"],
+  "javascript.updateImportsOnFileMove.enabled": "always"
 }
