@@ -43,10 +43,10 @@
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.cursorSurroundingLines": 8,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.fontFamily": " 'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
+  "editor.fontFamily": "'CaskaydiaCove Nerd Font' , 'VictorMono Nerd Font', 'JetBrainsMono Nerd Font','Mononoki Nerd Font' , Menlo ",
   "editor.fontLigatures": "'calt', 'ss01'",
-  "editor.fontSize": 14,
-  "editor.fontWeight": "normal",
+  "editor.fontSize": 12,
+  "editor.fontWeight": "400",
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
   "editor.formatOnType": true,
@@ -77,12 +77,14 @@
   ],
   "explorer.compactFolders": false,
   "explorer.confirmDelete": false,
-  "files.eol": "\n",
   "git.autofetch": true,
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
   "git.ignoreRebaseWarning": true,
   "git.openRepositoryInParentFolders": "always",
+  "files.insertFinalNewline": false,
+  "files.trimFinalNewlines": true,
+  // "editor.renderFinalNewline": "on",
   "github.copilot.enable": {
     "*": true,
     "markdown": false,
@@ -134,7 +136,6 @@
   "symbols.hidesExplorerArrows": false,
   "synthwave84.brightness": 0.1,
   "synthwave84.disableGlow": false,
-  "tabnine.experimentalAutoImports": true,
   "tailwindCSS.emmetCompletions": true,
   "terminal.external.linuxExec": "kitty",
   "terminal.external.osxExec": "iTerm2.app",
@@ -146,7 +147,6 @@
   "terminal.integrated.fontSize": 16,
   "terminal.integrated.gpuAcceleration": "on",
   "typescript.updateImportsOnFileMove.enabled": "always",
-  "vetur.validation.template": false,
   "vim.easymotion": true,
   "vim.handleKeys": {
     "<C-d>": true,
@@ -248,5 +248,6 @@
   "react-native-tools.networkInspector.consoleLogsColorTheme": "Dark",
   "markdown-preview-enhanced.mermaidTheme": "dark",
   "cSpell.userWords": ["pnpx"],
-  "javascript.updateImportsOnFileMove.enabled": "always"
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "prettier.endOfLine": "auto"
 }

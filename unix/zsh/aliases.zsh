@@ -4,7 +4,7 @@ alias cat="bat --style=plain"
 alias vim="nvim"
 alias vi="nvim"
 alias g='git'
-alias python="python3"
+# alias python3="python"
 alias pip="pip3"
 alias htop='btm'
 alias grep="batgrep --style=plain"

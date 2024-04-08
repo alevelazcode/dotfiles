@@ -53,6 +53,10 @@ export PATH="$HOME/personal-scripts/bash:$PATH"
 
 export PATH=$HOME/bin:$PATH
 
+export PATH="$HOME/.local/bin:$PATH"
+
+export PATH="$(brew --prefix python)/libexec/bin:$PATH"
+
 
 
 # Plugins 
