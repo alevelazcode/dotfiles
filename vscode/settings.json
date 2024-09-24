@@ -1,9 +1,7 @@
 {
   "[csharp]": {
     "editor.maxTokenizationLineLength": 2500
-  },
-  "editor.formatOnSaveMode": "file", // required to format on save
-  "files.autoSave": "onFocusChange", // optional but recommended
+  }, // optional but recommended
   "editor.semanticHighlighting.enabled": true,
   "[go]": {
     "editor.defaultFormatter": "golang.go",
@@ -26,14 +24,14 @@
       "source.addMissingImports": "explicit"
     }
   },
-  "console-ninja.fontSize": 12,
+  "console-ninja.fontSize": 13,
   "css.format.spaceAroundSelectorSeparator": true,
   "dart.flutterSdkPath": "/Users/alejandrovelazco/development/flutter",
   "editor.bracketPairColorization.enabled": true,
-  "javascript.format.semicolons": "remove",
-  "typescript.format.semicolons": "remove",
-  "typescript.preferences.quoteStyle": "single",
-  "javascript.preferences.quoteStyle": "single",
+  // "javascript.format.semicolons": "remove",
+  // "typescript.format.semicolons": "remove",
+  // "typescript.preferences.quoteStyle": "single",
+  // "javascript.preferences.quoteStyle": "single",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
     "source.organizeImports": "explicit",
@@ -43,10 +41,11 @@
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.cursorSurroundingLines": 8,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.fontFamily": "'CaskaydiaCove Nerd Font' , 'VictorMono Nerd Font', 'JetBrainsMono Nerd Font','Mononoki Nerd Font' , Menlo ",
+  "editor.fontFamily": "'Dank Mono', 'VictorMono Nerd Font', 'CaskaydiaCove Nerd Font', 'JetBrainsMono Nerd Font','Mononoki Nerd Font' , Menlo ",
   "editor.fontLigatures": "'calt', 'ss01'",
-  "editor.fontSize": 12,
+  "editor.fontSize": 13,
   "editor.fontWeight": "400",
+  // "editor.letterSpacing": 0.5,
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
   "editor.formatOnType": true,
@@ -55,9 +54,8 @@
   "editor.guides.indentation": false,
   "editor.hideCursorInOverviewRuler": true,
   "editor.inlineSuggest.enabled": true,
-  "editor.lineHeight": 2.3,
+  "editor.lineHeight": 2.2,
   "editor.linkedEditing": true,
-  "editor.minimap.enabled": false,
   "editor.overviewRulerBorder": false,
   "editor.renderWhitespace": "selection",
   "editor.scrollbar.vertical": "hidden",
@@ -96,7 +94,6 @@
   "gopls": {
     "formatting.gofumpt": true
   },
-  "json.sortOnSave.enable": true,
   "jupyter.interactiveWindow.textEditor.executeSelection": true,
   "notebook.output.scrolling": true,
   "notebook.output.textLineLimit": 100,
@@ -131,7 +128,6 @@
   "python.languageServer": "Pylance",
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": true,
-  "rapidapi.terminalLink.enabled": false,
   "security.workspace.trust.untrustedFiles": "open",
   "symbols.hidesExplorerArrows": false,
   "synthwave84.brightness": 0.1,
@@ -144,7 +140,7 @@
   "terminal.integrated.env.linux": {},
   "terminal.integrated.env.osx": {},
   "terminal.integrated.env.windows": {},
-  "terminal.integrated.fontSize": 16,
+  "terminal.integrated.fontSize": 12,
   "terminal.integrated.gpuAcceleration": "on",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "vim.easymotion": true,
@@ -219,12 +215,10 @@
   "window.commandCenter": false,
   "workbench.colorCustomizations": {},
   "workbench.editor.showTabs": "single",
-  "workbench.iconTheme": "catppuccin-mocha",
   "workbench.layoutControl.enabled": false,
   "workbench.preferredDarkColorTheme": "Moonlight II Italic",
   "workbench.preferredHighContrastColorTheme": "Moonlight II Italic",
   "workbench.productIconTheme": "fluent-icons",
-  "workbench.sideBar.location": "right",
   "workbench.statusBar.visible": false,
   "workbench.tree.indent": 20,
   "remote.extensionKind": {
@@ -232,7 +226,6 @@
   },
   "console-ninja.featureSet": "Community",
   "window.zoomLevel": 1,
-  "workbench.colorTheme": "Moonlight II Italic",
   "workbench.preferredHighContrastLightColorTheme": "Moonlight II Italic",
   "workbench.preferredLightColorTheme": "Moonlight II Italic",
   "markdown-preview-enhanced.revealjsTheme": "night.css",
@@ -247,7 +240,20 @@
   "markdown-preview-enhanced.previewTheme": "one-dark.css",
   "react-native-tools.networkInspector.consoleLogsColorTheme": "Dark",
   "markdown-preview-enhanced.mermaidTheme": "dark",
-  "cSpell.userWords": ["pnpx"],
+  "cSpell.userWords": ["Fastify", "pnpx"],
   "javascript.updateImportsOnFileMove.enabled": "always",
-  "prettier.endOfLine": "auto"
+  "prettier.endOfLine": "auto",
+  "vue.server.hybridMode": true,
+  "files.autoGuessEncoding": true,
+  "files.autoSaveWhenNoErrors": true,
+  "files.autoSaveWorkspaceFilesOnly": true,
+  "workbench.sideBar.location": "right",
+  "workbench.activityBar.location": "top",
+  "prisma.showPrismaDataPlatformNotification": false,
+  "workbench.editor.enablePreview": false,
+  "makefile.configureOnOpen": true,
+  "workbench.colorTheme": "Gruvbox Material Dark",
+  "gruvboxMaterial.italicKeywords": true,
+  "editor.wordWrap": "on",
+  "workbench.iconTheme": "symbols"
 }

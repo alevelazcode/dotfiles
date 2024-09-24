@@ -14,6 +14,6 @@ z
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
-
+# source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
+eval "$(starship init zsh)"

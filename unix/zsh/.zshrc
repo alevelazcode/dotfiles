@@ -1,8 +1,27 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+
+export JAVA_HOME="/opt/homebrew/opt/openjdk@11"
 export TERM=xterm-256color
 
 export ZSH=$HOME/.oh-my-zsh
 
 export CONFIG_ZSH=$HOME/config_zsh
+
+export BUN_INSTALL="$HOME/.bun"
+
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
+export PATH=$JAVA_HOME/bin:$PATH
+
+export PATH="$HOME/.jenv/bin:$PATH"
 
 # Determine OS and source the appropriate config file
 case "$(uname)" in
@@ -35,7 +54,7 @@ export EDITOR=nvim
 export TERM=xterm-256color
 
 # Update PATH
-export PATH=~/bin:~/.local/bin:$HOME/.rbenv/bin:$ANDROID_HOME/cmdline-tools/tools:$ANDROID_HOME/cmdline-tools/tools/bin:$ANDROID_HOME/cmdline-tools/tools/lib:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:~/miniconda3/bin:$HOME/go/bin:~/.cargo/bin:node_modules/.bin:~/personal_scripts:$PATH
+# export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.rbenv/bin:$ANDROID_HOME/cmdline-tools/tools:$ANDROID_HOME/cmdline-tools/tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$HOME/miniconda3/bin:$HOME/go/bin:$HOME/.cargo/bin:node_modules/.bin:$HOME/personal_scripts:$PATH"
 
 # For conda, initialize in zsh like so:
 if [[ -f $HOME/miniconda3/bin/conda ]]; then
@@ -57,6 +76,7 @@ export PATH="$HOME/.local/bin:$PATH"
 
 export PATH="$(brew --prefix python)/libexec/bin:$PATH"
 
+export PATH="$HOME/.cargo/bin:$PATH"
 
 
 # Plugins 
@@ -76,9 +96,5 @@ PATH=~/.console-ninja/.bin:$PATH
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

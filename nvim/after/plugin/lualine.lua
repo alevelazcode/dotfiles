@@ -3,7 +3,7 @@ if not status_ok then
 	return
 end
 
-local theme = require('lualine.themes.catppuccin')
+local theme = require('lualine.themes.monokai-pro')
 theme.normal.c.bg = nil
 
 local hide_in_width = function()

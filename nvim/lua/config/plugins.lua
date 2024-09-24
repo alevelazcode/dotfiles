@@ -103,10 +103,10 @@ return packer.startup(function(use)
 
   use 'lukas-reineke/indent-blankline.nvim'
 
-  use "sindrets/diffview.nvim" 
+  use "sindrets/diffview.nvim"
 
   use 'xiyaowong/nvim-transparent'
-  use { 'catppuccin/nvim', as = 'catppuccin' }
+  -- use { 'catppuccin/nvim', as = 'catppuccin' }
 
   use 'kyazdani42/nvim-web-devicons'
 
@@ -114,12 +114,23 @@ return packer.startup(function(use)
 
   use("szw/vim-maximizer") -- maximizes and restores current window
 
+  -- use {
+  --   "zbirenbaum/copilot.lua",
+  --   cmd = "Copilot",
+  --   event = "InsertEnter",
+  --   config = function()
+  --     require("copilot").setup({})
+  --   end,
+  -- }
+
+  use { "ellisonleao/gruvbox.nvim" }
+
+  use { "loctvl842/monokai-pro.nvim" }
+
   use {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
+    "supermaven-inc/supermaven-nvim",
     config = function()
-      require("copilot").setup({})
+      require("supermaven-nvim").setup({})
     end,
   }
 
