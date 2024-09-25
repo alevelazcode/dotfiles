@@ -15,12 +15,14 @@ else
   config.color_scheme = 'Monokai Pro (Gogh)'
 end
 
-config.font = wezterm.font('VictorMono Nerd Font Propo')
-config.font_size = 17
+config.font = wezterm.font('Dank Mono')
+
+config.font_size = 18
+config.line_height = 1.2
 
 -- Slightly transparent and blurred background
-config.window_background_opacity = 0.7
-config.macos_window_background_blur = 23
+config.window_background_opacity = 0.85
+config.macos_window_background_blur = 50
 -- Removes the title bar, leaving only the tab bar. Keeps
 -- the ability to resize by dragging the window's edges.
 -- On macOS, 'RESIZE|INTEGRATED_BUTTONS' also looks nice if
@@ -31,10 +33,13 @@ config.window_decorations = 'RESIZE'
 config.window_frame = {
   -- Berkeley Mono for me again, though an idea could be to try a
   -- serif font here instead of monospace for a nicer look?
-  font = wezterm.font({ family = 'VictorMono Nerd Font Propo', weight = 'Bold' }),
-  font_size = 11,
+  font = wezterm.font({ family = 'CaskaydiaCove Nerd Font', weight = 'Medium' }),
+  font_size = 13,
+  -- inactive_titlebar_bg = "none",
+  -- active_titlebar_bg = "none",
 }
-
+config.use_fancy_tab_bar =  true
+config.tab_bar_at_bottom =  false
 
 local function segments_for_right_status(window)
   return {
@@ -60,7 +65,7 @@ wezterm.on('update-status', function(window, _)
   -- scheme. Let's establish the "from" and "to" bounds of our gradient.
   local gradient_to, gradient_from = bg, bg
   if appearance.is_dark() then
-    gradient_from = gradient_to:lighten(0.2)
+    gradient_from = gradient_to:lighten(0.1)
   else
     gradient_from = gradient_to:darken(0.2)
   end
