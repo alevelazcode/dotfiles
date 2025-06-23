@@ -127,12 +127,6 @@ return packer.startup(function(use)
 
   use { "loctvl842/monokai-pro.nvim" }
 
-  use {
-    "supermaven-inc/supermaven-nvim",
-    config = function()
-      require("supermaven-nvim").setup({})
-    end,
-  }
 
   use {
     'pwntester/octo.nvim',
