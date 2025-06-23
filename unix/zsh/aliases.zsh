@@ -8,7 +8,7 @@ alias g='git'
 alias pip='pip3'
 alias python='python3'
 alias htop='btm'
-alias grep="batgrep --style=plain"
+alias grep="batgrep"
 alias ls='eza --icons -F -H --group-directories-first --git -1 -a'
 alias ll='ls -alF'
 alias gc="git commit"

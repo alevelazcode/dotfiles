@@ -21,7 +21,7 @@ config.font_size = 18
 config.line_height = 1.2
 
 -- Slightly transparent and blurred background
-config.window_background_opacity = 0.85
+config.window_background_opacity = 0.9
 config.macos_window_background_blur = 50
 -- Removes the title bar, leaving only the tab bar. Keeps
 -- the ability to resize by dragging the window's edges.

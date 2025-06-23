@@ -3,7 +3,7 @@
 local wezterm = require 'wezterm'
 local module = {}
 
-local project_dir = wezterm.home_dir .. "/Projects"
+local project_dir = wezterm.home_dir .. "/work"
 
 local function project_dirs()
   -- Start with your home directory as a project, 'cause you might want

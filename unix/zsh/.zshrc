@@ -80,6 +80,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 
 # Plugins 
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 [[ -f $CONFIG_ZSH/aliases.zsh ]] && source $CONFIG_ZSH/aliases.zsh
 [[ -f "$CONFIG_ZSH/functions.zsh" ]] && source "$CONFIG_ZSH/functions.zsh"
 [[ -f $CONFIG_ZSH/plugins.zsh ]] && source $CONFIG_ZSH/plugins.zsh
@@ -98,3 +99,12 @@ PATH=~/.console-ninja/.bin:$PATH
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Added by Windsurf
+export PATH="/Users/alejandrovelazco/.codeium/windsurf/bin:$PATH"
+
+export PATH="$HOME/Library/Android/sdk/cmdline-tools/latest/bin:$PATH"
+export ANDROID_HOME=$HOME/Library/Android/sdk
+
+export PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools

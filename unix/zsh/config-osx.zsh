@@ -44,7 +44,10 @@ code() {
 
 # Environment variables for Android and Java development
 export ANDROID_HOME="$HOME/Library/Android/sdk"
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home/"
+# export JAVA_HOME="/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home/"
+
+
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home"
 
 # Initialize rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init - zsh)"; fi

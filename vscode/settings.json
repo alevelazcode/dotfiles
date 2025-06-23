@@ -142,6 +142,7 @@
   "terminal.integrated.env.windows": {},
   "terminal.integrated.fontSize": 12,
   "terminal.integrated.gpuAcceleration": "on",
+  "terminal.integrated.copyOnSelection": false,
   "typescript.updateImportsOnFileMove.enabled": "always",
   "vim.easymotion": true,
   "vim.handleKeys": {
@@ -252,8 +253,13 @@
   "prisma.showPrismaDataPlatformNotification": false,
   "workbench.editor.enablePreview": false,
   "makefile.configureOnOpen": true,
-  "workbench.colorTheme": "Gruvbox Material Dark",
   "gruvboxMaterial.italicKeywords": true,
   "editor.wordWrap": "on",
-  "workbench.iconTheme": "symbols"
+  "workbench.iconTheme": "material-icon-theme",
+  "editor.dragAndDrop": false,
+  "editor.dropIntoEditor.enabled": false,
+  "editor.foldingImportsByDefault": true,
+  "ruff.organizeImports": false,
+  "gitlens.ai.model": "openai:o1-preview",
+  "workbench.colorTheme": "Monokai Pro"
 }

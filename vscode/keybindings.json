@@ -92,5 +92,9 @@
     },
     "command": "editor.action.codeAction",
     "key": "ctrl+."
+  },
+  {
+    "key": "cmd+i",
+    "command": "composerMode.agent"
   }
 ]
