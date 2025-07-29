@@ -82,6 +82,7 @@ create_symlinks() {
     
     # Fastfetch configuration
     if [[ -f "apps/fastfetch/config.jsonc" ]]; then
+        mkdir -p ~/.config/fastfetch
         ln -sf "$(pwd)/apps/fastfetch/config.jsonc" ~/.config/fastfetch/config.jsonc
         print_success "Fastfetch configuration linked"
     fi
