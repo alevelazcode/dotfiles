@@ -1,0 +1,105 @@
+
+# Install Python
+brew "python"
+
+# Install bat to use bat command instead of cat
+brew "bat"
+
+# Install bat extras to use bat command with syntax highlighting
+brew "bat-extras"
+
+# Install Bun
+brew "oven-sh/bun/bun"
+
+# Install glib to use gsettings command
+brew "glib"
+# Install pkg-config to use gsettings command
+
+# FD is a simple, fast and user-friendly alternative to find command in Unix
+# Install fd to use fd command instead of find
+brew "fd"
+
+# install fzf
+brew "fzf"
+
+# Install github cli
+brew "gh"
+
+# Install dorker
+brew "docker"
+
+# Instgall git
+brew "git"
+
+# Git delta is a syntax highlighter for git diff output
+brew "git-delta"
+
+# Languages
+# Goland is a statically typed, compiled language that feels like a dynamically typed, interpreted language.
+brew "go"
+# Rustup init
+brew "rustup-init"
+
+
+# JQ is a lightweight and flexible command-line JSON processor to use jq command to process JSON data in terminal
+brew "jq"
+
+# Install lazydocker to use lazydocker command instead of docker command for docker operations in terminal
+brew "lazydocker"
+
+# Install pkg-config to use gsettings command
+brew 'pkg-config' # https://github.com/driesvints/dotfiles/issues/20
+
+# Install neofetch to display system information
+brew "fastfetch"
+
+# Install neovim to use nvim command instead of vim
+brew "neovim", args: ["HEAD"]
+
+# Install nvm to manage node versions and npm
+brew "nvm"
+
+# Install tmux to use tmux command
+brew "tmux"
+
+# Install pgcli to use pgcli command
+brew "pgcli"
+# Install postgresql to use psql command
+brew "postgresql"
+
+# Install ripgrep to use rg command instead of grep command
+brew "ripgrep"
+
+# Install starship to display system information in terminal prompt
+brew "starship"
+
+# Install the_silver_searcher to use ag command instead of grep
+# brew "terminal-notifier"
+
+# Install lazygit to use lazygit command instead of git command for git operations in terminal
+brew "jesseduffield/lazygit/lazygit"
+
+
+
+brew "sf-symbols"
+
+
+# Install wget and curl
+brew "wget"
+brew "curl"
+
+
+brew "mas" # Install Mas to install apps from Mac App Store using command line
+brew "mackup" # Install Mackup to backup and restore application settings in macOS so you can restore your configuration on a new machine
+
+
+# Apps
+cask '1password'
+
+cask 'docker'
+cask 'github'
+cask 'slack'
+cask 'visual-studio-code'
+cask 'raycast'
+cask 'rocket'
+cask 'spotify'
