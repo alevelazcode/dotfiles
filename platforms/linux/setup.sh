@@ -32,6 +32,13 @@ print_error() {
 # Update system packages
 update_system() {
     print_status "Updating system packages..."
+    
+    # Set up locale
+    print_status "Setting up locale..."
+    sudo locale-gen en_US.UTF-8
+    export LC_ALL=en_US.UTF-8
+    export LANG=en_US.UTF-8
+    
     sudo apt update
     sudo apt upgrade -y
     print_success "System updated"
@@ -230,7 +237,6 @@ install_lazyvim() {
     
     print_success "LazyVim installed successfully"
     print_status "You can now customize LazyVim by editing ~/.config/nvim/lua/config/"
-}
 }
 
 # Main function
