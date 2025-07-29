@@ -1,6 +1,8 @@
 # # Set PATH
 # export PATH="/opt/homebrew/bin:$PATH"
 
+export JAVA_HOME="/opt/homebrew/opt/openjdk@11"
+
 # This function adds the specified path to PATH without duplicates
 # Equivalent to fish_add_path
 path_append() {

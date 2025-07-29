@@ -10,3 +10,6 @@ fi
 export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
 export ANDROID_HOME="$HOME/Android"
 export ANDROID_SDK_ROOT="$HOME/Android"
+
+alias pbcopy="xclip -selection clipboard"
+alias pbpaste="xclip -selection clipboard -o"
