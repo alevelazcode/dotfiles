@@ -23,12 +23,12 @@ This directory contains platform-specific configurations and setup scripts for d
 - `setup.sh` - Main setup script
 - `Brewfile` - Homebrew packages (if exists)
 
-### Linux Ubuntu (`linux/`)
+### Linux Ubuntu/Debian (`linux/`)
 
 **Features:**
 
 - APT package management
-- Ubuntu-specific optimizations
+- Ubuntu/Debian-specific optimizations
 - Development tools setup
 
 **Setup:**
@@ -36,6 +36,33 @@ This directory contains platform-specific configurations and setup scripts for d
 ```bash
 ./install.sh linux
 ```
+
+**Key Files:**
+
+- `setup.sh` - Main setup script
+
+### Fedora/RHEL (`fedora/`)
+
+**Features:**
+
+- DNF package management
+- Fedora/RHEL/CentOS/Rocky Linux support
+- RPM Fusion repositories
+- Development tools setup
+
+**Setup:**
+
+```bash
+./install.sh fedora
+```
+
+**Supported Distributions:**
+
+- Fedora (all versions)
+- Red Hat Enterprise Linux (RHEL)
+- CentOS Stream
+- Rocky Linux
+- AlmaLinux
 
 **Key Files:**
 
@@ -66,7 +93,8 @@ The main installation script automatically detects your platform:
 
 - **macOS**: Detected by `$OSTYPE == "darwin*"`
 - **WSL2**: Detected by checking `/proc/version` for Microsoft
-- **Linux**: Detected by checking `/etc/os-release` for Ubuntu
+- **Fedora/RHEL**: Detected by checking `/etc/os-release` for `ID=fedora|centos|rhel|rocky|almalinux` or `ID_LIKE=*rhel*|*fedora*`
+- **Linux Ubuntu/Debian**: Detected by checking `/etc/os-release` for `ID=ubuntu|debian` or `ID_LIKE=*debian*|*ubuntu*`
 
 ## Manual Platform Selection
 
@@ -74,7 +102,8 @@ You can also manually specify a platform:
 
 ```bash
 ./install.sh macos    # Force macOS setup
-./install.sh linux    # Force Linux setup
+./install.sh linux    # Force Ubuntu/Debian setup
+./install.sh fedora   # Force Fedora/RHEL setup
 ./install.sh wsl      # Force WSL setup
 ```
 

@@ -28,12 +28,12 @@ fi
 # =============================================================================
 
 # Node.js configuration
-export NODE_ENV="development"
+# export NODE_ENV="development"
 export NODE_OPTIONS="--max-old-space-size=4096"
 
 # npm configuration
-export npm_config_prefix="$HOME/.npm-global"
-export npm_config_cache="$HOME/.npm-cache"
+# export npm_config_prefix="$HOME/.npm-global"
+# export npm_config_cache="$HOME/.npm-cache"
 
 # pnpm configuration
 export PNPM_HOME="$HOME/.local/share/pnpm"

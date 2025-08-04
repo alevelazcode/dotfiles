@@ -1,6 +1,6 @@
 # 🔧 Dotfiles for Streamlined Dev Experience 🚀
 
-Your one-stop repository for macOS 🍎, WSL2 Ubuntu 🐧, and Linux Ubuntu 🐧 setups.
+Your one-stop repository for macOS 🍎, Fedora 🎩, WSL2 Ubuntu 🐧, and Linux Ubuntu 🐧 setups.
 
 ---
 
@@ -13,6 +13,7 @@ Your one-stop repository for macOS 🍎, WSL2 Ubuntu 🐧, and Linux Ubuntu 🐧
   - [📁 Project Structure](#-project-structure)
   - [🔧 Platform-Specific Setup](#-platform-specific-setup)
     - [macOS Setup](#macos-setup)
+    - [Fedora/RHEL Setup](#fedorarhel-setup)
     - [Linux Ubuntu Setup](#linux-ubuntu-setup)
     - [WSL2 Ubuntu Setup](#wsl2-ubuntu-setup)
   - [📝 Configuration Files](#-configuration-files)
@@ -84,6 +85,28 @@ dotfiles/
 - Modern Rust tools (bat, eza, ripgrep, fd, etc.)
 - LazyVim installation
 
+### Fedora/RHEL Setup
+
+```bash
+./install.sh fedora
+```
+
+**Includes:**
+
+- DNF package installation
+- RPM Fusion repositories setup
+- Fedora/RHEL/CentOS/Rocky Linux support
+- Development tools setup
+- Modern Rust tools (bat, eza, ripgrep, fd, etc.)
+- LazyVim installation
+
+**Supported Distributions:**
+- Fedora (all versions)
+- Red Hat Enterprise Linux (RHEL)
+- CentOS Stream
+- Rocky Linux
+- AlmaLinux
+
 ### Linux Ubuntu Setup
 
 ```bash
@@ -93,7 +116,7 @@ dotfiles/
 **Includes:**
 
 - APT package installation
-- Linux-specific shell configuration
+- Ubuntu/Debian-specific shell configuration
 - Development tools setup
 - Modern Rust tools (bat, eza, ripgrep, fd, etc.)
 - LazyVim installation

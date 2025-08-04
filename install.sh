@@ -38,11 +38,30 @@ detect_platform() {
         echo "wsl"
     elif [[ -f /etc/os-release ]]; then
         . /etc/os-release
-        if [[ "$ID" == "ubuntu" ]]; then
-            echo "linux"
-        else
-            echo "linux"
-        fi
+        case "$ID" in
+            "ubuntu")
+                echo "linux"
+                ;;
+            "fedora")
+                echo "fedora"
+                ;;
+            "centos"|"rhel"|"rocky"|"almalinux")
+                echo "fedora"  # Use Fedora setup for RHEL-based distros
+                ;;
+            "debian")
+                echo "linux"  # Use Ubuntu/Debian setup for Debian-based distros
+                ;;
+            *)
+                # Fallback: check ID_LIKE for family compatibility
+                if [[ "$ID_LIKE" == *"rhel"* ]] || [[ "$ID_LIKE" == *"fedora"* ]]; then
+                    echo "fedora"
+                elif [[ "$ID_LIKE" == *"debian"* ]] || [[ "$ID_LIKE" == *"ubuntu"* ]]; then
+                    echo "linux"
+                else
+                    echo "linux"  # Default to linux for unknown distributions
+                fi
+                ;;
+        esac
     else
         echo "unknown"
     fi
@@ -129,6 +148,10 @@ install_platform_packages() {
         if [[ -f "platforms/linux/setup.sh" ]]; then
             bash "platforms/linux/setup.sh"
         fi
+    elif [[ "$platform" == "fedora" ]]; then
+        if [[ -f "platforms/fedora/setup.sh" ]]; then
+            bash "platforms/fedora/setup.sh"
+        fi
     elif [[ "$platform" == "wsl" ]]; then
         if [[ -f "platforms/wsl/setup.sh" ]]; then
             bash "platforms/wsl/setup.sh"
@@ -187,7 +210,7 @@ main() {
 if [[ $# -eq 1 ]]; then
     PLATFORM=$1
     case $PLATFORM in
-        macos|linux|wsl)
+        macos|linux|fedora|wsl)
             print_status "Using specified platform: $PLATFORM"
             create_symlinks "$PLATFORM"
             install_platform_packages "$PLATFORM"
@@ -197,7 +220,7 @@ if [[ $# -eq 1 ]]; then
             ;;
         *)
             print_error "Invalid platform: $PLATFORM"
-            print_status "Valid platforms: macos, linux, wsl"
+            print_status "Valid platforms: macos, linux, fedora, wsl"
             exit 1
             ;;
     esac
