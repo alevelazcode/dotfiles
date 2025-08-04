@@ -92,15 +92,24 @@ All modern Rust tools are installed via Cargo for the latest versions:
 The setup script performs these steps:
 
 1. **System Update**: `sudo dnf update -y`
-2. **Essential Packages**: Install development tools and libraries
+2. **Essential Packages**: Install development tools and libraries (with `--skip-unavailable`)
 3. **Starship**: Install the modern shell prompt
-4. **Fastfetch**: Install system information tool
+4. **Fastfetch**: Install system information tool (tries DNF repo first, then manual)
 5. **Rust**: Install Rust toolchain and modern CLI tools
 6. **Shell Setup**: Configure ZSH as default shell
-7. **Development Tools**: Install Node.js, Python, and Rust packages
+7. **Development Tools**: Install Node.js, Python, and Rust packages (skip if already installed)
 8. **LazyVim**: Install modern Neovim configuration
 9. **Fedora Tools**: Install DNF plugins, Flatpak, Snapd
 10. **Repositories**: Enable RPM Fusion, Flathub, PowerTools/CRB
+
+### Smart Package Management
+
+The script intelligently handles packages:
+
+- **Skip Already Installed**: Checks if packages are already installed before attempting installation
+- **Handle Package Name Changes**: Uses `--skip-unavailable` for renamed/missing packages
+- **Graceful Failures**: Continues installation even if some packages fail
+- **DNF vs Manual**: Tries system packages first, falls back to manual installation
 
 ## Special Considerations
 
@@ -142,7 +151,25 @@ sudo dnf install dnf-plugins-core
 
 ### Common Issues
 
-1. **Repository Access Issues**
+1. **"Package is already installed" or "No match for argument"**
+
+   ```bash
+   # The script handles this automatically with --skip-unavailable
+   # If you see these messages, they're informational and safe to ignore
+   # The script will continue and complete successfully
+   ```
+
+2. **Package Name Changes (Fedora 42+ specific)**
+
+   ```bash
+   # The script now uses correct Fedora 42+ package names:
+   # - pkg-config → pkgconf-devel
+   # - zlib-devel → zlib-ng-compat-devel
+   # - liblzma-devel → xz-devel
+   # - util-linux-user → util-linux
+   ```
+
+3. **Repository Access Issues**
 
    ```bash
    # Refresh repository metadata
@@ -150,7 +177,7 @@ sudo dnf install dnf-plugins-core
    sudo dnf makecache
    ```
 
-2. **Package Not Found**
+4. **Package Not Found**
 
    ```bash
    # Search for package
@@ -160,7 +187,7 @@ sudo dnf install dnf-plugins-core
    dnf repolist
    ```
 
-3. **Permission Errors**
+5. **Permission Errors**
 
    ```bash
    # Ensure user is in wheel group
@@ -170,7 +197,7 @@ sudo dnf install dnf-plugins-core
    sudo usermod -aG wheel $USER
    ```
 
-4. **Rust Tools Update**
+6. **Rust Tools Update**
 
    ```bash
    # Update all Rust tools
@@ -178,6 +205,13 @@ sudo dnf install dnf-plugins-core
 
    # Or update individually
    cargo install --force ripgrep bat eza
+   ```
+
+7. **Python/Node.js Package Conflicts**
+
+   ```bash
+   # The script now checks if packages are already installed
+   # and skips them gracefully to avoid conflicts
    ```
 
 ## Manual Installation

@@ -42,7 +42,8 @@ update_system() {
 install_essential_packages() {
     print_status "Installing essential packages..."
     
-    sudo dnf install -y \
+    # Install packages with --skip-unavailable to handle missing/renamed packages
+    sudo dnf install -y --skip-unavailable \
         git \
         curl \
         wget \
@@ -51,10 +52,10 @@ install_essential_packages() {
         gcc-c++ \
         make \
         cmake \
-        pkg-config \
+        pkgconf-devel \
         openssl-devel \
         readline-devel \
-        zlib-devel \
+        zlib-ng-compat-devel \
         bzip2-devel \
         sqlite-devel \
         ncurses-devel \
@@ -63,7 +64,7 @@ install_essential_packages() {
         libxml2-devel \
         xmlsec1-devel \
         libffi-devel \
-        liblzma-devel \
+        xz-devel \
         unzip \
         htop \
         tree \
@@ -75,7 +76,15 @@ install_essential_packages() {
         python3-pip \
         nodejs \
         npm \
-        util-linux-user
+        util-linux
+        
+    # Install packages that might have different names or be optional
+    print_status "Installing additional development packages..."
+    sudo dnf install -y --skip-unavailable \
+        python3-venv \
+        python3-pipx \
+        development-tools \
+        @development-tools
         
     print_success "Essential packages installed"
 }
@@ -142,32 +151,28 @@ install_dev_tools() {
     
     # Install Node.js packages
     if command -v npm &> /dev/null; then
-        sudo npm install -g \
-            typescript \
-            ts-node \
-            nodemon \
-            eslint \
-            prettier \
-            yarn
-        print_success "Node.js packages installed"
+        print_status "Installing Node.js global packages..."
+        for package in typescript ts-node nodemon eslint prettier yarn; do
+            if ! npm list -g "$package" &>/dev/null; then
+                sudo npm install -g "$package" || print_warning "Failed to install $package"
+            else
+                print_status "$package is already installed globally"
+            fi
+        done
+        print_success "Node.js packages processed"
     fi
     
     # Install Rust packages
     if command -v cargo &> /dev/null; then
-        cargo install \
-            ripgrep \
-            fd-find \
-            bat \
-            eza \
-            tokei \
-            cargo-watch \
-            cargo-edit \
-            du-dust \
-            procs \
-            sd \
-            tealdeer \
-            cargo-update
-        print_success "Rust packages installed"
+        print_status "Installing Rust packages..."
+        for package in ripgrep fd-find bat eza tokei cargo-watch cargo-edit du-dust procs sd tealdeer cargo-update; do
+            if ! cargo install --list | grep -q "^$package "; then
+                cargo install "$package" || print_warning "Failed to install $package"
+            else
+                print_status "$package is already installed"
+            fi
+        done
+        print_success "Rust packages processed"
     fi
     
     # Install Python packages
@@ -178,27 +183,35 @@ install_dev_tools() {
             pipx ensurepath
             print_success "pipx PATH configured"
             
-            # Install Python applications via pipx
-            pipx install black
-            pipx install flake8
-            pipx install mypy
-            pipx install pytest
-            pipx install ipython
-            pipx install jupyterlab
-            print_success "Python applications installed via pipx"
+            # Install Python applications via pipx (skip if already installed)
+            print_status "Installing Python applications via pipx..."
+            for app in black flake8 mypy pytest ipython jupyterlab; do
+                if ! pipx list | grep -q "^  package $app "; then
+                    pipx install "$app" || print_warning "Failed to install $app via pipx"
+                else
+                    print_status "$app is already installed via pipx"
+                fi
+            done
+            print_success "Python applications processed via pipx"
         else
-            # Install pipx if not available
-            pip3 install --user pipx
+            # Install pipx if not available (try DNF first, then pip)
+            if ! sudo dnf install -y python3-pipx 2>/dev/null; then
+                print_status "Installing pipx via pip..."
+                pip3 install --user pipx
+            fi
             pipx ensurepath
             print_success "pipx PATH configured"
             
-            pipx install black
-            pipx install flake8
-            pipx install mypy
-            pipx install pytest
-            pipx install ipython
-            pipx install jupyterlab
-            print_success "Python applications installed via pipx"
+            # Install Python applications via pipx (skip if already installed)
+            print_status "Installing Python applications via pipx..."
+            for app in black flake8 mypy pytest ipython jupyterlab; do
+                if ! pipx list | grep -q "^  package $app "; then
+                    pipx install "$app" || print_warning "Failed to install $app via pipx"
+                else
+                    print_status "$app is already installed via pipx"
+                fi
+            done
+            print_success "Python applications processed via pipx"
         fi
         
         # Create a development virtual environment for additional packages
