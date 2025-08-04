@@ -269,13 +269,71 @@ install_fedora_tools() {
     fi
     
     # Install additional development tools
-    sudo dnf install -y \
+    sudo dnf install -y --skip-unavailable \
         dnf-plugins-core \
         dnf-automatic \
         snapd \
         flatpak
         
     print_success "Fedora-specific tools installed"
+}
+
+# Install NVIDIA drivers (latest)
+install_nvidia_drivers() {
+    print_status "Checking for NVIDIA GPU and installing drivers..."
+    
+    # Check if NVIDIA GPU is present
+    if ! lspci | grep -i nvidia &> /dev/null; then
+        print_warning "No NVIDIA GPU detected. Skipping NVIDIA driver installation."
+        return 0
+    fi
+    
+    print_status "NVIDIA GPU detected. Installing latest NVIDIA drivers..."
+    
+    # Ensure RPM Fusion non-free is available (required for NVIDIA drivers)
+    if ! rpm -qa | grep -q rpmfusion-nonfree-release; then
+        print_status "Installing RPM Fusion non-free repository (required for NVIDIA drivers)..."
+        sudo dnf install -y \
+            https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+    fi
+    
+    # Update package database
+    sudo dnf update -y
+    
+    # Install NVIDIA drivers
+    print_status "Installing NVIDIA drivers (akmod-nvidia)..."
+    sudo dnf install -y akmod-nvidia
+    
+    # Install NVIDIA CUDA drivers (for development/computing)
+    print_status "Installing NVIDIA CUDA drivers..."
+    sudo dnf install -y xorg-x11-drv-nvidia-cuda
+    
+    # Install additional NVIDIA packages
+    print_status "Installing additional NVIDIA packages..."
+    sudo dnf install -y --skip-unavailable \
+        nvidia-vaapi-driver \
+        nvidia-settings \
+        vulkan \
+        nvidia-container-toolkit
+    
+    # Build initial kernel modules
+    print_status "Building initial NVIDIA kernel modules..."
+    sudo akmods --force --rebuild
+    
+    # Regenerate initramfs
+    print_status "Regenerating initramfs..."
+    sudo dracut --force
+    
+    print_success "NVIDIA drivers installed successfully"
+    print_warning "Please reboot your system for NVIDIA drivers to take effect"
+    print_status "After reboot, you can verify installation with: nvidia-smi"
+    
+    # Additional recommendations
+    print_status "Additional NVIDIA setup recommendations:"
+    echo "  - Install nvidia-container-toolkit for Docker GPU support"
+    echo "  - Run 'nvidia-settings' for GPU configuration"
+    echo "  - Check 'nvidia-smi' for GPU status after reboot"
+    echo "  - For gaming, consider installing steam and enabling Proton"
 }
 
 # Enable additional repositories
@@ -298,9 +356,32 @@ enable_repositories() {
     fi
 }
 
+# Setup ZSH with Oh My Zsh
+setup_zsh_complete() {
+    print_status "Setting up ZSH with Oh My Zsh and essential plugins..."
+    
+    # Source the common ZSH setup script
+    if [[ -f "$(dirname "$0")/../../shell/common/zsh-setup.sh" ]]; then
+        source "$(dirname "$0")/../../shell/common/zsh-setup.sh"
+        setup_zsh
+    elif [[ -f "./shell/common/zsh-setup.sh" ]]; then
+        source "./shell/common/zsh-setup.sh"
+        setup_zsh
+    else
+        print_warning "ZSH setup script not found. Installing ZSH manually..."
+        # Fallback: ensure ZSH is installed and set as default
+        if ! command -v zsh &> /dev/null; then
+            sudo dnf install -y zsh
+        fi
+        if [[ "$SHELL" != "$(which zsh)" ]]; then
+            chsh -s "$(which zsh)"
+        fi
+    fi
+}
+
 # Main function
 main() {
-    print_status "Starting Fedora setup..."
+    print_status "Starting comprehensive Fedora setup..."
     
     update_system
     install_essential_packages
@@ -308,13 +389,25 @@ main() {
     install_fastfetch
     install_rust
     setup_shell
+    setup_zsh_complete
     install_dev_tools
     install_lazyvim
     install_fedora_tools
+    install_nvidia_drivers
     enable_repositories
     
     print_success "Fedora setup complete!"
-    print_status "Please restart your terminal for all changes to take effect."
+    print_status "Summary of what was installed:"
+    echo "  ✅ System packages and development tools"
+    echo "  ✅ ZSH with Oh My Zsh and essential plugins"
+    echo "  ✅ Starship prompt and Fastfetch"
+    echo "  ✅ Rust toolchain and modern CLI tools"
+    echo "  ✅ Node.js, Python, and development packages"
+    echo "  ✅ LazyVim (modern Neovim configuration)"
+    echo "  ✅ RPM Fusion repositories and Flatpak"
+    echo "  ✅ NVIDIA drivers (if GPU detected)"
+    print_status ""
+    print_warning "Please restart your terminal or reboot for all changes to take effect."
     print_status "You may also want to run 'sudo dnf upgrade' regularly to keep your system updated."
 }
 

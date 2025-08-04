@@ -263,7 +263,6 @@ install_lazyvim() {
     print_success "LazyVim installed successfully"
     print_status "You can now customize LazyVim by editing ~/.config/nvim/lua/config/"
 }
-}
 
 # Setup Windows integration
 setup_windows_integration() {
@@ -283,9 +282,32 @@ setup_windows_integration() {
     fi
 }
 
+# Setup ZSH with Oh My Zsh
+setup_zsh_complete() {
+    print_status "Setting up ZSH with Oh My Zsh and essential plugins..."
+    
+    # Source the common ZSH setup script
+    if [[ -f "$(dirname "$0")/../../shell/common/zsh-setup.sh" ]]; then
+        source "$(dirname "$0")/../../shell/common/zsh-setup.sh"
+        setup_zsh
+    elif [[ -f "./shell/common/zsh-setup.sh" ]]; then
+        source "./shell/common/zsh-setup.sh"
+        setup_zsh
+    else
+        print_warning "ZSH setup script not found. Installing ZSH manually..."
+        # Fallback: ensure ZSH is installed and set as default
+        if ! command -v zsh &> /dev/null; then
+            sudo apt install -y zsh
+        fi
+        if [[ "$SHELL" != "$(which zsh)" ]]; then
+            chsh -s "$(which zsh)"
+        fi
+    fi
+}
+
 # Main function
 main() {
-    print_status "Starting WSL2 Ubuntu setup..."
+    print_status "Starting comprehensive WSL2 Ubuntu setup..."
     
     check_wsl
     update_system
@@ -295,12 +317,23 @@ main() {
     install_rust
     setup_wsl_config
     setup_shell
+    setup_zsh_complete
     install_dev_tools
     install_lazyvim
     setup_windows_integration
     
     print_success "WSL2 Ubuntu setup complete!"
-    print_status "Please restart your terminal for all changes to take effect."
+    print_status "Summary of what was installed:"
+    echo "  ✅ System packages and development tools"
+    echo "  ✅ ZSH with Oh My Zsh and essential plugins"
+    echo "  ✅ WSL2 optimizations and configurations"
+    echo "  ✅ Starship prompt and Fastfetch"
+    echo "  ✅ Rust toolchain and modern CLI tools"
+    echo "  ✅ Node.js, Python, and development packages"
+    echo "  ✅ LazyVim (modern Neovim configuration)"
+    echo "  ✅ Windows integration (paths and symlinks)"
+    print_status ""
+    print_warning "Please restart your terminal for all changes to take effect."
     print_warning "Remember to create the .wslconfig file in your Windows user directory for optimal performance."
 }
 

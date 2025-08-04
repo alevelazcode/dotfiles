@@ -26,15 +26,15 @@ Your one-stop repository for macOS 🍎, Fedora 🎩, WSL2 Ubuntu 🐧, and Linu
 
 ## 🌟 Features
 
-- **Cross-Platform ZSH Configuration** with modular setup
-- **Starship Prompt** for a minimal and powerful shell prompt
-- **Modern Development Tools** for enhanced productivity
-- **LazyVim** for the modern Vim experience (automatically installed)
-- **VSCode Configuration** for consistent editor experience
-- **Homebrew Formulas** for macOS package management
-- **NeoFetch Config** for system information display
-- **Common Development Tools** (Node.js, Rust, Python)
-- **Modern Rust Tools** (bat, eza, ripgrep, fd, etc.)
+- **ZSH with Oh My Zsh** - Complete shell setup with essential plugins
+- **Essential ZSH Plugins** - autosuggestions, syntax highlighting, completions
+- **Modern CLI Tools** - bat, eza, ripgrep, fd, dust, procs, and more
+- **Cross-Platform Support** - macOS, Fedora, Ubuntu, WSL2
+- **LazyVim** - Modern Neovim configuration (automatically installed)
+- **Starship Prompt** - Fast and customizable shell prompt
+- **Development Tools** - Node.js, Rust, Python with modern toolchains
+- **NVIDIA Drivers** - Latest drivers for Fedora (auto-detected)
+- **Smart Package Management** - Handles already installed packages gracefully
 
 ---
 

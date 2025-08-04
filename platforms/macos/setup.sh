@@ -200,19 +200,50 @@ install_lazyvim() {
     print_status "You can now customize LazyVim by editing ~/.config/nvim/lua/config/"
 }
 
+# Setup ZSH with Oh My Zsh
+setup_zsh_complete() {
+    print_status "Setting up ZSH with Oh My Zsh and essential plugins..."
+    
+    # Source the common ZSH setup script
+    if [[ -f "$(dirname "$0")/../../shell/common/zsh-setup.sh" ]]; then
+        source "$(dirname "$0")/../../shell/common/zsh-setup.sh"
+        setup_zsh
+    elif [[ -f "./shell/common/zsh-setup.sh" ]]; then
+        source "./shell/common/zsh-setup.sh"
+        setup_zsh
+    else
+        print_warning "ZSH setup script not found. Installing ZSH manually..."
+        # Fallback: ensure ZSH is installed and set as default
+        if ! command -v zsh &> /dev/null; then
+            brew install zsh
+        fi
+        if [[ "$SHELL" != "$(which zsh)" ]]; then
+            chsh -s "$(which zsh)"
+        fi
+    fi
+}
+
 # Main function
 main() {
-    print_status "Starting macOS setup..."
+    print_status "Starting comprehensive macOS setup..."
     
     install_homebrew
     install_packages
     install_macos_tools
     setup_shell
+    setup_zsh_complete
     install_dev_tools
     install_lazyvim
     
     print_success "macOS setup complete!"
-    print_status "Please restart your terminal for all changes to take effect."
+    print_status "Summary of what was installed:"
+    echo "  ✅ Homebrew and essential packages"
+    echo "  ✅ ZSH with Oh My Zsh and essential plugins"
+    echo "  ✅ Development tools and modern CLI utilities"
+    echo "  ✅ Node.js, Python, and Rust packages"
+    echo "  ✅ LazyVim (modern Neovim configuration)"
+    print_status ""
+    print_warning "Please restart your terminal for all changes to take effect."
 }
 
 main "$@"
