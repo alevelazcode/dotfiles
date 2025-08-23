@@ -80,6 +80,12 @@ source "$ZSH_CONFIG_DIR/dev/docker.zsh"
 autoload -Uz compinit
 compinit
 
+# Ensure completion system is fully loaded
+autoload -Uz _complete
+autoload -Uz _main_complete
+
+# Note: menuselect bindings are not needed when using fzf for completion
+
 # Load any additional completions
 [[ -d "$ZSH_CONFIG_DIR/completions" ]] && fpath=("$ZSH_CONFIG_DIR/completions" $fpath)
 

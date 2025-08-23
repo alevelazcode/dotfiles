@@ -31,10 +31,7 @@ setopt MENU_COMPLETE
 zstyle ':completion:*' menu select
 
 # Menu selection key bindings (must be after compinit)
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
+# These will be set up after compinit is called in init.zsh
 
 # Use cache for completion
 zstyle ':completion::complete:*' use-cache 1
