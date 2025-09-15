@@ -1,7 +1,6 @@
 # # Set PATH
 # export PATH="/opt/homebrew/bin:$PATH"
 
-export JAVA_HOME="/opt/homebrew/opt/openjdk@11"
 
 # This function adds the specified path to PATH without duplicates
 # Equivalent to fish_add_path
@@ -46,10 +45,14 @@ code() {
 
 # Environment variables for Android and Java development
 export ANDROID_HOME="$HOME/Library/Android/sdk"
-# export JAVA_HOME="/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home/"
 
 
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home"
+
+
+# Option A: hard-coded path
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk-21.jdk/Contents/Home"
+export PATH="$JAVA_HOME/bin:$PATH"
+
 
 # Initialize rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init - zsh)"; fi
@@ -63,3 +66,5 @@ alias masl='mas list'
 alias maso='mas outdated'
 alias mass='mas search'
 alias masu='mas upgrade'
+
+export PATH="$HOME/miniforge3/bin:$PATH"

@@ -19,9 +19,7 @@ fi
 if command -v bat &> /dev/null; then
     alias cat="bat --style=plain"
 fi
-if command -v batgrep &> /dev/null; then
-    alias grep="batgrep"
-fi
+
 if command -v fd &> /dev/null; then
     alias find='fd'
 fi

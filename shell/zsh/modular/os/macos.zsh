@@ -139,4 +139,30 @@ macos-info() {
     system_profiler SPHardwareDataType | grep -E "(Model Name|Model Identifier|Processor|Memory|Serial Number)" | sed 's/^[[:space:]]*//'
 }
 
+if type brew &>/dev/null; then
+    FPATH=$(brew --prefix)/share/zsh-abbr:$FPATH
+
+    autoload -Uz compinit
+    compinit
+  fi
+
+path_append "/opt/homebrew/bin"
+
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
+
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Environment variables for Android and Java development
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+
+
+
+
+# Option A: hard-coded path
+export JAVA_HOME=$(/usr/libexec/java_home -v 21)
+export PATH="$JAVA_HOME/bin:$PATH"
+export PATH="/Applications/Windsurf.app/Contents/MacOS:$PATH"
+
+
 echo "✅ macOS configuration loaded" 
