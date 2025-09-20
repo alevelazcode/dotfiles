@@ -27,11 +27,6 @@ if command -v pyenv &> /dev/null; then
     eval "$(pyenv init --path)"
 fi
 
-# conda configuration
-if [[ -f "$HOME/miniconda3/bin/conda" ]]; then
-    eval "$($HOME/miniconda3/bin/conda 'shell.zsh' 'hook')"
-fi
-
 # =============================================================================
 # Python Aliases
 # =============================================================================
@@ -143,12 +138,6 @@ check-python-env() {
         echo "✅ pyenv is installed"
     else
         echo "ℹ️  pyenv is not installed"
-    fi
-    
-    if [[ -f "$HOME/miniconda3/bin/conda" ]]; then
-        echo "✅ conda is installed"
-    else
-        echo "ℹ️  conda is not installed"
     fi
     
     if [[ -n "$VIRTUAL_ENV" ]]; then

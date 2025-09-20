@@ -13,3 +13,6 @@ export ANDROID_SDK_ROOT="$HOME/Android"
 
 alias pbcopy="xclip -selection clipboard"
 alias pbpaste="xclip -selection clipboard -o"
+
+
+export PATH="$HOME/miniforge3/bin:$PATH"

@@ -166,3 +166,5 @@ export PATH="/Applications/Windsurf.app/Contents/MacOS:$PATH"
 
 
 echo "✅ macOS configuration loaded" 
+
+eval "$(/opt/homebrew/Caskroom/miniforge/base/bin/conda shell.zsh hook)"

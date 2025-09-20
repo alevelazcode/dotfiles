@@ -1,17 +1,11 @@
 {
   "[csharp]": {
     "editor.maxTokenizationLineLength": 2500
-  }, // optional but recommended
+  },
   "editor.semanticHighlighting.enabled": true,
   "[go]": {
     "editor.defaultFormatter": "golang.go",
     "editor.formatOnSave": true
-  },
-  "[python]": {
-    "editor.defaultFormatter": "ms-python.pylint",
-    "editor.formatOnPaste": true,
-    "editor.formatOnSave": true,
-    "editor.formatOnType": true
   },
   "[rust]": {
     "editor.formatOnSave": true
@@ -28,15 +22,47 @@
   "css.format.spaceAroundSelectorSeparator": true,
   "dart.flutterSdkPath": "/Users/alejandrovelazco/development/flutter",
   "editor.bracketPairColorization.enabled": true,
-  // "javascript.format.semicolons": "remove",
-  // "typescript.format.semicolons": "remove",
-  // "typescript.preferences.quoteStyle": "single",
-  // "javascript.preferences.quoteStyle": "single",
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit",
-    "source.organizeImports": "explicit",
-    "source.addMissingImports": "explicit"
+  
+  // MOVIDO A CONFIGURACIONES ESPECÍFICAS POR LENGUAJE
+  // "editor.codeActionsOnSave": {
+  //   "source.fixAll.eslint": "explicit",
+  //   "source.organizeImports": "explicit",
+  //   "source.addMissingImports": "explicit"
+  // },
+  
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+      "source.organizeImports": "explicit",
+      "source.addMissingImports": "explicit"
+    }
   },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+      "source.organizeImports": "explicit",
+      "source.addMissingImports": "explicit"
+    }
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+      "source.organizeImports": "explicit",
+      "source.addMissingImports": "explicit"
+    }
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+      "source.organizeImports": "explicit",
+      "source.addMissingImports": "explicit"
+    }
+  },
+  
   "editor.cursorBlinking": "expand",
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.cursorSurroundingLines": 8,
@@ -45,7 +71,6 @@
   "editor.fontLigatures": "'calt', 'ss01'",
   "editor.fontSize": 13,
   "editor.fontWeight": "400",
-  // "editor.letterSpacing": 0.5,
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
   "editor.formatOnType": true,
@@ -63,7 +88,16 @@
   "editor.stickyScroll.enabled": true,
   "editor.tabCompletion": "on",
   "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?",
-  //  Emmet
+  "editor.rulers": [88],
+  "editor.tabSize": 4,
+  "editor.insertSpaces": true,
+  "editor.formatOnSaveTimeout": 3000,
+  "editor.wordWrap": "on",
+  "editor.dragAndDrop": false,
+  "editor.dropIntoEditor.enabled": false,
+  "editor.foldingImportsByDefault": true,
+  
+  // Emmet
   "emmet.triggerExpansionOnTab": true,
   "errorLens.excludeBySource": ["eslint(no-undef)", "ts(2786)"],
   "eslint.validate": [
@@ -73,6 +107,9 @@
     "javascriptreact",
     "typescriptreact"
   ],
+  "eslint.useFlatConfig": true,
+  "eslint.experimental.useFlatConfig": true,
+  
   "explorer.compactFolders": false,
   "explorer.confirmDelete": false,
   "git.autofetch": true,
@@ -82,7 +119,10 @@
   "git.openRepositoryInParentFolders": "always",
   "files.insertFinalNewline": false,
   "files.trimFinalNewlines": true,
-  // "editor.renderFinalNewline": "on",
+  "files.autoGuessEncoding": true,
+  "files.autoSaveWhenNoErrors": true,
+  "files.autoSaveWorkspaceFilesOnly": true,
+  
   "github.copilot.enable": {
     "*": true,
     "markdown": false,
@@ -90,16 +130,21 @@
     "scminput": false
   },
   "github.copilot.editor.enableAutoCompletions": true,
+  
   "glassit.alpha": 235,
   "gopls": {
     "formatting.gofumpt": true
   },
+  
   "jupyter.interactiveWindow.textEditor.executeSelection": true,
   "notebook.output.scrolling": true,
   "notebook.output.textLineLimit": 100,
+  "notebook.output.fontFamily": "'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
+  
   "oneDarkPro.bold": true,
   "oneDarkPro.editorTheme": "One Dark Pro Darker",
   "oneDarkPro.vivid": true,
+  
   "php-cs-fixer.config": ".php-cs-fixer.php",
   "php-cs-fixer.executablePath": "${workspaceFolder}/vendor/bin/php-cs-fixer",
   "phpfmt.exclude": ["ReindentComments", "StripNewlineWithinClassBody"],
@@ -112,6 +157,37 @@
     "ReindentSwitchBlocks"
   ],
   "phpfmt.psr2": true,
+  
+  // ========== CONFIGURACIÓN PYTHON CORREGIDA ==========
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      // Orden crítico: organizeImports primero, luego fixAll
+      "source.organizeImports.ruff": "explicit",
+      "source.fixAll.ruff": "explicit"
+    },
+    "editor.rulers": [88],
+    "editor.tabSize": 4
+  },
+  
+  // Servidor nativo de Ruff (configuración mínima)
+  "ruff.nativeServer": "on",
+  "ruff.enable": true,
+  "ruff.fixAll": false,
+  "ruff.organizeImports": false,
+  
+  // Python - desactivar todos los demás formateadores/linters
+  "python.languageServer": "None",
+  "python.formatting.provider": "none",
+  "python.linting.enabled": false,
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Enabled": false,
+  "python.linting.banditEnabled": false,
+  "python.linting.mypyEnabled": false,
+  "python.sortImports.provider": "none",
+  
+  // Python - configuración de análisis
   "python.analysis.autoSearchPath": true,
   "python.analysis.extraPaths": [
     "src/lib",
@@ -125,14 +201,21 @@
     "all-stubs/mpy_1_13-nightly_frozen/esp32/GENERIC",
     "all-stubs/esp32_1_13_0-103"
   ],
-  "python.languageServer": "Pylance",
-  "python.linting.enabled": true,
-  "python.linting.pylintEnabled": true,
+  
+  // MyPy opcional (si lo necesitas)
+  "mypy.runUsingDmypy": true,
+  
+  // ========== FIN CONFIGURACIÓN PYTHON ==========
+  
   "security.workspace.trust.untrustedFiles": "open",
+  "security.promptForLocalFileProtocolHandling": false,
+  
   "symbols.hidesExplorerArrows": false,
   "synthwave84.brightness": 0.1,
   "synthwave84.disableGlow": false,
+  
   "tailwindCSS.emmetCompletions": true,
+  
   "terminal.external.linuxExec": "kitty",
   "terminal.external.osxExec": "iTerm2.app",
   "terminal.integrated.cursorBlinking": true,
@@ -142,8 +225,14 @@
   "terminal.integrated.env.windows": {},
   "terminal.integrated.fontSize": 12,
   "terminal.integrated.gpuAcceleration": "on",
-  "terminal.integrated.copyOnSelection": false,
+  "terminal.integrated.fontFamily": "'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
+  "terminal.integrated.inheritEnv": false,
+  
   "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  
+  // Vim
   "vim.easymotion": true,
   "vim.handleKeys": {
     "<C-d>": true,
@@ -213,53 +302,57 @@
       "commands": ["editor.action.commentLine", "extension.vim_escape"]
     }
   ],
-  "window.commandCenter": false,
+  
+  // Workbench
+  "workbench.colorTheme": "Gruvbox Material Dark",
+  "workbench.iconTheme": "bearded-icons",
   "workbench.colorCustomizations": {},
   "workbench.editor.showTabs": "single",
+  "workbench.editor.enablePreview": false,
   "workbench.layoutControl.enabled": false,
   "workbench.preferredDarkColorTheme": "Moonlight II Italic",
   "workbench.preferredHighContrastColorTheme": "Moonlight II Italic",
+  "workbench.preferredHighContrastLightColorTheme": "Moonlight II Italic",
+  "workbench.preferredLightColorTheme": "Moonlight II Italic",
   "workbench.productIconTheme": "fluent-icons",
   "workbench.statusBar.visible": false,
   "workbench.tree.indent": 20,
-  "remote.extensionKind": {
-    "adpyke.codesnap": ["ui"]
-  },
-  "console-ninja.featureSet": "Community",
+  "workbench.sideBar.location": "right",
+  "workbench.activityBar.location": "top",
+  
+  "window.commandCenter": false,
   "window.zoomLevel": 1,
-  "workbench.preferredHighContrastLightColorTheme": "Moonlight II Italic",
-  "workbench.preferredLightColorTheme": "Moonlight II Italic",
-  "markdown-preview-enhanced.revealjsTheme": "night.css",
+  
+  // Extensiones específicas
+  "gruvboxMaterial.italicKeywords": true,
   "errorLens.fontFamily": "'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
   "editor.codeLensFontFamily": "'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
   "markdown.preview.fontFamily": "'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
-  "terminal.integrated.fontFamily": "'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
-  "notebook.output.fontFamily": "'CaskaydiaCove Nerd Font' , 'Mononoki Nerd Font'   , Menlo ",
   "codesnap.shutterAction": "copy",
-  "security.promptForLocalFileProtocolHandling": false,
   "markdown.extension.print.theme": "dark",
   "markdown-preview-enhanced.previewTheme": "one-dark.css",
-  "react-native-tools.networkInspector.consoleLogsColorTheme": "Dark",
+  "markdown-preview-enhanced.revealjsTheme": "night.css",
   "markdown-preview-enhanced.mermaidTheme": "dark",
+  "react-native-tools.networkInspector.consoleLogsColorTheme": "Dark",
   "cSpell.userWords": ["Fastify", "pnpx"],
   "javascript.updateImportsOnFileMove.enabled": "always",
   "prettier.endOfLine": "auto",
   "vue.server.hybridMode": true,
-  "files.autoGuessEncoding": true,
-  "files.autoSaveWhenNoErrors": true,
-  "files.autoSaveWorkspaceFilesOnly": true,
-  "workbench.sideBar.location": "right",
-  "workbench.activityBar.location": "top",
   "prisma.showPrismaDataPlatformNotification": false,
-  "workbench.editor.enablePreview": false,
   "makefile.configureOnOpen": true,
-  "gruvboxMaterial.italicKeywords": true,
-  "editor.wordWrap": "on",
-  "workbench.iconTheme": "material-icon-theme",
-  "editor.dragAndDrop": false,
-  "editor.dropIntoEditor.enabled": false,
-  "editor.foldingImportsByDefault": true,
-  "ruff.organizeImports": false,
+  "console-ninja.featureSet": "Community",
   "gitlens.ai.model": "openai:o1-preview",
-  "workbench.colorTheme": "Monokai Pro"
+  
+  // Windsurf
+  "windsurf.autocompleteSpeed": "default",
+  "windsurf.autoExecutionPolicy": "off",
+  "windsurf.chatFontSize": "default",
+  "windsurf.rememberLastModelSelection": false,
+  "windsurf.explainAndFixInCurrentConversation": false,
+  "windsurf.openRecentConversation": false,
+  "windsurf.enableTabToJump": false,
+  
+  "remote.extensionKind": {
+    "adpyke.codesnap": ["ui"]
+  }
 }

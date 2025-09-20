@@ -66,5 +66,3 @@ alias masl='mas list'
 alias maso='mas outdated'
 alias mass='mas search'
 alias masu='mas upgrade'
-
-export PATH="$HOME/miniforge3/bin:$PATH"

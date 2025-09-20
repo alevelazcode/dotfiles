@@ -1,5 +1,5 @@
 [core]
-	excludesfile = ~/.gitignore
+	excludesfile = /Users/alejandrovelazco/.gitignore_global
 	editor = nvim
 	ignorecase = false
   pager = delta
@@ -68,8 +68,8 @@
   root = ~/.ghq
 
 [user]
-  email = alejanvelazco2008@proton.me
-  name = Alejandro Velazco
+	email = alejanvelazco2008@proton.me
+	name = Alejandro Velazco
   username = spectrox0
 
 [pull]
@@ -100,3 +100,11 @@
 	cmd = git-nbmergetool merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
 [mergetool]
 	prompt = false
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Users/alejandrovelazco/Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/alejandrovelazco/.stCommitMsg
