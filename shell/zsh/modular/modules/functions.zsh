@@ -275,4 +275,51 @@ tempdir() {
 loc() {
     local directory="${1:-.}"
     find "$directory" -name "*.py" -o -name "*.js" -o -name "*.ts" -o -name "*.jsx" -o -name "*.tsx" -o -name "*.java" -o -name "*.cpp" -o -name "*.c" -o -name "*.h" -o -name "*.go" -o -name "*.rs" | xargs wc -l | tail -1
+}
+
+# =============================================================================
+# ZSH Performance Utilities
+# =============================================================================
+
+# Measure zsh startup time
+zsh-startup-time() {
+    local iterations="${1:-10}"
+    echo "Measuring zsh startup time ($iterations iterations)..."
+    for i in $(seq 1 $iterations); do
+        /usr/bin/time zsh -i -c exit 2>&1
+    done | grep real | awk '{sum+=$1} END {print "Average: " sum/NR " seconds"}'
+}
+
+# Quick zsh startup benchmark
+zsh-bench() {
+    echo "ZSH startup time:"
+    for i in 1 2 3; do
+        time (zsh -i -c exit)
+    done
+}
+
+# Clear zsh caches to regenerate on next startup
+zsh-clear-cache() {
+    local cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+    echo "Clearing ZSH caches..."
+    rm -f "$cache_dir/zoxide.zsh" 2>/dev/null && echo "  ✓ zoxide cache"
+    rm -f "$cache_dir/starship.zsh" 2>/dev/null && echo "  ✓ starship cache"
+    rm -f "$cache_dir/kubectl.zsh" 2>/dev/null && echo "  ✓ kubectl cache"
+    rm -f "$cache_dir/helm.zsh" 2>/dev/null && echo "  ✓ helm cache"
+    rm -f "${ZDOTDIR:-$HOME}/.zcompdump"* 2>/dev/null && echo "  ✓ completion cache"
+    echo "Done! Caches regenerate on next shell startup."
+}
+
+# Quick benchmark (shows real time)
+zsh-bench() {
+    echo "ZSH startup benchmark (5 runs):"
+    for i in 1 2 3 4 5; do
+        /usr/bin/time zsh -i -c exit 2>&1 | grep real | awk '{print "  Run '$i': " $1 "s"}'
+    done
+}
+
+# Profile zsh startup with zprof
+zsh-profile() {
+    echo "Profiling zsh startup (check output for slow functions)..."
+    zsh -i -c 'zmodload zsh/zprof; source ~/.zshrc; zprof' 2>/dev/null | head -30
 } 

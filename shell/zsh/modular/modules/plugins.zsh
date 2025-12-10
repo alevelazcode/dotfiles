@@ -1,207 +1,76 @@
 # =============================================================================
-# Plugins Configuration
+# Plugins ULTRA-OPTIMIZED Configuration
 # =============================================================================
+# NO command -v, direct file checks using $HOMEBREW_PREFIX
+# This file is loaded via zsh-defer (async) so it doesn't block startup
 
-# =============================================================================
-# ZSH Autosuggestions
-# =============================================================================
+# Use variable for cleaner code
+: ${HOMEBREW_PREFIX:=/opt/homebrew}
+local _zsh_cache="$HOME/.cache/zsh"
 
-# Load zsh-autosuggestions if available
-if [[ -f "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
-    source "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-elif [[ -f "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
-    source "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-elif [[ -f "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
-    source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+# -----------------------------------------------------------------------------
+# ZSH Autosuggestions - Direct load (fast plugin)
+# -----------------------------------------------------------------------------
+local _as="$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+[[ -f "$_as" ]] && source "$_as"
+
+# -----------------------------------------------------------------------------
+# ZSH Syntax Highlighting - Direct load (must be last ideally)
+# -----------------------------------------------------------------------------
+local _sh="$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+[[ -f "$_sh" ]] && source "$_sh"
+
+# -----------------------------------------------------------------------------
+# FZF - Direct load (keybindings + completion)
+# -----------------------------------------------------------------------------
+local _fzf_keys="$HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh"
+local _fzf_comp="$HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh"
+[[ -f "$_fzf_keys" ]] && source "$_fzf_keys"
+[[ -f "$_fzf_comp" ]] && source "$_fzf_comp"
+
+# -----------------------------------------------------------------------------
+# Zoxide - Use CACHED init (saves ~30ms eval)
+# -----------------------------------------------------------------------------
+local _zoxide_cache="$_zsh_cache/zoxide.zsh"
+if [[ -f "$_zoxide_cache" ]]; then
+    source "$_zoxide_cache"
+elif [[ -x "$HOMEBREW_PREFIX/bin/zoxide" ]]; then
+    "$HOMEBREW_PREFIX/bin/zoxide" init zsh > "$_zoxide_cache" 2>/dev/null
+    source "$_zoxide_cache"
 fi
 
-# =============================================================================
-# ZSH Syntax Highlighting
-# =============================================================================
+# -----------------------------------------------------------------------------
+# Bun completions - Direct load (small file)
+# -----------------------------------------------------------------------------
+[[ -s "$HOME/.bun/_bun" ]] && source "$HOME/.bun/_bun"
 
-# Load zsh-syntax-highlighting if available
-if [[ -f "/opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
-    source "/opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-elif [[ -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
-    source "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-elif [[ -f "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
-    source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-fi
+# -----------------------------------------------------------------------------
+# LAZY LOADERS for heavy tools (kubectl, helm, aws)
+# These are defined as functions and only load completions when first used
+# -----------------------------------------------------------------------------
 
-# =============================================================================
-# FZF Configuration
-# =============================================================================
-
-# Load FZF if available
-if command -v fzf &> /dev/null; then
-    # FZF key bindings
-    if [[ -f "/opt/homebrew/opt/fzf/shell/key-bindings.zsh" ]]; then
-        source "/opt/homebrew/opt/fzf/shell/key-bindings.zsh"
-    elif [[ -f "/usr/share/doc/fzf/examples/key-bindings.zsh" ]]; then
-        source "/usr/share/doc/fzf/examples/key-bindings.zsh"
-    elif [[ -f "$HOME/.fzf/shell/key-bindings.zsh" ]]; then
-        source "$HOME/.fzf/shell/key-bindings.zsh"
+# kubectl lazy loader
+kubectl() {
+    unfunction kubectl 2>/dev/null
+    local _kube_cache="$_zsh_cache/kubectl.zsh"
+    if [[ ! -f "$_kube_cache" ]] && [[ -x "$HOMEBREW_PREFIX/bin/kubectl" ]]; then
+        "$HOMEBREW_PREFIX/bin/kubectl" completion zsh > "$_kube_cache" 2>/dev/null
     fi
-    
-    # FZF completion
-    if [[ -f "/opt/homebrew/opt/fzf/shell/completion.zsh" ]]; then
-        source "/opt/homebrew/opt/fzf/shell/completion.zsh"
-    elif [[ -f "/usr/share/doc/fzf/examples/completion.zsh" ]]; then
-        source "/usr/share/doc/fzf/examples/completion.zsh"
-    elif [[ -f "$HOME/.fzf/shell/completion.zsh" ]]; then
-        source "$HOME/.fzf/shell/completion.zsh"
-    fi
-fi
-
-# =============================================================================
-# Zoxide (Smart cd)
-# =============================================================================
-
-# Initialize zoxide if available
-if command -v zoxide &> /dev/null; then
-    eval "$(zoxide init zsh)"
-fi
-
-# =============================================================================
-# Starship Prompt (DISABLED - Causing %{%} characters conflict)
-# =============================================================================
-
-# COMMENTED OUT TO FIX %{%} CHARACTERS ISSUE
-# Initialize Starship if available
-# if command -v starship &> /dev/null; then
-#     eval "$(starship init zsh)"
-# fi
-
-# =============================================================================
-# Bun Completions
-# =============================================================================
-
-# Load bun completions if available
-if [[ -s "$HOME/.bun/_bun" ]]; then
-    source "$HOME/.bun/_bun"
-fi
-
-# =============================================================================
-# Additional Tool Completions
-# =============================================================================
-
-# Load additional completions if available
-if command -v kubectl &> /dev/null; then
-    source <(kubectl completion zsh)
-fi
-
-if command -v helm &> /dev/null; then
-    source <(helm completion zsh)
-fi
-
-if command -v docker &> /dev/null; then
-    # Docker completions are usually handled by Oh My Zsh
-    # But we can add custom ones here if needed
-fi
-
-if command -v aws &> /dev/null; then
-    # AWS CLI completions
-    if [[ -f "/opt/homebrew/bin/aws_zsh_completer.sh" ]]; then
-        source "/opt/homebrew/bin/aws_zsh_completer.sh"
-    elif [[ -f "/usr/local/bin/aws_zsh_completer.sh" ]]; then
-        source "/usr/local/bin/aws_zsh_completer.sh"
-    fi
-fi
-
-# =============================================================================
-# Custom Plugin Functions
-# =============================================================================
-
-# Function to reload plugins
-reload-plugins() {
-    echo "Reloading zsh plugins..."
-    autoload -Uz compinit
-    compinit
-    echo "Plugins reloaded!"
+    [[ -f "$_kube_cache" ]] && source "$_kube_cache"
+    command kubectl "$@"
 }
 
-# Function to list loaded plugins
-list-plugins() {
-    echo "Loaded plugins:"
-    
-    if [[ -f "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] || \
-       [[ -f "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] || \
-       [[ -f "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
-        echo "- zsh-autosuggestions"
+# helm lazy loader
+helm() {
+    unfunction helm 2>/dev/null
+    local _helm_cache="$_zsh_cache/helm.zsh"
+    if [[ ! -f "$_helm_cache" ]] && [[ -x "$HOMEBREW_PREFIX/bin/helm" ]]; then
+        "$HOMEBREW_PREFIX/bin/helm" completion zsh > "$_helm_cache" 2>/dev/null
     fi
-    
-    if [[ -f "/opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] || \
-       [[ -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] || \
-       [[ -f "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
-        echo "- zsh-syntax-highlighting"
-    fi
-    
-    if command -v fzf &> /dev/null; then
-        echo "- fzf"
-    fi
-    
-    if command -v zoxide &> /dev/null; then
-        echo "- zoxide"
-    fi
-    
-    echo "- starship (disabled to prevent %{%} characters)"
-    
-    if [[ -s "$HOME/.bun/_bun" ]]; then
-        echo "- bun completions"
-    fi
-    
-    if command -v kubectl &> /dev/null; then
-        echo "- kubectl completions"
-    fi
-    
-    if command -v helm &> /dev/null; then
-        echo "- helm completions"
-    fi
-    
-    if command -v aws &> /dev/null; then
-        echo "- aws completions"
-    fi
+    [[ -f "$_helm_cache" ]] && source "$_helm_cache"
+    command helm "$@"
 }
 
-# =============================================================================
-# Plugin Status Check
-# =============================================================================
-
-# Check if essential plugins are loaded
-check-plugins() {
-    local missing_plugins=()
-    
-    # Check zsh-autosuggestions
-    if ! [[ -f "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && \
-       ! [[ -f "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && \
-       ! [[ -f "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
-        missing_plugins+=("zsh-autosuggestions")
-    fi
-    
-    # Check zsh-syntax-highlighting
-    if ! [[ -f "/opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && \
-       ! [[ -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && \
-       ! [[ -f "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
-        missing_plugins+=("zsh-syntax-highlighting")
-    fi
-    
-    # Check fzf
-    if ! command -v fzf &> /dev/null; then
-        missing_plugins+=("fzf")
-    fi
-    
-    # Check zoxide
-    if ! command -v zoxide &> /dev/null; then
-        missing_plugins+=("zoxide")
-    fi
-    
-    # Note: Starship is intentionally disabled
-    
-    if [[ ${#missing_plugins[@]} -eq 0 ]]; then
-        echo "✅ All plugins are loaded successfully (Starship disabled to prevent %{%} characters)"
-    else
-        echo "⚠️  Missing plugins: ${missing_plugins[*]}"
-        echo "💡 Consider installing missing plugins for better experience"
-        echo "🚨 Starship is disabled to prevent %{%} characters conflict"
-    fi
-} 
+# AWS completer (static file, no lazy needed)
+[[ -f "$HOMEBREW_PREFIX/bin/aws_zsh_completer.sh" ]] && \
+    source "$HOMEBREW_PREFIX/bin/aws_zsh_completer.sh" 

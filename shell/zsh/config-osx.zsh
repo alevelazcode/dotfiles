@@ -2,29 +2,50 @@
 # export PATH="/opt/homebrew/bin:$PATH"
 
 
-# This function adds the specified path to PATH without duplicates
-# Equivalent to fish_add_path
+# Path helper functions (add without duplicates)
 path_append() {
   for ARG in "$@"; do
-    if [[ ":$PATH:" != *":$ARG:"* ]]; then
-      export PATH="${PATH:+"$PATH:"}$ARG"
-    fi
+    [[ ":$PATH:" != *":$ARG:"* ]] && export PATH="${PATH:+"$PATH:"}$ARG"
   done
 }
 
-if type brew &>/dev/null; then
-    FPATH=$(brew --prefix)/share/zsh-abbr:$FPATH
+path_prepend() {
+  for ARG in "$@"; do
+    [[ ":$PATH:" != *":$ARG:"* ]] && export PATH="$ARG${PATH:+":$PATH"}"
+  done
+}
 
-    autoload -Uz compinit
-    compinit
-  fi
+# Use cached HOMEBREW_PREFIX instead of calling brew --prefix
+if [[ -d "/opt/homebrew" ]]; then
+    export HOMEBREW_PREFIX="/opt/homebrew"
+elif [[ -d "/usr/local/Homebrew" ]]; then
+    export HOMEBREW_PREFIX="/usr/local"
+fi
 
-path_append "/opt/homebrew/bin"
+if [[ -n "$HOMEBREW_PREFIX" && -d "$HOMEBREW_PREFIX/share/zsh-abbr" ]]; then
+    FPATH="$HOMEBREW_PREFIX/share/zsh-abbr:$FPATH"
+fi
 
-export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
+path_append "$HOMEBREW_PREFIX/bin"
 
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# NVM - LAZY LOADING (only load when needed)
+export NVM_DIR="$HOME/.nvm"
+
+# Add default node to PATH immediately
+if [[ -d "$NVM_DIR/versions/node" ]]; then
+    local default_node=$(ls -1 "$NVM_DIR/versions/node" 2>/dev/null | sort -V | tail -n1)
+    [[ -n "$default_node" ]] && path_prepend "$NVM_DIR/versions/node/$default_node/bin"
+fi
+
+_load_nvm() {
+    unfunction nvm node npm npx 2>/dev/null
+    [[ -f "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh" --no-use
+}
+nvm() { _load_nvm; nvm "$@" }
+
+# Syntax highlighting - use direct path
+[[ -f "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && \
+    source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 # Abbreviations as functions for brew
 bc() { brew cleanup "$@" }
@@ -54,8 +75,14 @@ export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk-21.jdk/Contents/Home
 export PATH="$JAVA_HOME/bin:$PATH"
 
 
-# Initialize rbenv
-if which rbenv > /dev/null; then eval "$(rbenv init - zsh)"; fi
+# rbenv - LAZY LOADING
+if [[ -d "$HOME/.rbenv" ]]; then
+    rbenv() {
+        unfunction rbenv 2>/dev/null
+        eval "$(command rbenv init - zsh)"
+        rbenv "$@"
+    }
+fi
 
 
 
