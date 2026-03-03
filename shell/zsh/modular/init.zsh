@@ -81,5 +81,9 @@ else
     [[ -f "$ZSH_CONFIG_DIR/local.zsh" ]] && source "$ZSH_CONFIG_DIR/local.zsh"
 fi
 
+# Syntax highlighting — loaded sync, LAST, as required by the plugin
+# (ZLE hooks must be registered before user input; zsh-defer context breaks this)
+zinit light zsh-users/zsh-syntax-highlighting
+
 # Prompt (sync - must appear instantly)
 source "$ZSH_CONFIG_DIR/modules/prompt.zsh"

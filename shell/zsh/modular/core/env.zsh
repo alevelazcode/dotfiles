@@ -26,3 +26,24 @@ export STARSHIP_CONFIG="$HOME/.config/starship.toml"
 
 # Console Ninja
 [[ -d "$HOME/.console-ninja/.bin" ]] && export PATH="$HOME/.console-ninja/.bin:$PATH"
+
+# Syntax highlighting theme — Tokyo Night Darker
+# Defined here (sync, global scope) so the plugin reads it correctly at load time
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main)
+typeset -gA ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[command]='fg=#7aa2f7'                # commands (electric blue)
+ZSH_HIGHLIGHT_STYLES[precommand]='fg=#bb9af7'             # sudo, env, etc. (purple)
+ZSH_HIGHLIGHT_STYLES[alias]='fg=#9ece6a'                  # aliases (acid green)
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=#7dcfff'                # builtins (icy cyan)
+ZSH_HIGHLIGHT_STYLES[function]='fg=#2ac3de'               # functions (steel cyan)
+ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=#565f89'       # ; | && (soft grey)
+ZSH_HIGHLIGHT_STYLES[argument]='fg=#c0caf5'               # plain args
+ZSH_HIGHLIGHT_STYLES[default]='fg=#c0caf5'                # unmatched text
+ZSH_HIGHLIGHT_STYLES[globbing]='fg=#f7768e'               # * ? [] (red-pink)
+ZSH_HIGHLIGHT_STYLES[history-expansion]='fg=#ff9e64'      # !! !$ (orange)
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=#e0af68'   # -f (yellow)
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=#e0af68'   # --flag (yellow)
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument]='fg=#7aa2f7'   # `cmd` (blue)
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=#9aa5ce' # 'string'
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=#9aa5ce' # "string"
+ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=red,bold'         # typos
