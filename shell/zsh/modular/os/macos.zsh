@@ -31,9 +31,6 @@ export ANDROID_HOME="$HOME/Library/Android/sdk"
 [[ -d "/Applications/Windsurf.app/Contents/MacOS" ]] && \
     export PATH="$PATH:/Applications/Windsurf.app/Contents/MacOS"
 
-# zsh-abbr FPATH
-[[ -d "$HOMEBREW_PREFIX/share/zsh-abbr" ]] && FPATH="$HOMEBREW_PREFIX/share/zsh-abbr:$FPATH"
-
 # Xcode
 [[ -d "/Applications/Xcode.app/Contents/Developer" ]] && \
     export DEVELOPER_DIR="/Applications/Xcode.app/Contents/Developer"

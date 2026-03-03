@@ -79,23 +79,6 @@ autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '^X^E' edit-command-line
 
-# Function to expand aliases
-function expand-alias() {
-    zle _expand_alias
-    zle self-insert
-}
-zle -N expand-alias
-bindkey '^X^A' expand-alias
-
-# =============================================================================
-# FZF Integration
-# =============================================================================
-
-# Ctrl+T - FZF file finder (only if fzf is available)
-if command -v fzf &> /dev/null; then
-    bindkey '^T' fzf-file-widget
-fi
-
 # =============================================================================
 # Custom Key Bindings
 # =============================================================================

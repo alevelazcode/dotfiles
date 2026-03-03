@@ -1,0 +1,142 @@
+-- cyberdream.lua - Cyberdream Theme Module for WezTerm
+-- Based on scottmckendry/cyberdream.nvim
+
+local module = {}
+
+local function create_theme(palette)
+  return {
+    cursor_bg = palette.fg,
+    cursor_fg = palette.bg,
+    cursor_border = palette.fg,
+
+    selection_fg = palette.fg,
+    selection_bg = palette.bgHighlight,
+
+    ansi = {
+      palette.bg,     -- black
+      palette.red,    -- red
+      palette.green,  -- green
+      palette.yellow, -- yellow
+      palette.blue,   -- blue
+      palette.purple, -- magenta
+      palette.cyan,   -- cyan
+      palette.fg,     -- white
+    },
+    brights = {
+      palette.grey,   -- bright black
+      palette.red,    -- bright red
+      palette.green,  -- bright green
+      palette.yellow, -- bright yellow
+      palette.blue,   -- bright blue
+      palette.purple, -- bright magenta
+      palette.cyan,   -- bright cyan
+      palette.fg,     -- bright white
+    },
+
+    foreground = palette.fg,
+    background = palette.bg,
+
+    tab_bar = {
+      background = palette.bgAlt,
+      active_tab = {
+        bg_color = palette.bg,
+        fg_color = palette.cyan,
+        intensity = "Bold",
+        underline = "None",
+        italic = false,
+        strikethrough = false,
+      },
+      inactive_tab = {
+        bg_color = palette.bgAlt,
+        fg_color = palette.grey,
+      },
+      inactive_tab_hover = {
+        bg_color = palette.bgHighlight,
+        fg_color = palette.fg,
+        italic = false,
+      },
+      new_tab = {
+        bg_color = palette.bgAlt,
+        fg_color = palette.grey,
+      },
+      new_tab_hover = {
+        bg_color = palette.bgHighlight,
+        fg_color = palette.fg,
+        italic = false,
+      },
+    },
+
+    scrollbar_thumb = palette.bgHighlight,
+    split = palette.bgHighlight,
+    visual_bell = palette.bgHighlight,
+    compose_cursor = palette.orange,
+
+    indexed = {
+      [16] = palette.orange,
+      [17] = palette.red,
+    },
+  }
+end
+
+local palettes = {
+  default = {
+    bg = "#16181a",
+    bgAlt = "#1e2124",
+    bgHighlight = "#3c4048",
+    fg = "#ffffff",
+    grey = "#7b8496",
+    blue = "#5ea1ff",
+    green = "#5eff6c",
+    cyan = "#5ef1ff",
+    red = "#ff6e5e",
+    yellow = "#f1ff5e",
+    magenta = "#ff5ef1",
+    pink = "#ff5ea0",
+    orange = "#ffbd5e",
+    purple = "#bd5eff",
+  },
+  light = {
+    bg = "#ffffff",
+    bgAlt = "#eaeaea",
+    bgHighlight = "#d0d0d0",
+    fg = "#16181a",
+    grey = "#7b8496",
+    blue = "#1d73e8",
+    green = "#008b0c",
+    cyan = "#0087bd",
+    red = "#d10000",
+    yellow = "#b17b00",
+    magenta = "#a500d1",
+    pink = "#d1006b",
+    orange = "#c47200",
+    purple = "#7100d1",
+  },
+}
+
+function module.register_color_schemes(config)
+  if not config.color_schemes then
+    config.color_schemes = {}
+  end
+  for name, palette in pairs(palettes) do
+    local scheme_name = "Cyberdream (" .. name:gsub("^%l", string.upper) .. ")"
+    config.color_schemes[scheme_name] = create_theme(palette)
+  end
+end
+
+function module.apply_to_config(config, variant)
+  module.register_color_schemes(config)
+  variant = variant or "default"
+  local scheme_name = "Cyberdream (" .. variant:gsub("^%l", string.upper) .. ")"
+  config.color_scheme = scheme_name
+  config.inactive_pane_hsb = {
+    saturation = 0.8,
+    brightness = 0.7,
+  }
+end
+
+module.variants = {
+  "default",
+  "light",
+}
+
+return module

@@ -21,6 +21,9 @@ elif [[ -d "/usr/local/Homebrew" ]]; then
     export PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH"
 fi
 
+# Zinit plugin manager (before compinit so it can register its completions dir)
+[[ -f "$HOMEBREW_PREFIX/opt/zinit/zinit.zsh" ]] && source "$HOMEBREW_PREFIX/opt/zinit/zinit.zsh"
+
 # Core (sync - needed immediately)
 source "$ZSH_CONFIG_DIR/core/env.zsh"
 source "$ZSH_CONFIG_DIR/core/path.zsh"
@@ -30,11 +33,9 @@ setopt AUTO_CD AUTO_PUSHD PUSHD_IGNORE_DUPS
 setopt HIST_IGNORE_DUPS HIST_IGNORE_SPACE SHARE_HISTORY
 setopt NO_BEEP INTERACTIVE_COMMENTS PROMPT_SUBST
 
-# Vi mode + essential bindings
+# Vi mode (keybindings.zsh handles the rest)
 bindkey -v
-bindkey '^R' history-incremental-search-backward
-bindkey '^A' beginning-of-line
-bindkey '^E' end-of-line
+source "$ZSH_CONFIG_DIR/core/keybindings.zsh"
 
 # Compinit (cached, rebuild once per day)
 autoload -Uz compinit
@@ -61,6 +62,7 @@ esac
 if (( $+functions[zsh-defer] )); then
     zsh-defer source "$ZSH_CONFIG_DIR/modules/aliases.zsh"
     zsh-defer source "$ZSH_CONFIG_DIR/modules/functions.zsh"
+    zsh-defer source "$ZSH_CONFIG_DIR/modules/completion.zsh"
     zsh-defer source "$ZSH_CONFIG_DIR/modules/plugins.zsh"
     zsh-defer source "$ZSH_CONFIG_DIR/dev/node.zsh"
     zsh-defer source "$ZSH_CONFIG_DIR/dev/python.zsh"
@@ -70,6 +72,7 @@ if (( $+functions[zsh-defer] )); then
 else
     source "$ZSH_CONFIG_DIR/modules/aliases.zsh"
     source "$ZSH_CONFIG_DIR/modules/functions.zsh"
+    source "$ZSH_CONFIG_DIR/modules/completion.zsh"
     source "$ZSH_CONFIG_DIR/modules/plugins.zsh"
     source "$ZSH_CONFIG_DIR/dev/node.zsh"
     source "$ZSH_CONFIG_DIR/dev/python.zsh"

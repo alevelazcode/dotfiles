@@ -1,76 +1,30 @@
 # =============================================================================
 # PATH Configuration
 # =============================================================================
-# Cross-platform PATH management for macOS and WSL
 
-# =============================================================================
-# PATH Management Functions
-# =============================================================================
-
-# Function to add path to PATH without duplicates
+# Add path to end of PATH (no duplicates)
 path_append() {
-    local path_to_add="$1"
-    if [[ -n "$path_to_add" && -d "$path_to_add" ]]; then
-        if [[ ":$PATH:" != *":$path_to_add:"* ]]; then
-            export PATH="$PATH:$path_to_add"
-        fi
-    fi
+    local p="$1"
+    [[ -n "$p" && -d "$p" && ":$PATH:" != *":$p:"* ]] && export PATH="$PATH:$p"
 }
 
-# Function to add path to beginning of PATH without duplicates
+# Add path to beginning of PATH (no duplicates)
 path_prepend() {
-    local path_to_add="$1"
-    if [[ -n "$path_to_add" && -d "$path_to_add" ]]; then
-        if [[ ":$PATH:" != *":$path_to_add:"* ]]; then
-            export PATH="$path_to_add:$PATH"
-        fi
-    fi
+    local p="$1"
+    [[ -n "$p" && -d "$p" && ":$PATH:" != *":$p:"* ]] && export PATH="$p:$PATH"
 }
 
-# =============================================================================
-# Base PATH Configuration
-# =============================================================================
-
-# Standard user directories
-path_prepend "$HOME/bin"
+# -----------------------------------------------------------------------------
+# Base — standard user directories
+# -----------------------------------------------------------------------------
 path_prepend "$HOME/.local/bin"
+path_prepend "$HOME/bin"
 
-# =============================================================================
-# Development Tools PATH
-# =============================================================================
-
-# Rust/Cargo
-if [[ -d "$HOME/.cargo/bin" ]]; then
-    path_append "$HOME/.cargo/bin"
-fi
-
-# Node.js (NVM)
-if [[ -d "$HOME/.nvm" ]]; then
-    path_append "$HOME/.nvm"
-fi
-
-# Python (pip user installs)
-if [[ -d "$HOME/.local/bin" ]]; then
-    path_append "$HOME/.local/bin"
-fi
+# -----------------------------------------------------------------------------
+# Development tools
+# (Bun and pnpm are managed in dev/node.zsh alongside their env vars)
+# (Cargo is managed in dev/rust.zsh alongside CARGO_HOME)
+# -----------------------------------------------------------------------------
 
 # Go
-if [[ -d "$HOME/go/bin" ]]; then
-    path_append "$HOME/go/bin"
-fi
-
-# Bun
-if [[ -d "$HOME/.bun/bin" ]]; then
-    path_append "$HOME/.bun/bin"
-fi
-
-# pnpm
-if [[ -d "$HOME/.local/share/pnpm" ]]; then
-    path_append "$HOME/.local/share/pnpm"
-fi
-
-# =============================================================================
-# OS-Specific PATH (handled in OS modules)
-# =============================================================================
-# macOS and WSL specific paths are handled in their respective OS modules
-# to avoid conflicts and ensure proper detection 
+path_append "$HOME/go/bin"
