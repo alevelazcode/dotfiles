@@ -14,11 +14,11 @@ local _cache="$HOME/.cache/zsh"
 zinit light zsh-users/zsh-autosuggestions
 
 # -----------------------------------------------------------------------------
-# FZF — fuzzy finder (Homebrew provides the shell integration scripts)
+# FZF — shell integration managed by zinit (binary still from Homebrew)
+# atinit sources key-bindings and completion from the cloned repo directory
 # -----------------------------------------------------------------------------
-local _fzf="$HOMEBREW_PREFIX/opt/fzf/shell"
-[[ -f "$_fzf/key-bindings.zsh" ]] && source "$_fzf/key-bindings.zsh"
-[[ -f "$_fzf/completion.zsh"   ]] && source "$_fzf/completion.zsh"
+zinit ice wait lucid atinit"source shell/key-bindings.zsh; source shell/completion.zsh"
+zinit light junegunn/fzf
 
 # -----------------------------------------------------------------------------
 # Zoxide — smart cd (cached init)

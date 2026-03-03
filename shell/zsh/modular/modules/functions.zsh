@@ -53,3 +53,21 @@ zsh-clear-cache() {
     rm -f "$d"/*.zsh "$d"/evalcache_*.zsh "${ZDOTDIR:-$HOME}"/.zcompdump* 2>/dev/null
     echo "ZSH caches cleared. Will regenerate on next startup."
 }
+
+# -----------------------------------------------------------------------------
+# Zinit maintenance
+# -----------------------------------------------------------------------------
+zsh-update() {
+    echo "🔄 Updating Zinit and plugins..."
+    zinit self-update && zinit update --all
+    echo "✅ All Zinit plugins updated!"
+}
+
+dev-update() {
+    echo "🛠️ Updating system tools..."
+    brewski
+    rustup update
+    starship upgrade
+    zsh-update
+    echo "🎉 Everything's fresh and clean!"
+}
