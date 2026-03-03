@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pyenv --version)",
+      "Bash(for i in 1 2 3 4 5)",
+      "Bash(do /usr/bin/time zsh -i -c exit)",
+      "Bash(done)"
+    ]
+  }
+}

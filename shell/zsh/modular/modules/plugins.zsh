@@ -1,36 +1,30 @@
 # =============================================================================
-# Plugins ULTRA-OPTIMIZED Configuration
+# Plugins Configuration
 # =============================================================================
-# NO command -v, direct file checks using $HOMEBREW_PREFIX
-# This file is loaded via zsh-defer (async) so it doesn't block startup
 
-# Use variable for cleaner code
 : ${HOMEBREW_PREFIX:=/opt/homebrew}
 local _zsh_cache="$HOME/.cache/zsh"
 
-# -----------------------------------------------------------------------------
-# ZSH Autosuggestions - Direct load (fast plugin)
-# -----------------------------------------------------------------------------
+# Autosuggestions
 local _as="$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 [[ -f "$_as" ]] && source "$_as"
 
-# -----------------------------------------------------------------------------
-# ZSH Syntax Highlighting - Direct load (must be last ideally)
-# -----------------------------------------------------------------------------
+# Syntax highlighting (prefer fast variant)
+local _fsh="$HOMEBREW_PREFIX/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
 local _sh="$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-[[ -f "$_sh" ]] && source "$_sh"
+if [[ -f "$_fsh" ]]; then
+    source "$_fsh"
+elif [[ -f "$_sh" ]]; then
+    source "$_sh"
+fi
 
-# -----------------------------------------------------------------------------
-# FZF - Direct load (keybindings + completion)
-# -----------------------------------------------------------------------------
+# FZF keybindings + completion
 local _fzf_keys="$HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh"
 local _fzf_comp="$HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh"
 [[ -f "$_fzf_keys" ]] && source "$_fzf_keys"
 [[ -f "$_fzf_comp" ]] && source "$_fzf_comp"
 
-# -----------------------------------------------------------------------------
-# Zoxide - Use CACHED init (saves ~30ms eval)
-# -----------------------------------------------------------------------------
+# Zoxide (cached init)
 local _zoxide_cache="$_zsh_cache/zoxide.zsh"
 if [[ -f "$_zoxide_cache" ]]; then
     source "$_zoxide_cache"
@@ -39,38 +33,24 @@ elif [[ -x "$HOMEBREW_PREFIX/bin/zoxide" ]]; then
     source "$_zoxide_cache"
 fi
 
-# -----------------------------------------------------------------------------
-# Bun completions - Direct load (small file)
-# -----------------------------------------------------------------------------
+# Bun completions
 [[ -s "$HOME/.bun/_bun" ]] && source "$HOME/.bun/_bun"
 
-# -----------------------------------------------------------------------------
-# LAZY LOADERS for heavy tools (kubectl, helm, aws)
-# These are defined as functions and only load completions when first used
-# -----------------------------------------------------------------------------
-
-# kubectl lazy loader
+# kubectl/helm - lazy loaded (only init on first use)
 kubectl() {
     unfunction kubectl 2>/dev/null
-    local _kube_cache="$_zsh_cache/kubectl.zsh"
-    if [[ ! -f "$_kube_cache" ]] && [[ -x "$HOMEBREW_PREFIX/bin/kubectl" ]]; then
-        "$HOMEBREW_PREFIX/bin/kubectl" completion zsh > "$_kube_cache" 2>/dev/null
-    fi
-    [[ -f "$_kube_cache" ]] && source "$_kube_cache"
+    local cache="$_zsh_cache/kubectl.zsh"
+    [[ ! -f "$cache" ]] && [[ -x "$HOMEBREW_PREFIX/bin/kubectl" ]] && \
+        "$HOMEBREW_PREFIX/bin/kubectl" completion zsh > "$cache" 2>/dev/null
+    [[ -f "$cache" ]] && source "$cache"
     command kubectl "$@"
 }
 
-# helm lazy loader
 helm() {
     unfunction helm 2>/dev/null
-    local _helm_cache="$_zsh_cache/helm.zsh"
-    if [[ ! -f "$_helm_cache" ]] && [[ -x "$HOMEBREW_PREFIX/bin/helm" ]]; then
-        "$HOMEBREW_PREFIX/bin/helm" completion zsh > "$_helm_cache" 2>/dev/null
-    fi
-    [[ -f "$_helm_cache" ]] && source "$_helm_cache"
+    local cache="$_zsh_cache/helm.zsh"
+    [[ ! -f "$cache" ]] && [[ -x "$HOMEBREW_PREFIX/bin/helm" ]] && \
+        "$HOMEBREW_PREFIX/bin/helm" completion zsh > "$cache" 2>/dev/null
+    [[ -f "$cache" ]] && source "$cache"
     command helm "$@"
 }
-
-# AWS completer (static file, no lazy needed)
-[[ -f "$HOMEBREW_PREFIX/bin/aws_zsh_completer.sh" ]] && \
-    source "$HOMEBREW_PREFIX/bin/aws_zsh_completer.sh" 
