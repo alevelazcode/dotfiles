@@ -65,7 +65,7 @@ zsh-update() {
 
 dev-update() {
     echo "🛠️ Updating system tools..."
-    brewski
+    brew update && brew upgrade && brew cleanup; brew doctor; brew missing; echo "Brewski Complete" | terminal-notifier -sound default -appIcon https://brew.sh/assets/img/homebrew-256x256.png -title "Homebrew"
     rustup update
     starship upgrade
     zsh-update
