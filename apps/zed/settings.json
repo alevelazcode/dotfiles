@@ -1,0 +1,271 @@
+{
+  "minimap": {
+    "show": "always",
+    "thumb": "always",
+  },
+  "agent_servers": {
+    "github-copilot-cli": {
+      "type": "registry",
+    },
+    "claude": {
+      "default_config_options": {
+        "model": "sonnet",
+      },
+      "favorite_config_option_values": {
+        "model": ["sonnet"],
+      },
+    },
+    "claude-acp": {
+      "type": "registry",
+      "default_config_options": {
+        "model": "sonnet",
+      },
+    },
+  },
+  "edit_predictions": {
+    "provider": "copilot",
+    "copilot": {
+      "proxy": null,
+      "proxy_no_verify": null,
+      "enterprise_uri": null,
+    },
+    "enabled_in_text_threads": false,
+  },
+  "toolbar": {
+    "code_actions": true,
+    "breadcrumbs": false,
+    "quick_actions": true,
+  },
+  "vim": {
+    "use_smartcase_find": true,
+    "use_system_clipboard": "always",
+  },
+  "show_wrap_guides": true,
+  "selection_highlight": true,
+  "hard_tabs": false,
+  "tab_size": 2,
+  "auto_indent": true,
+  "auto_indent_on_paste": true,
+  "preferred_line_length": 80,
+  "indent_guides": {
+    "line_width": 1,
+    "active_line_width": 1,
+    "coloring": "fixed",
+    "background_coloring": "indent_aware",
+  },
+  "always_treat_brackets_as_autoclosed": false,
+  "show_whitespaces": "none",
+  "inlay_hints": {
+    "enabled": true,
+  },
+  "tasks": {
+    "prefer_lsp": true,
+  },
+  "colorize_brackets": true,
+  "notification_panel": {
+    "button": false,
+  },
+  "terminal": {
+    "button": false,
+  },
+  "agent": {
+    "notify_when_agent_waiting": "all_screens",
+    "play_sound_when_agent_done": true,
+    "default_profile": "ask",
+    "use_modifier_to_send": false,
+    "enable_feedback": false,
+    "message_editor_min_lines": 4,
+    "tool_permissions": {
+      "default": "allow",
+      "tools": {
+        "terminal": { "default": "allow" },
+        "filesystem": { "default": "allow" },
+      },
+    },
+    "commit_message_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-5-mini",
+    },
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-5-mini",
+      "enable_thinking": false,
+    },
+    "button": true,
+    "dock": "left",
+    "default_width": 400,
+    "favorite_models": [],
+    "model_parameters": [],
+    "inline_assistant_model": {
+      "provider": "claude-acp",
+      "model": "default",
+    },
+  },
+  "git_panel": {
+    "sort_by_path": true,
+    "tree_view": true,
+    "dock": "right",
+  },
+  "project_panel": {
+    "entry_spacing": "comfortable",
+    "dock": "right",
+    "default_width": 280,
+    "hide_root": true,
+    "auto_fold_dirs": false,
+    "starts_open": false,
+    "git_status": false,
+    "sticky_scroll": false,
+    "scrollbar": {
+      "show": "never",
+    },
+    "indent_guides": {
+      "show": "never",
+    },
+  },
+  "experimental.theme_overrides": {
+    "syntax": {
+      "keyword": {
+        "font_style": "italic",
+        "font_weight": null,
+      },
+      "operator": {
+        "font_style": "italic",
+      },
+      "function": {
+        "font_style": "italic",
+      },
+      "comment": {
+        "font_style": "italic",
+      },
+    },
+    "background.appearance": "blurred",
+    "background": "#303446e0",
+  },
+  "outline_panel": {
+    "default_width": 300,
+    "indent_guides": {
+      "show": "never",
+    },
+    "dock": "right",
+    "button": false,
+  },
+  "file_finder": {
+    "modal_max_width": "large",
+  },
+  "cursor_shape": "bar",
+  "cursor_blink": false,
+  "text_rendering_mode": "platform_default",
+  "buffer_font_family": "Dank Mono",
+  "buffer_font_features": {
+    "calt": true,
+  },
+  "title_bar": {
+    "show_branch_icon": true,
+  },
+  "use_system_window_tabs": false,
+  "active_pane_modifiers": {
+    "border_size": 1.0,
+    "inactive_opacity": 0.5,
+  },
+  "autosave": {
+    "after_delay": {
+      "milliseconds": 1000,
+    },
+  },
+  "tab_bar": {
+    "show": true,
+    "show_nav_history_buttons": false,
+  },
+  "vim_mode": true,
+  "buffer_line_height": { "custom": 2 },
+  "current_line_highlight": "none",
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Zed (Default)",
+    "dark": "FantastIcons Icon Theme",
+  },
+  "ui_font_size": 18,
+  "buffer_font_size": 18.0,
+  "agent_buffer_font_size": 18,
+  "theme": {
+    "mode": "dark",
+    "light": "Monokai Night Soft",
+    "dark": "Monokai Vibrant Amped",
+  },
+  "scrollbar": {
+    "show": "never",
+    "cursors": false,
+    "git_diff": true,
+    "search_results": true,
+    "selected_symbol": true,
+    "diagnostics": "all",
+  },
+  "diagnostics": {
+    "inline": {
+      "enabled": true,
+      "update_debounce_ms": 150,
+      "padding": 4,
+      "min_column": 0,
+      "max_severity": null,
+    },
+  },
+  "preview_tabs": {
+    "enable_preview_multibuffer_from_code_navigation": true,
+    "enabled": true,
+    "enable_preview_from_file_finder": true,
+    "enable_keep_preview_on_code_navigation": false,
+  },
+  "centered_layout": {
+    "left_padding": 0.1,
+    "right_padding": 0.1,
+  },
+  "git": {
+    "git_gutter": "tracked_files",
+    "inline_blame": {
+      "enabled": true,
+      "show_commit_summary": true,
+    },
+  },
+  "languages": {
+    "Python": {
+      "language_servers": ["pylsp", "ruff"],
+      "format_on_save": "on",
+    },
+    "TypeScript": {
+      "language_servers": ["tsserver", "prettier", "!eslint"],
+      "format_on_save": "on",
+    },
+    "TSX": {
+      "language_servers": ["tsserver", "prettier", "!eslint"],
+      "format_on_save": "on",
+    },
+    "JavaScript": {
+      "language_servers": ["tsserver", "prettier", "!eslint"],
+      "format_on_save": "on",
+    },
+    "HTML": {
+      "language_servers": ["tsserver", "prettier", "!eslint"],
+      "format_on_save": "on",
+    },
+  },
+  "lsp": {
+    "pylsp": {
+      "settings": {
+        "pylsp.plugins.pylsp_django": {
+          "enabled": true,
+        },
+        "pylsp.plugins.jedi_completion": {
+          "include_params": true,
+        },
+      },
+    },
+    "ruff": {
+      "initialization_options": {
+        "settings": {},
+      },
+    },
+  },
+  "tabs": {
+    "file_icons": true,
+  },
+}
