@@ -1,18 +1,22 @@
+#!/bin/bash
 
-brew install rustup-init
+# =============================================================================
+# Rust Toolchain Setup (cross-platform)
+# =============================================================================
 
-# Update all cargo packages and rust
-echo "Updating all cargo packages and rust"
-cargo install-update -a
+# Ensure rustup is available
+if ! command -v rustup &> /dev/null; then
+    echo "Installing Rust via rustup..."
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
+    source "$HOME/.cargo/env"
+fi
 
-# Install Eza
-echo "Installing Eza"
-cargo install eza
+# Update Rust toolchain
+echo "Updating Rust toolchain..."
+rustup update stable
 
-# Install zoxide
-echo "Installing zoxide"
-cargo install zoxide
-
-
-# Install bottom to monitor system resources
-cargo install bottom
+# Update all installed cargo packages
+if command -v cargo-install-update &> /dev/null; then
+    echo "Updating installed cargo packages..."
+    cargo install-update -a
+fi

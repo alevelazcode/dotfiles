@@ -143,15 +143,29 @@ setup_shell() {
     print_success "ZSH is the default shell"
 }
 
-# Install Rust CLI tools
+# Install Rust CLI tools via cargo-binstall
 install_rust_tools() {
     print_status "Installing Rust CLI tools..."
-    if command -v cargo &> /dev/null; then
-        for pkg in ripgrep fd-find bat eza tokei du-dust procs sd tealdeer zoxide cargo-watch cargo-edit cargo-update; do
-            cargo install "$pkg" 2>/dev/null || print_warning "Failed to install $pkg"
-        done
-        print_success "Rust CLI tools installed"
+    if ! command -v cargo &> /dev/null; then
+        print_warning "Cargo not found, skipping Rust tools"
+        return 0
     fi
+
+    # Install cargo-binstall for faster binary installations
+    if ! command -v cargo-binstall &> /dev/null; then
+        curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+        print_success "cargo-binstall installed"
+    fi
+
+    local installer="cargo binstall -y --no-confirm"
+    if ! command -v cargo-binstall &> /dev/null; then
+        installer="cargo install"
+    fi
+
+    for pkg in ripgrep fd-find bat eza zoxide dust procs sd tealdeer tokei bottom git-delta cargo-watch cargo-edit cargo-update; do
+        $installer "$pkg" 2>/dev/null || print_warning "Failed to install $pkg"
+    done
+    print_success "Rust CLI tools installed"
 }
 
 # Install dev tools

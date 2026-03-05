@@ -127,20 +127,13 @@ install_dev_tools() {
         print_success "Node.js global packages installed"
     fi
 
-    # Rust CLI tools via cargo
+    # Cargo dev extensions only (CLI tools already installed via Brewfile)
     if command -v cargo &> /dev/null; then
         cargo install \
-            eza \
-            tokei \
-            du-dust \
-            procs \
-            sd \
-            tealdeer \
             cargo-watch \
             cargo-edit \
-            cargo-update \
-            zoxide
-        print_success "Rust CLI tools installed"
+            cargo-update
+        print_success "Cargo extensions installed"
     fi
 }
 

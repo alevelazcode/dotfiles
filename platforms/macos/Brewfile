@@ -27,14 +27,22 @@ brew "starship"
 brew "fastfetch"
 
 # =============================================================================
-# Search & Navigation
+# Modern CLI Tools (Rust-based replacements)
 # =============================================================================
 
-brew "fd"
-brew "fzf"
-brew "ripgrep"
-brew "bat"
-brew "bat-extras"
+brew "fd"                          # find alternative
+brew "fzf"                         # fuzzy finder
+brew "ripgrep"                     # grep alternative
+brew "bat"                         # cat alternative (syntax highlighting)
+brew "bat-extras"                  # batgrep, batdiff, batman, etc.
+brew "eza"                         # ls alternative (maintained fork of exa)
+brew "zoxide"                      # cd alternative (smart directory jumper)
+brew "dust"                        # du alternative (disk usage visualizer)
+brew "procs"                       # ps alternative (modern process viewer)
+brew "sd"                          # sed alternative (simpler regex replace)
+brew "tealdeer"                    # tldr pages (concise man pages)
+brew "tokei"                       # code statistics
+brew "bottom"                      # top/htop alternative (system monitor)
 
 # =============================================================================
 # Node.js — FNM (Fast Node Manager, Rust-based)

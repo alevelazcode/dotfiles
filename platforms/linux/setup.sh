@@ -149,26 +149,47 @@ install_fnm() {
     fi
 }
 
-# Install modern CLI tools via Cargo
+# Install modern CLI tools via cargo-binstall (pre-compiled binaries, much faster)
 install_rust_tools() {
     print_status "Installing Rust CLI tools..."
-    if command -v cargo &> /dev/null; then
-        cargo install \
-            ripgrep \
-            fd-find \
-            bat \
-            eza \
-            tokei \
-            du-dust \
-            procs \
-            sd \
-            tealdeer \
-            zoxide \
-            cargo-watch \
-            cargo-edit \
-            cargo-update
-        print_success "Rust CLI tools installed"
+    if ! command -v cargo &> /dev/null; then
+        print_warning "Cargo not found, skipping Rust tools"
+        return 0
     fi
+
+    # Install cargo-binstall first for faster binary installations
+    if ! command -v cargo-binstall &> /dev/null; then
+        curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+        print_success "cargo-binstall installed"
+    fi
+
+    local installer="cargo binstall -y --no-confirm"
+    if ! command -v cargo-binstall &> /dev/null; then
+        installer="cargo install"
+    fi
+
+    # Modern CLI replacements
+    $installer \
+        ripgrep \
+        fd-find \
+        bat \
+        eza \
+        zoxide \
+        dust \
+        procs \
+        sd \
+        tealdeer \
+        tokei \
+        bottom \
+        git-delta
+
+    # Cargo dev extensions
+    $installer \
+        cargo-watch \
+        cargo-edit \
+        cargo-update
+
+    print_success "Rust CLI tools installed"
 }
 
 # Setup shell
