@@ -26,8 +26,8 @@ zinit light junegunn/fzf
 local _zoxide_cache="$_cache/zoxide.zsh"
 if [[ -f "$_zoxide_cache" ]]; then
     source "$_zoxide_cache"
-elif [[ -x "$HOMEBREW_PREFIX/bin/zoxide" ]]; then
-    "$HOMEBREW_PREFIX/bin/zoxide" init zsh >"$_zoxide_cache" 2>/dev/null
+elif (( $+commands[zoxide] )); then
+    command zoxide init zsh >"$_zoxide_cache" 2>/dev/null
     source "$_zoxide_cache"
 fi
 
@@ -42,8 +42,8 @@ fi
 kubectl() {
     unfunction kubectl 2>/dev/null
     local _c="$_cache/kubectl.zsh"
-    [[ ! -f "$_c" && -x "$HOMEBREW_PREFIX/bin/kubectl" ]] && \
-        "$HOMEBREW_PREFIX/bin/kubectl" completion zsh >"$_c" 2>/dev/null
+    [[ ! -f "$_c" ]] && (( $+commands[kubectl] )) && \
+        command kubectl completion zsh >"$_c" 2>/dev/null
     [[ -f "$_c" ]] && source "$_c"
     command kubectl "$@"
 }
@@ -51,8 +51,8 @@ kubectl() {
 helm() {
     unfunction helm 2>/dev/null
     local _c="$_cache/helm.zsh"
-    [[ ! -f "$_c" && -x "$HOMEBREW_PREFIX/bin/helm" ]] && \
-        "$HOMEBREW_PREFIX/bin/helm" completion zsh >"$_c" 2>/dev/null
+    [[ ! -f "$_c" ]] && (( $+commands[helm] )) && \
+        command helm completion zsh >"$_c" 2>/dev/null
     [[ -f "$_c" ]] && source "$_c"
     command helm "$@"
 }

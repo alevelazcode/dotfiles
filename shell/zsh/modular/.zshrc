@@ -20,3 +20,4 @@ mamba() {
     eval "$("$HOME/miniforge3/bin/mamba" shell hook --shell zsh --root-prefix "$HOME/miniforge3" 2>/dev/null)"
     mamba "$@"
 }
+

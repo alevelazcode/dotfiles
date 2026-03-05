@@ -138,8 +138,8 @@
         "font_style": "italic",
       },
     },
-    "background.appearance": "blurred",
-    "background": "#303446e0",
+    // "background.appearance": "blurred",
+    // "background": "#303446e0",
   },
   "outline_panel": {
     "default_width": 300,
@@ -155,7 +155,7 @@
   "cursor_shape": "bar",
   "cursor_blink": false,
   "text_rendering_mode": "platform_default",
-  "buffer_font_family": "Dank Mono",
+  "buffer_font_family": "CaskaydiaMono Nerd Font Mono",
   "buffer_font_features": {
     "calt": true,
   },

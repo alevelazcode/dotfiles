@@ -26,5 +26,8 @@ path_prepend "$HOME/bin"
 # (Cargo is managed in dev/rust.zsh alongside CARGO_HOME)
 # -----------------------------------------------------------------------------
 
+# Cargo (early — needed before prompt for starship on Linux)
+path_append "$HOME/.cargo/bin"
+
 # Go
 path_append "$HOME/go/bin"

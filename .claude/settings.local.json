@@ -5,7 +5,9 @@
       "Bash(for i in 1 2 3 4 5)",
       "Bash(do /usr/bin/time zsh -i -c exit)",
       "Bash(done)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(zsh -c 'source \"\"$HOME/.config/zsh/init.zsh\"\"')",
+      "Bash(zsh -ic 'echo \"\"starship: $\\(which starship 2>/dev/null || echo NOT FOUND\\)\"\"; echo \"\"zoxide: $\\(which zoxide 2>/dev/null || echo NOT FOUND\\)\"\"; echo \"\"cargo PATH: $\\(echo $PATH | tr \"\":\"\" \"\"\\\\n\"\" | grep cargo\\)\"\"')"
     ]
   }
 }

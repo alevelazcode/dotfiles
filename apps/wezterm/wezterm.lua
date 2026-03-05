@@ -116,8 +116,8 @@ config.hyperlink_rules = {
 -- }
 -- and finally, return the configuration to wezterm
 --
-config.enable_wayland = true
--- config.front_end = "OpenGL"
-config.front_end = "WebGpu"
+config.enable_wayland = false
+config.front_end = "OpenGL"
+-- config.front_end = "WebGpu"
 
 return config

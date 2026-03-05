@@ -3,7 +3,7 @@
 # =============================================================================
 
 export CARGO_HOME="$HOME/.cargo"
-[[ -d "$CARGO_HOME/bin" ]] && path_append "$CARGO_HOME/bin"
+# Note: $CARGO_HOME/bin is added early in core/path.zsh (needed before prompt)
 
 # Cargo aliases
 alias cgb="cargo build"

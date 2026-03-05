@@ -22,7 +22,13 @@ elif [[ -d "/usr/local/Homebrew" ]]; then
 fi
 
 # Zinit plugin manager (before compinit so it can register its completions dir)
-[[ -f "$HOMEBREW_PREFIX/opt/zinit/zinit.zsh" ]] && source "$HOMEBREW_PREFIX/opt/zinit/zinit.zsh"
+if [[ -f "$HOMEBREW_PREFIX/opt/zinit/zinit.zsh" ]]; then
+    source "$HOMEBREW_PREFIX/opt/zinit/zinit.zsh"
+elif [[ -f "$HOME/.local/share/zinit/zinit.git/zinit.zsh" ]]; then
+    source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+    autoload -Uz _zinit
+    (( ${+_comps} )) && _comps[zinit]=_zinit
+fi
 
 # Core (sync - needed immediately)
 source "$ZSH_CONFIG_DIR/core/env.zsh"
