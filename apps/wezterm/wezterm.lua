@@ -6,15 +6,15 @@ local config = wezterm.config_builder()
 
 -- This is where you actually apply your config choices
 
-config.font = wezterm.font("Dank Mono", { weight = "Bold", italic = true })
+config.font = wezterm.font("Dank Mono", { weight = "Bold" })
 
-config.font_rules = {
-  {
-    italic = true,
-    intensity = "Bold",
-    font = wezterm.font("Dank Mono", { style = "Italic" }),
-  },
-}
+-- config.font_rules = {
+--   {
+--     italic = true,
+--     intensity = "Bold",
+--     font = wezterm.font("Dank Mono", { style = "Italic" }),
+--   },
+-- }
 config.font_size = 19
 
 config.enable_tab_bar = false
@@ -62,7 +62,7 @@ config.window_frame = {
   border_top_color = '#3c4048',
 }
 
-config.line_height = 2
+config.line_height = 1.7
 
 -- from: https://akos.ma/blog/adopting-wezterm/
 config.hyperlink_rules = {
