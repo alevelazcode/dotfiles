@@ -4,7 +4,7 @@
 # Linux Ubuntu/Debian Setup Script
 # =============================================================================
 
-set -e
+set -euo pipefail
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -194,15 +194,16 @@ install_dev_tools() {
             ts-node \
             prettier \
             yarn \
-            pnpm
+            pnpm \
+            || print_warning "Some npm packages failed to install"
         print_success "Node.js global packages installed"
     fi
 
     if command -v pip3 &> /dev/null; then
         if ! command -v pipx &> /dev/null; then
-            pip3 install --user pipx
+            pip3 install --user pipx || print_warning "Failed to install pipx"
         fi
-        pipx ensurepath
+        pipx ensurepath 2>/dev/null || true
         for app in black flake8 mypy ipython; do
             pipx install "$app" 2>/dev/null || true
         done

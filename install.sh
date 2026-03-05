@@ -4,7 +4,10 @@
 # Dotfiles Installation Script
 # =============================================================================
 
-set -e
+set -euo pipefail
+
+# Allow non-critical commands to fail without killing the script
+safe_run() { "$@" || print_warning "Command failed (non-critical): $*"; }
 
 # Colors for output
 RED='\033[0;31m'
@@ -53,9 +56,9 @@ detect_platform() {
                 ;;
             *)
                 # Fallback: check ID_LIKE for family compatibility
-                if [[ "$ID_LIKE" == *"rhel"* ]] || [[ "$ID_LIKE" == *"fedora"* ]]; then
+                if [[ "${ID_LIKE:-}" == *"rhel"* ]] || [[ "${ID_LIKE:-}" == *"fedora"* ]]; then
                     echo "fedora"
-                elif [[ "$ID_LIKE" == *"debian"* ]] || [[ "$ID_LIKE" == *"ubuntu"* ]]; then
+                elif [[ "${ID_LIKE:-}" == *"debian"* ]] || [[ "${ID_LIKE:-}" == *"ubuntu"* ]]; then
                     echo "linux"
                 else
                     echo "linux"  # Default to linux for unknown distributions
@@ -67,103 +70,97 @@ detect_platform() {
     fi
 }
 
+# Create a symlink only if it doesn't already point to the correct target.
+# For directories: removes existing dir/symlink and creates fresh symlink.
+# For files: uses ln -sf which overwrites atomically.
+ensure_link() {
+    local target="$1" link="$2"
+
+    # Already correct — skip
+    if [[ -L "$link" ]] && [[ "$(readlink "$link")" == "$target" ]]; then
+        return 0
+    fi
+
+    # Remove stale symlink or existing dir at link path
+    if [[ -L "$link" ]] || [[ -e "$link" ]]; then
+        rm -rf "$link"
+    fi
+
+    mkdir -p "$(dirname "$link")"
+    ln -sf "$target" "$link"
+}
+
 # Function to create symlinks
 create_symlinks() {
     local platform=$1
-    
+
     print_status "Creating symlinks..."
-    
-    # Create .config directory
-    if [[ ! -d ~/.config ]]; then
-        mkdir -p ~/.config
-    fi
-    
+    mkdir -p ~/.config
+
     # Shell configuration
     if [[ -d "shell/zsh/modular" ]]; then
-        # Remove existing zsh config directory if it exists
-        rm -rf ~/.config/zsh 2>/dev/null || true
-        ln -sf "$(pwd)/shell/zsh/modular" ~/.config/zsh
-        ln -sf "$(pwd)/shell/zsh/modular/.zshrc" ~/.zshrc
-        print_success "ZSH configuration linked"
-    elif [[ -d "shell/zsh" ]]; then
-        # Remove existing zsh config directory if it exists
-        rm -rf ~/.config/zsh 2>/dev/null || true
-        ln -sf "$(pwd)/shell/zsh" ~/.config/zsh
-        ln -sf "$(pwd)/shell/zsh/.zshrc" ~/.zshrc
+        ensure_link "$(pwd)/shell/zsh/modular" ~/.config/zsh
+        ensure_link "$(pwd)/shell/zsh/modular/.zshrc" ~/.zshrc
         print_success "ZSH configuration linked"
     fi
-    
-    # Starship configuration
+
+    # Starship
     if [[ -f "apps/starship/starship.toml" ]]; then
-        ln -sf "$(pwd)/apps/starship/starship.toml" ~/.config/starship.toml
+        ensure_link "$(pwd)/apps/starship/starship.toml" ~/.config/starship.toml
         print_success "Starship configuration linked"
     fi
-    
-    # Fastfetch configuration
+
+    # Fastfetch
     if [[ -f "apps/fastfetch/config.jsonc" ]]; then
-        mkdir -p ~/.config/fastfetch
-        ln -sf "$(pwd)/apps/fastfetch/config.jsonc" ~/.config/fastfetch/config.jsonc
+        ensure_link "$(pwd)/apps/fastfetch/config.jsonc" ~/.config/fastfetch/config.jsonc
         print_success "Fastfetch configuration linked"
     fi
-    
-    # Neovim configuration
+
+    # Neovim
     if [[ -d "apps/nvim" ]]; then
-        rm -rf ~/.config/nvim 2>/dev/null || true
-        ln -sf "$(pwd)/apps/nvim" ~/.config/nvim
+        ensure_link "$(pwd)/apps/nvim" ~/.config/nvim
         print_success "Neovim configuration linked"
     fi
 
-    # Wezterm configuration
+    # Wezterm
     if [[ -d "apps/wezterm" ]]; then
-        rm -rf ~/.config/wezterm 2>/dev/null || true
-        ln -sf "$(pwd)/apps/wezterm" ~/.config/wezterm
+        ensure_link "$(pwd)/apps/wezterm" ~/.config/wezterm
         print_success "Wezterm configuration linked"
     fi
 
-    # VSCode configuration
+    # VSCode
     if [[ -d "apps/vscode" ]]; then
         if [[ "$platform" == "macos" ]]; then
-            mkdir -p "$HOME/Library/Application Support/Code/User"
-            ln -sf "$(pwd)/apps/vscode/settings.json" "$HOME/Library/Application Support/Code/User/settings.json" 2>/dev/null || true
-            ln -sf "$(pwd)/apps/vscode/keybindings.json" "$HOME/Library/Application Support/Code/User/keybindings.json" 2>/dev/null || true
+            local vscode_dir="$HOME/Library/Application Support/Code/User"
         else
-            mkdir -p ~/.config/Code/User
-            ln -sf "$(pwd)/apps/vscode/settings.json" ~/.config/Code/User/settings.json 2>/dev/null || true
-            ln -sf "$(pwd)/apps/vscode/keybindings.json" ~/.config/Code/User/keybindings.json 2>/dev/null || true
+            local vscode_dir="$HOME/.config/Code/User"
         fi
+        ensure_link "$(pwd)/apps/vscode/settings.json" "$vscode_dir/settings.json"
+        ensure_link "$(pwd)/apps/vscode/keybindings.json" "$vscode_dir/keybindings.json"
         print_success "VSCode configuration linked"
     fi
 
-    # Zed configuration
+    # Zed
     if [[ -d "apps/zed" ]]; then
-        if [[ "$platform" == "macos" ]]; then
-            mkdir -p "$HOME/.config/zed"
-            ln -sf "$(pwd)/apps/zed/settings.json" "$HOME/.config/zed/settings.json" 2>/dev/null || true
-            ln -sf "$(pwd)/apps/zed/keymap.json" "$HOME/.config/zed/keymap.json" 2>/dev/null || true
-        else
-            mkdir -p ~/.config/zed
-            ln -sf "$(pwd)/apps/zed/settings.json" ~/.config/zed/settings.json 2>/dev/null || true
-            ln -sf "$(pwd)/apps/zed/keymap.json" ~/.config/zed/keymap.json 2>/dev/null || true
-        fi
+        ensure_link "$(pwd)/apps/zed/settings.json" ~/.config/zed/settings.json
+        ensure_link "$(pwd)/apps/zed/keymap.json" ~/.config/zed/keymap.json
         print_success "Zed configuration linked"
     fi
-    
-    # Git configuration
+
+    # Git
     if [[ -f "shell/common/.gitconfig" ]]; then
-        ln -sf "$(pwd)/shell/common/.gitconfig" ~/.gitconfig
+        ensure_link "$(pwd)/shell/common/.gitconfig" ~/.gitconfig
         print_success "Git configuration linked"
     fi
-    
+
     # macOS-only: skhd and yabai
     if [[ "$platform" == "macos" ]]; then
         if [[ -f "apps/skhd/skhdrc" ]]; then
-            mkdir -p ~/.config/skhd
-            ln -sf "$(pwd)/apps/skhd/skhdrc" ~/.config/skhd/skhdrc
+            ensure_link "$(pwd)/apps/skhd/skhdrc" ~/.config/skhd/skhdrc
             print_success "skhd configuration linked"
         fi
         if [[ -f "apps/yabai/yabairc" ]]; then
-            mkdir -p ~/.config/yabai
-            ln -sf "$(pwd)/apps/yabai/yabairc" ~/.config/yabai/yabairc
+            ensure_link "$(pwd)/apps/yabai/yabairc" ~/.config/yabai/yabairc
             print_success "yabai configuration linked"
         fi
     fi

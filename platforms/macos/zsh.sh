@@ -6,9 +6,13 @@
 
 # Set ZSH as default shell
 echo "Setting ZSH as default shell"
-if [[ "$SHELL" != "$(which zsh)" ]]; then
-    echo "$(which zsh)" | sudo tee -a /etc/shells
-    chsh -s "$(which zsh)"
+local_zsh="$(which zsh)"
+if [[ "$SHELL" != "$local_zsh" ]]; then
+    # Add to /etc/shells only if not already present
+    if ! grep -qxF "$local_zsh" /etc/shells; then
+        echo "$local_zsh" | sudo tee -a /etc/shells
+    fi
+    chsh -s "$local_zsh"
 fi
 
 # Zinit is installed via Homebrew (brew install zinit)

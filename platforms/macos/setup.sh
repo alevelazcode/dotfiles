@@ -4,7 +4,7 @@
 # macOS Setup Script
 # =============================================================================
 
-set -e
+set -euo pipefail
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -88,14 +88,21 @@ setup_fnm() {
 setup_rust() {
     print_status "Setting up Rust..."
 
-    if command -v rustup &> /dev/null; then
-        if ! command -v rustc &> /dev/null; then
-            rustup-init -y --no-modify-path
-            source "$HOME/.cargo/env"
-        fi
-        print_success "Rust toolchain ready"
+    if command -v rustc &> /dev/null; then
+        print_success "Rust toolchain already installed"
+        return 0
+    fi
+
+    if command -v rustup-init &> /dev/null; then
+        rustup-init -y --no-modify-path
+        source "$HOME/.cargo/env"
+        print_success "Rust toolchain installed via rustup-init"
+    elif command -v rustup &> /dev/null; then
+        rustup install stable
+        source "$HOME/.cargo/env"
+        print_success "Rust toolchain installed via rustup"
     else
-        print_warning "rustup not found — will be available after brew bundle"
+        print_warning "Neither rustup-init nor rustup found — install via 'brew install rustup-init'"
     fi
 }
 
@@ -125,16 +132,16 @@ install_dev_tools() {
             ts-node \
             prettier \
             yarn \
-            pnpm
+            pnpm \
+            || print_warning "Some npm packages failed to install"
         print_success "Node.js global packages installed"
     fi
 
     # Cargo dev extensions only (CLI tools already installed via Brewfile)
     if command -v cargo &> /dev/null; then
-        cargo install \
-            cargo-watch \
-            cargo-edit \
-            cargo-update
+        for pkg in cargo-watch cargo-edit cargo-update; do
+            cargo install "$pkg" 2>/dev/null || print_warning "Failed to install $pkg (may already be installed)"
+        done
         print_success "Cargo extensions installed"
     fi
 }

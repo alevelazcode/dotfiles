@@ -4,7 +4,7 @@
 # Fedora/RHEL Setup Script
 # =============================================================================
 
-set -e
+set -euo pipefail
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -175,12 +175,13 @@ install_dev_tools() {
     print_status "Installing development tools..."
 
     if command -v npm &> /dev/null; then
-        npm install -g typescript ts-node prettier yarn pnpm
+        npm install -g typescript ts-node prettier yarn pnpm \
+            || print_warning "Some npm packages failed to install"
         print_success "Node.js global packages installed"
     fi
 
     if command -v pipx &> /dev/null; then
-        pipx ensurepath
+        pipx ensurepath 2>/dev/null || true
         for app in black flake8 mypy ipython; do
             pipx install "$app" 2>/dev/null || true
         done
