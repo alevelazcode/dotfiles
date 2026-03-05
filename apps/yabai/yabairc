@@ -1,0 +1,39 @@
+# -------------------------------
+# Layout & window behavior
+# -------------------------------
+
+# Use bsp (binary space partitioning) tiling as the default layout
+# Alternatives: stack (tabbed), float (no tiling)
+yabai -m config layout bsp
+
+# Place new windows as the "second child" in the split instead of always first
+yabai -m config window_placement second_child
+
+# When a new window is created, automatically warp (move focus) east
+yabai -m signal --add event=window_created action="yabai -m window --warp east"
+
+# -------------------------------
+# Gaps & padding
+# -------------------------------
+
+# Add padding around screen edges (in pixels)
+yabai -m config top_padding 8
+yabai -m config bottom_padding 8
+yabai -m config left_padding 8
+yabai -m config right_padding 8
+
+# Add gaps between windows (in pixels)
+yabai -m config window_gap 8
+
+# -------------------------------
+# Application rules
+# -------------------------------
+
+# Do not manage System Settings (let it float)
+yabai -m rule --add app="^System Settings$" manage=off
+
+# Do not manage Calculator (let it float)
+yabai -m rule --add app="^Calculator$" manage=off
+
+# Do not manage Karabiner-Elements (let it float)
+yabai -m rule --add app="^Karabiner-Elements$" manage=off

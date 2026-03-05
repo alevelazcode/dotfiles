@@ -1,0 +1,39 @@
+# -------------------------------
+# Window focus (move between windows)
+# -------------------------------
+cmd + ctrl + alt + shift - left  : yabai -m window --focus west   # focus window to the left
+cmd + ctrl + alt + shift - right : yabai -m window --focus east   # focus window to the right
+cmd + ctrl + alt + shift - up    : yabai -m window --focus north  # focus window above
+cmd + ctrl + alt + shift - down  : yabai -m window --focus south  # focus window below
+
+# -------------------------------
+# Display focus (switch between monitors)
+# -------------------------------
+cmd + ctrl + alt + shift - g : yabai -m display --focus west   # move focus to display on the left
+cmd + ctrl + alt + shift - h : yabai -m display --focus east   # move focus to display on the right
+
+# -------------------------------
+# Move windows between displays
+# -------------------------------
+cmd + ctrl + alt + shift - a : yabai -m window --display west; yabai -m display --focus west; # send window left & focus that display
+cmd + ctrl + alt + shift - d : yabai -m window --display east; yabai -m display --focus east; # send window right & focus that display
+
+# -------------------------------
+# Window management
+# -------------------------------
+cmd + ctrl + alt + shift - r : yabai -m window --toggle native-fullscreen  # toggle macOS native fullscreen
+
+# -------------------------------
+# Yabai service control
+# -------------------------------
+cmd + ctrl + alt + shift - q : yabai --stop-service   # stop yabai
+cmd + ctrl + alt + shift - e : yabai --start-service  # start yabai
+
+# -------------------------------
+# Quick app launch and focus
+# -------------------------------
+cmd + ctrl + alt + shift - i : open -a "Wezterm"              # launch Warp
+cmd + ctrl + alt + shift - c : open -a "Zed" # launch VS Code
+cmd + ctrl + alt + shift - b : open -a "Google Chrome"      # launch Chrome
+# cmd + ctrl + alt + shift - p : open -a "Podman Desktop"     # launch Podman Desktop
+# cmd + ctrl + alt + shift - o : open -a "OpenLens"           # launch OpenLens

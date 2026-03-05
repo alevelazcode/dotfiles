@@ -106,18 +106,46 @@ create_symlinks() {
         print_success "Fastfetch configuration linked"
     fi
     
+    # Neovim configuration
+    if [[ -d "apps/nvim" ]]; then
+        rm -rf ~/.config/nvim 2>/dev/null || true
+        ln -sf "$(pwd)/apps/nvim" ~/.config/nvim
+        print_success "Neovim configuration linked"
+    fi
+
+    # Wezterm configuration
+    if [[ -d "apps/wezterm" ]]; then
+        rm -rf ~/.config/wezterm 2>/dev/null || true
+        ln -sf "$(pwd)/apps/wezterm" ~/.config/wezterm
+        print_success "Wezterm configuration linked"
+    fi
+
     # VSCode configuration
     if [[ -d "apps/vscode" ]]; then
-        mkdir -p ~/.config/Code/User
-        ln -sf "$(pwd)/apps/vscode/settings.json" ~/.config/Code/User/settings.json 2>/dev/null || true
-        ln -sf "$(pwd)/apps/vscode/keybindings.json" ~/.config/Code/User/keybindings.json 2>/dev/null || true
+        if [[ "$platform" == "macos" ]]; then
+            mkdir -p "$HOME/Library/Application Support/Code/User"
+            ln -sf "$(pwd)/apps/vscode/settings.json" "$HOME/Library/Application Support/Code/User/settings.json" 2>/dev/null || true
+            ln -sf "$(pwd)/apps/vscode/keybindings.json" "$HOME/Library/Application Support/Code/User/keybindings.json" 2>/dev/null || true
+        else
+            mkdir -p ~/.config/Code/User
+            ln -sf "$(pwd)/apps/vscode/settings.json" ~/.config/Code/User/settings.json 2>/dev/null || true
+            ln -sf "$(pwd)/apps/vscode/keybindings.json" ~/.config/Code/User/keybindings.json 2>/dev/null || true
+        fi
         print_success "VSCode configuration linked"
     fi
-    
-    # LazyVim configuration (if exists)
-    if [[ -d "apps/lazyvim" ]]; then
-        print_status "LazyVim configuration directory found"
-        print_status "LazyVim will be installed by the platform setup script"
+
+    # Zed configuration
+    if [[ -d "apps/zed" ]]; then
+        if [[ "$platform" == "macos" ]]; then
+            mkdir -p "$HOME/.config/zed"
+            ln -sf "$(pwd)/apps/zed/settings.json" "$HOME/.config/zed/settings.json" 2>/dev/null || true
+            ln -sf "$(pwd)/apps/zed/keymap.json" "$HOME/.config/zed/keymap.json" 2>/dev/null || true
+        else
+            mkdir -p ~/.config/zed
+            ln -sf "$(pwd)/apps/zed/settings.json" ~/.config/zed/settings.json 2>/dev/null || true
+            ln -sf "$(pwd)/apps/zed/keymap.json" ~/.config/zed/keymap.json 2>/dev/null || true
+        fi
+        print_success "Zed configuration linked"
     fi
     
     # Git configuration
@@ -126,11 +154,18 @@ create_symlinks() {
         print_success "Git configuration linked"
     fi
     
-    # Platform-specific configurations
-    if [[ -d "platforms/$platform" ]]; then
-        # Note: Yabai and SKHD configurations removed
-        # If you want to use them, install manually and link configs
-        print_status "Platform-specific configurations checked"
+    # macOS-only: skhd and yabai
+    if [[ "$platform" == "macos" ]]; then
+        if [[ -f "apps/skhd/skhdrc" ]]; then
+            mkdir -p ~/.config/skhd
+            ln -sf "$(pwd)/apps/skhd/skhdrc" ~/.config/skhd/skhdrc
+            print_success "skhd configuration linked"
+        fi
+        if [[ -f "apps/yabai/yabairc" ]]; then
+            mkdir -p ~/.config/yabai
+            ln -sf "$(pwd)/apps/yabai/yabairc" ~/.config/yabai/yabairc
+            print_success "yabai configuration linked"
+        fi
     fi
 }
 

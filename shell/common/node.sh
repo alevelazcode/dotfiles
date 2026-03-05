@@ -1,11 +1,15 @@
-# Install Node.js packages (Node.js is already installed via Homebrew/APT)
-echo "Installing Node.js packages..."
+# Install Node.js global packages (Node.js managed via FNM)
+echo "Installing Node.js global packages..."
 
-# Install Yarn
-echo "Installing Yarn"
-npm install --global yarn
+if ! command -v fnm &> /dev/null; then
+    echo "FNM not found. Install it first via your platform setup script."
+    exit 0
+fi
 
-echo "Installing PNPM" 
-npm install -g pnpm
+# Ensure FNM environment is loaded
+eval "$(fnm env --use-on-cd)"
+
+# Install Yarn and PNPM
+npm install -g yarn pnpm
 
 echo "Node.js packages installation complete"

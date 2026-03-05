@@ -1,53 +1,36 @@
 #!/bin/bash
 
 # =============================================================================
-# Linux Ubuntu Setup Script
+# Linux Ubuntu/Debian Setup Script
 # =============================================================================
 
 set -e
 
-# Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
-NC='\033[0m' # No Color
+NC='\033[0m'
 
-print_status() {
-    echo -e "${BLUE}[INFO]${NC} $1"
-}
+print_status()  { echo -e "${BLUE}[INFO]${NC} $1"; }
+print_success() { echo -e "${GREEN}[SUCCESS]${NC} $1"; }
+print_warning() { echo -e "${YELLOW}[WARNING]${NC} $1"; }
+print_error()   { echo -e "${RED}[ERROR]${NC} $1"; }
 
-print_success() {
-    echo -e "${GREEN}[SUCCESS]${NC} $1"
-}
-
-print_warning() {
-    echo -e "${YELLOW}[WARNING]${NC} $1"
-}
-
-print_error() {
-    echo -e "${RED}[ERROR]${NC} $1"
-}
-
-# Update system packages
+# Update system
 update_system() {
     print_status "Updating system packages..."
-    
-    # Set up locale
-    print_status "Setting up locale..."
     sudo locale-gen en_US.UTF-8
     export LC_ALL=en_US.UTF-8
     export LANG=en_US.UTF-8
-    
-    sudo apt update
-    sudo apt upgrade -y
+    sudo apt update && sudo apt upgrade -y
     print_success "System updated"
 }
 
 # Install essential packages
 install_essential_packages() {
     print_status "Installing essential packages..."
-    
+
     sudo apt install -y \
         git \
         curl \
@@ -74,21 +57,45 @@ install_essential_packages() {
         fzf \
         tmux \
         jq \
-        yq \
-        neovim \
         python3 \
         python3-pip \
-        python3-venv \
-        nodejs \
-        npm
+        python3-venv
+
+    print_success "Essential packages installed"
+}
+
+# Install Neovim (latest from source or PPA)
+install_neovim() {
+    print_status "Installing Neovim..."
+
+    if ! command -v nvim &> /dev/null; then
+        sudo apt install -y software-properties-common
+        sudo add-apt-repository -y ppa:neovim-ppa/unstable
+        sudo apt update
+        sudo apt install -y neovim
+        print_success "Neovim installed"
+    else
+        print_success "Neovim is already installed"
+    fi
+}
+
+# Install Zinit
+install_zinit() {
+    print_status "Installing Zinit..."
+
+    if [[ ! -d "${XDG_DATA_HOME:-$HOME/.local/share}/zinit/zinit.git" ]]; then
+        bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
+        print_success "Zinit installed"
+    else
+        print_success "Zinit is already installed"
+    fi
 }
 
 # Install Starship
 install_starship() {
     print_status "Installing Starship prompt..."
-    
     if ! command -v starship &> /dev/null; then
-        curl -sS https://starship.rs/install.sh | sh
+        curl -sS https://starship.rs/install.sh | sh -s -- -y
         print_success "Starship installed"
     else
         print_success "Starship is already installed"
@@ -98,11 +105,12 @@ install_starship() {
 # Install Fastfetch
 install_fastfetch() {
     print_status "Installing Fastfetch..."
-    
     if ! command -v fastfetch &> /dev/null; then
-        # Download and install fastfetch
-        wget -qO- https://github.com/fastfetch-cli/fastfetch/releases/latest/download/fastfetch-linux-x64.tar.gz | tar -xz
-        sudo mv fastfetch /usr/local/bin/
+        sudo apt install -y fastfetch 2>/dev/null || {
+            wget -qO /tmp/fastfetch.deb "https://github.com/fastfetch-cli/fastfetch/releases/latest/download/fastfetch-linux-amd64.deb"
+            sudo dpkg -i /tmp/fastfetch.deb
+            rm /tmp/fastfetch.deb
+        }
         print_success "Fastfetch installed"
     else
         print_success "Fastfetch is already installed"
@@ -112,44 +120,38 @@ install_fastfetch() {
 # Install Rust
 install_rust() {
     print_status "Installing Rust..."
-    
     if ! command -v rustc &> /dev/null; then
-        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-        source ~/.cargo/env
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
+        source "$HOME/.cargo/env"
         print_success "Rust installed"
     else
         print_success "Rust is already installed"
     fi
 }
 
-# Setup shell configuration
-setup_shell() {
-    print_status "Setting up shell configuration..."
-    
-    # Make sure zsh is the default shell
-    if [[ "$SHELL" != "/bin/zsh" ]]; then
-        print_status "Setting zsh as default shell..."
-        chsh -s /bin/zsh
+# Install FNM (Fast Node Manager)
+install_fnm() {
+    print_status "Installing FNM..."
+    if ! command -v fnm &> /dev/null; then
+        curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell
+        export PATH="$HOME/.local/share/fnm:$PATH"
+        eval "$(fnm env --use-on-cd)"
+        print_success "FNM installed"
+    else
+        print_success "FNM is already installed"
+    fi
+
+    # Install Node.js LTS
+    if command -v fnm &> /dev/null; then
+        fnm install --lts
+        fnm default lts-latest
+        print_success "Node.js LTS installed via FNM"
     fi
 }
 
-# Install development tools
-install_dev_tools() {
-    print_status "Installing development tools..."
-    
-    # Install Node.js packages
-    if command -v npm &> /dev/null; then
-        sudo npm install -g \
-            typescript \
-            ts-node \
-            nodemon \
-            eslint \
-            prettier \
-            yarn
-        print_success "Node.js packages installed"
-    fi
-    
-    # Install Rust packages
+# Install modern CLI tools via Cargo
+install_rust_tools() {
+    print_status "Installing Rust CLI tools..."
     if command -v cargo &> /dev/null; then
         cargo install \
             ripgrep \
@@ -157,135 +159,77 @@ install_dev_tools() {
             bat \
             eza \
             tokei \
-            cargo-watch \
-            cargo-edit \
             du-dust \
             procs \
             sd \
             tealdeer \
+            zoxide \
+            cargo-watch \
+            cargo-edit \
             cargo-update
-        print_success "Rust packages installed"
+        print_success "Rust CLI tools installed"
     fi
-    
-    # Install Python packages
+}
+
+# Setup shell
+setup_shell() {
+    print_status "Setting up shell configuration..."
+    if [[ "$SHELL" != "$(which zsh)" ]]; then
+        chsh -s "$(which zsh)"
+    fi
+    print_success "ZSH is the default shell"
+}
+
+# Install dev tools (global npm packages, Python tools)
+install_dev_tools() {
+    print_status "Installing development tools..."
+
+    if command -v npm &> /dev/null; then
+        npm install -g \
+            typescript \
+            ts-node \
+            prettier \
+            yarn \
+            pnpm
+        print_success "Node.js global packages installed"
+    fi
+
     if command -v pip3 &> /dev/null; then
-        # Install pipx for Python applications
-        if command -v pipx &> /dev/null; then
-            # Ensure pipx PATH is set up
-            pipx ensurepath
-            print_success "pipx PATH configured"
-            
-            # Install Python applications via pipx
-            pipx install black
-            pipx install flake8
-            pipx install mypy
-            pipx install pytest
-            pipx install ipython
-            pipx install jupyterlab
-            print_success "Python applications installed via pipx"
-        else
-            # Install pipx if not available
+        if ! command -v pipx &> /dev/null; then
             pip3 install --user pipx
-            pipx ensurepath
-            print_success "pipx PATH configured"
-            
-            pipx install black
-            pipx install flake8
-            pipx install mypy
-            pipx install pytest
-            pipx install ipython
-            pipx install jupyterlab
-            print_success "Python applications installed via pipx"
         fi
-        
-        # Create a development virtual environment for additional packages
-        if [[ ! -d ~/.venv/dev ]]; then
-            python3 -m venv ~/.venv/dev
-            print_success "Development virtual environment created"
-        fi
-        
-        # Install development packages in virtual environment
-        if [[ -d ~/.venv/dev ]]; then
-            source ~/.venv/dev/bin/activate
-            pip install --upgrade pip
-            pip install \
-                black \
-                flake8 \
-                mypy \
-                pytest \
-                ipython \
-                jupyter
-            deactivate
-            print_success "Python development packages installed in virtual environment"
-        fi
+        pipx ensurepath
+        for app in black flake8 mypy ipython; do
+            pipx install "$app" 2>/dev/null || true
+        done
+        print_success "Python tools installed via pipx"
     fi
 }
 
-# Install LazyVim
-install_lazyvim() {
-    print_status "Installing LazyVim..."
-    
-    # Backup existing Neovim configuration
-    if [[ -d ~/.config/nvim ]]; then
-        print_warning "Backing up existing Neovim configuration..."
-        mv ~/.config/nvim ~/.config/nvim.backup.$(date +%Y%m%d_%H%M%S)
-    fi
-    
-    # Install LazyVim
-    git clone https://github.com/LazyVim/starter ~/.config/nvim
-    rm -rf ~/.config/nvim/.git
-    
-    print_success "LazyVim installed successfully"
-    print_status "You can now customize LazyVim by editing ~/.config/nvim/lua/config/"
-}
-
-# Setup ZSH with Oh My Zsh
-setup_zsh_complete() {
-    print_status "Setting up ZSH with Oh My Zsh and essential plugins..."
-    
-    # Source the common ZSH setup script
-    if [[ -f "$(dirname "$0")/../../shell/common/zsh-setup.sh" ]]; then
-        source "$(dirname "$0")/../../shell/common/zsh-setup.sh"
-        setup_zsh
-    elif [[ -f "./shell/common/zsh-setup.sh" ]]; then
-        source "./shell/common/zsh-setup.sh"
-        setup_zsh
-    else
-        print_warning "ZSH setup script not found. Installing ZSH manually..."
-        # Fallback: ensure ZSH is installed and set as default
-        if ! command -v zsh &> /dev/null; then
-            sudo apt install -y zsh
-        fi
-        if [[ "$SHELL" != "$(which zsh)" ]]; then
-            chsh -s "$(which zsh)"
-        fi
-    fi
-}
-
-# Main function
+# Main
 main() {
-    print_status "Starting comprehensive Linux Ubuntu setup..."
-    
+    print_status "Starting Linux Ubuntu/Debian setup..."
+
     update_system
     install_essential_packages
+    install_neovim
+    install_zinit
     install_starship
     install_fastfetch
     install_rust
+    install_fnm
     setup_shell
-    setup_zsh_complete
+    install_rust_tools
     install_dev_tools
-    install_lazyvim
-    
-    print_success "Linux Ubuntu setup complete!"
-    print_status "Summary of what was installed:"
-    echo "  ✅ System packages and development tools"
-    echo "  ✅ ZSH with Oh My Zsh and essential plugins"
-    echo "  ✅ Starship prompt and Fastfetch"
-    echo "  ✅ Rust toolchain and modern CLI tools"
-    echo "  ✅ Node.js, Python, and development packages"
-    echo "  ✅ LazyVim (modern Neovim configuration)"
-    print_status ""
-    print_warning "Please restart your terminal for all changes to take effect."
+
+    print_success "Linux setup complete!"
+    echo "  - System packages and build tools"
+    echo "  - ZSH + Zinit (plugin manager)"
+    echo "  - FNM + Node.js LTS"
+    echo "  - Rust toolchain + modern CLI tools"
+    echo "  - Neovim (custom NvChad config)"
+    echo "  - Starship prompt + Fastfetch"
+    print_warning "Restart your terminal or run 'source ~/.zshrc'"
 }
 
-main "$@" 
+main "$@"
