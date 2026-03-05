@@ -137,8 +137,10 @@ install_fnm() {
 # Setup shell
 setup_shell() {
     print_status "Setting up shell configuration..."
-    if [[ "$SHELL" != "/bin/zsh" ]]; then
-        chsh -s /bin/zsh
+    local zsh_path
+    zsh_path="$(command -v zsh)"
+    if [[ "$SHELL" != "$zsh_path" ]]; then
+        chsh -s "$zsh_path"
     fi
     print_success "ZSH is the default shell"
 }
@@ -157,13 +159,13 @@ install_rust_tools() {
         print_success "cargo-binstall installed"
     fi
 
-    local installer="cargo binstall -y --no-confirm"
+    local -a installer=(cargo binstall -y)
     if ! command -v cargo-binstall &> /dev/null; then
-        installer="cargo install"
+        installer=(cargo install)
     fi
 
     for pkg in ripgrep fd-find bat eza zoxide dust procs sd tealdeer tokei bottom git-delta cargo-watch cargo-edit cargo-update; do
-        $installer "$pkg" 2>/dev/null || print_warning "Failed to install $pkg"
+        "${installer[@]}" "$pkg" || print_warning "Failed to install $pkg"
     done
     print_success "Rust CLI tools installed"
 }

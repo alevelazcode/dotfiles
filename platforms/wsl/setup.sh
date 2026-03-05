@@ -185,27 +185,15 @@ install_rust_tools() {
         print_success "cargo-binstall installed"
     fi
 
-    local installer="cargo binstall -y --no-confirm"
+    local -a installer=(cargo binstall -y)
     if ! command -v cargo-binstall &> /dev/null; then
-        installer="cargo install"
+        installer=(cargo install)
     fi
 
-    $installer \
-        ripgrep \
-        fd-find \
-        bat \
-        eza \
-        zoxide \
-        dust \
-        procs \
-        sd \
-        tealdeer \
-        tokei \
-        bottom \
-        git-delta \
-        cargo-watch \
-        cargo-edit \
-        cargo-update
+    for pkg in ripgrep fd-find bat eza zoxide dust procs sd tealdeer tokei bottom git-delta cargo-watch cargo-edit cargo-update; do
+        "${installer[@]}" "$pkg" || print_warning "Failed to install $pkg"
+    done
+
     print_success "Rust CLI tools installed"
 }
 

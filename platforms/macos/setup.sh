@@ -57,9 +57,11 @@ install_packages() {
 setup_shell() {
     print_status "Setting up shell configuration..."
 
-    if [[ "$SHELL" != "/bin/zsh" ]]; then
+    local zsh_path
+    zsh_path="$(command -v zsh)"
+    if [[ "$SHELL" != "$zsh_path" ]]; then
         print_status "Setting zsh as default shell..."
-        chsh -s /bin/zsh
+        chsh -s "$zsh_path"
     fi
     print_success "ZSH is the default shell"
 }
