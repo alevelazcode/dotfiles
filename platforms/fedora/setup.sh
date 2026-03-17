@@ -164,7 +164,7 @@ install_rust_tools() {
         installer=(cargo install)
     fi
 
-    for pkg in ripgrep fd-find bat eza zoxide dust procs sd tealdeer tokei bottom git-delta cargo-watch cargo-edit cargo-update; do
+    for pkg in ripgrep fd-find bat eza zoxide du-dust procs sd tealdeer tokei bottom git-delta cargo-watch cargo-edit cargo-update; do
         "${installer[@]}" "$pkg" || print_warning "Failed to install $pkg"
     done
     print_success "Rust CLI tools installed"
