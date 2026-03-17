@@ -191,6 +191,49 @@ install_platform_packages() {
     fi
 }
 
+# Function to install fonts from the fonts/ directory
+install_fonts() {
+    local platform=$1
+    local fonts_dir="$(pwd)/fonts"
+
+    if [[ ! -d "$fonts_dir" ]]; then
+        print_warning "fonts/ directory not found, skipping font installation"
+        return 0
+    fi
+
+    print_status "Installing fonts..."
+
+    if [[ "$platform" == "macos" ]]; then
+        local dest="$HOME/Library/Fonts"
+    else
+        local dest="$HOME/.local/share/fonts"
+        mkdir -p "$dest"
+    fi
+
+    local installed=0
+    local skipped=0
+
+    # Iterate all font files (.otf and .ttf) in any subfolder
+    while IFS= read -r -d '' font_file; do
+        local font_name
+        font_name="$(basename "$font_file")"
+
+        if [[ -f "$dest/$font_name" ]]; then
+            (( skipped++ )) || true
+        else
+            cp "$font_file" "$dest/$font_name"
+            (( installed++ )) || true
+        fi
+    done < <(find "$fonts_dir" -type f \( -name "*.otf" -o -name "*.ttf" \) -print0)
+
+    if [[ "$platform" != "macos" ]] && (( installed > 0 )); then
+        fc-cache -fv "$dest" > /dev/null 2>&1
+        print_success "Font cache refreshed"
+    fi
+
+    print_success "Fonts: $installed installed, $skipped already present"
+}
+
 # Function to install common development tools
 install_dev_tools() {
     print_status "Installing common development tools..."
@@ -230,10 +273,13 @@ main() {
     
     # Install platform-specific packages
     install_platform_packages "$PLATFORM"
-    
+
+    # Install fonts
+    install_fonts "$PLATFORM"
+
     # Install common development tools
     install_dev_tools
-    
+
     print_success "Installation complete!"
     print_status "Please restart your terminal or run 'source ~/.zshrc'"
 }
@@ -246,6 +292,7 @@ if [[ $# -eq 1 ]]; then
             print_status "Using specified platform: $PLATFORM"
             create_symlinks "$PLATFORM"
             install_platform_packages "$PLATFORM"
+            install_fonts "$PLATFORM"
             install_dev_tools
             print_success "Installation complete!"
             print_status "Please restart your terminal or run 'source ~/.zshrc'"
