@@ -7,14 +7,6 @@
     "github-copilot-cli": {
       "type": "registry",
     },
-    "claude": {
-      "default_config_options": {
-        "model": "sonnet",
-      },
-      "favorite_config_option_values": {
-        "model": ["sonnet"],
-      },
-    },
     "claude-acp": {
       "type": "registry",
       "default_config_options": {
@@ -155,7 +147,7 @@
   "cursor_shape": "bar",
   "cursor_blink": false,
   "text_rendering_mode": "platform_default",
-  "buffer_font_family": "CaskaydiaMono Nerd Font Mono",
+  "buffer_font_family": "DankMono Nerd Font Mono",
   "buffer_font_features": {
     "calt": true,
   },

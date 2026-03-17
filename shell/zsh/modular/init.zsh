@@ -74,6 +74,7 @@ if (( $+functions[zsh-defer] )); then
     zsh-defer source "$ZSH_CONFIG_DIR/dev/python.zsh"
     zsh-defer source "$ZSH_CONFIG_DIR/dev/rust.zsh"
     zsh-defer source "$ZSH_CONFIG_DIR/dev/docker.zsh"
+    zsh-defer source "$ZSH_CONFIG_DIR/dev/android.zsh"
     [[ -f "$ZSH_CONFIG_DIR/local.zsh" ]] && zsh-defer source "$ZSH_CONFIG_DIR/local.zsh"
 else
     source "$ZSH_CONFIG_DIR/modules/aliases.zsh"
@@ -84,6 +85,7 @@ else
     source "$ZSH_CONFIG_DIR/dev/python.zsh"
     source "$ZSH_CONFIG_DIR/dev/rust.zsh"
     source "$ZSH_CONFIG_DIR/dev/docker.zsh"
+    source "$ZSH_CONFIG_DIR/dev/android.zsh"
     [[ -f "$ZSH_CONFIG_DIR/local.zsh" ]] && source "$ZSH_CONFIG_DIR/local.zsh"
 fi
 
