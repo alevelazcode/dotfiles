@@ -27,7 +27,7 @@ path_prepend "$HOME/bin"
 # -----------------------------------------------------------------------------
 
 # Cargo (early — needed before prompt for starship on Linux)
-path_append "$HOME/.cargo/bin"
+path_prepend "$HOME/.cargo/bin"
 
 # Go
 path_append "$HOME/go/bin"
