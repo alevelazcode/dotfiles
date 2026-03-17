@@ -116,8 +116,31 @@ config.hyperlink_rules = {
 -- }
 -- and finally, return the configuration to wezterm
 --
--- config.enable_wayland = false
--- config.front_end = "OpenGL"
--- config.front_end = "WebGpu"
+-- GPU auto-detection: Intel needs Wayland disabled; NVIDIA works with defaults
+local function detect_gpu()
+  local handle = io.popen("lspci 2>/dev/null | grep -i vga")
+  if handle then
+    local result = handle:read("*a")
+    handle:close()
+    if result:match("[Nn]vidia") or result:match("[Gg]eforce") then
+      return "nvidia"
+    elseif result:match("[Ii]ntel") or result:match("[Ii]ris") then
+      return "intel"
+    end
+  end
+  return "unknown"
+end
+
+local gpu = detect_gpu()
+wezterm.log_info("WezTerm detected GPU: " .. gpu)
+
+if gpu == "nvidia" then
+  -- NVIDIA: use OpenGL, allow Wayland
+  config.front_end = "OpenGL"
+else
+  -- Intel (or unknown): disable Wayland to avoid blank/crash on launch
+  config.enable_wayland = false
+  config.front_end = "OpenGL"
+end
 
 return config
