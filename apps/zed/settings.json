@@ -36,7 +36,7 @@
   "selection_highlight": true,
   "hard_tabs": false,
   "tab_size": 2,
-  "auto_indent": true,
+  "auto_indent": "syntax_aware",
   "auto_indent_on_paste": true,
   "preferred_line_length": 80,
   "indent_guides": {
@@ -179,11 +179,7 @@
   "ui_font_size": 18,
   "buffer_font_size": 18.0,
   "agent_buffer_font_size": 18,
-  "theme": {
-    "mode": "dark",
-    "light": "Monokai Night Soft",
-    "dark": "Monokai Vibrant Amped",
-  },
+  "theme": "Monokai Reversed",
   "scrollbar": {
     "show": "never",
     "cursors": false,
