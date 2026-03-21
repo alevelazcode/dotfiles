@@ -225,17 +225,31 @@ install_fonts() {
 
     print_status "Installing fonts..."
 
-    if [[ "$platform" == "macos" ]]; then
-        local dest="$HOME/Library/Fonts"
-    else
-        local dest="$HOME/.local/share/fonts"
-        mkdir -p "$dest"
-    fi
+    local dest
+    case "$platform" in
+        macos)
+            dest="$HOME/Library/Fonts"
+            ;;
+        wsl)
+            # WSL2: terminal runs on Windows — fonts must be on the Windows side
+            local win_home
+            win_home=$(get_win_home) || {
+                print_warning "Could not detect Windows home — skipping font installation"
+                print_status "Install fonts manually on Windows: copy .otf/.ttf to C:\\Windows\\Fonts"
+                return 0
+            }
+            dest="$win_home/AppData/Local/Microsoft/Windows/Fonts"
+            mkdir -p "$dest"
+            ;;
+        *)
+            dest="$HOME/.local/share/fonts"
+            mkdir -p "$dest"
+            ;;
+    esac
 
     local installed=0
     local skipped=0
 
-    # Iterate all font files (.otf and .ttf) in any subfolder
     while IFS= read -r -d '' font_file; do
         local font_name
         font_name="$(basename "$font_file")"
@@ -248,7 +262,19 @@ install_fonts() {
         fi
     done < <(find "$fonts_dir" -type f \( -name "*.otf" -o -name "*.ttf" \) -print0)
 
-    if [[ "$platform" != "macos" ]] && (( installed > 0 )); then
+    if [[ "$platform" == "wsl" ]] && (( installed > 0 )); then
+        # Register fonts in Windows registry via PowerShell
+        print_status "Registering fonts in Windows..."
+        for font_file in "$dest"/*.{otf,ttf}; do
+            [[ -f "$font_file" ]] || continue
+            local fname
+            fname="$(basename "$font_file")"
+            powershell.exe -NoProfile -Command \
+                "New-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name '$fname' -Value '$fname' -PropertyType String -Force" \
+                2>/dev/null || true
+        done
+        print_success "Fonts registered (may need Windows restart to appear in all apps)"
+    elif [[ "$platform" != "macos" ]] && [[ "$platform" != "wsl" ]] && (( installed > 0 )); then
         fc-cache -fv "$dest" > /dev/null 2>&1
         print_success "Font cache refreshed"
     fi
