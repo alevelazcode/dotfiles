@@ -87,6 +87,25 @@ ensure_link() {
     ln -sf "$target" "$link"
 }
 
+# Copy files/dirs to Windows-side for native Windows apps.
+# Windows apps can't follow WSL2 Linux symlinks, so we copy instead.
+# Re-run install.sh after editing configs to sync changes.
+ensure_win_copy() {
+    local source="$1" dest="$2"
+
+    if [[ -d "$source" ]]; then
+        # Directory: remove old and copy fresh
+        rm -rf "$dest"
+        mkdir -p "$(dirname "$dest")"
+        cp -r "$source" "$dest"
+    else
+        # File: remove stale symlink/file first, then copy
+        rm -f "$dest"
+        mkdir -p "$(dirname "$dest")"
+        cp "$source" "$dest"
+    fi
+}
+
 # Resolve Windows user home from WSL (/mnt/c/Users/<user>)
 get_win_home() {
     local win_user
@@ -140,7 +159,7 @@ create_symlinks() {
     if [[ -d "apps/wezterm" ]]; then
         if [[ "$platform" == "wsl" ]] && [[ -n "$win_home" ]]; then
             # Wezterm on Windows reads from %USERPROFILE%\.config\wezterm\
-            ensure_link "$(pwd)/apps/wezterm" "$win_home/.config/wezterm"
+            ensure_win_copy "$(pwd)/apps/wezterm" "$win_home/.config/wezterm"
             print_success "Wezterm configuration linked (Windows-side)"
         elif [[ "$platform" != "wsl" ]]; then
             ensure_link "$(pwd)/apps/wezterm" ~/.config/wezterm
@@ -162,8 +181,8 @@ create_symlinks() {
         # WSL: also link to Windows-side VS Code config
         if [[ "$platform" == "wsl" ]] && [[ -n "$win_home" ]]; then
             local win_vscode_dir="$win_home/AppData/Roaming/Code/User"
-            ensure_link "$(pwd)/apps/vscode/settings.json" "$win_vscode_dir/settings.json"
-            ensure_link "$(pwd)/apps/vscode/keybindings.json" "$win_vscode_dir/keybindings.json"
+            ensure_win_copy "$(pwd)/apps/vscode/settings.json" "$win_vscode_dir/settings.json"
+            ensure_win_copy "$(pwd)/apps/vscode/keybindings.json" "$win_vscode_dir/keybindings.json"
             print_success "VSCode configuration linked (Windows-side)"
         fi
     fi
@@ -173,8 +192,8 @@ create_symlinks() {
         if [[ "$platform" == "wsl" ]] && [[ -n "$win_home" ]]; then
             # Zed on Windows reads from %APPDATA%\Zed\
             local win_zed_dir="$win_home/AppData/Roaming/Zed"
-            ensure_link "$(pwd)/apps/zed/settings.json" "$win_zed_dir/settings.json"
-            ensure_link "$(pwd)/apps/zed/keymap.json" "$win_zed_dir/keymap.json"
+            ensure_win_copy "$(pwd)/apps/zed/settings.json" "$win_zed_dir/settings.json"
+            ensure_win_copy "$(pwd)/apps/zed/keymap.json" "$win_zed_dir/keymap.json"
             print_success "Zed configuration linked (Windows-side)"
         elif [[ "$platform" != "wsl" ]]; then
             ensure_link "$(pwd)/apps/zed/settings.json" ~/.config/zed/settings.json

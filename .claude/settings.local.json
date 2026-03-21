@@ -9,7 +9,13 @@
       "Bash(zsh -c 'source \"\"$HOME/.config/zsh/init.zsh\"\"')",
       "Bash(zsh -ic 'echo \"\"starship: $\\(which starship 2>/dev/null || echo NOT FOUND\\)\"\"; echo \"\"zoxide: $\\(which zoxide 2>/dev/null || echo NOT FOUND\\)\"\"; echo \"\"cargo PATH: $\\(echo $PATH | tr \"\":\"\" \"\"\\\\n\"\" | grep cargo\\)\"\"')",
       "Bash(git -C /Users/alejandrovelazco/dotfiles log --oneline -10)",
-      "Bash(git -C /Users/alejandrovelazco/dotfiles diff --stat)"
+      "Bash(git -C /Users/alejandrovelazco/dotfiles diff --stat)",
+      "Bash(find /home/ale/dotfiles -name .stow* -o -name stowrc -o -name *stow*)",
+      "Bash(find /home/ale/dotfiles -type d -not -path */.git/* -not -path */.DS_Store)",
+      "Read(//proc/**)",
+      "Bash(wslpath -w /home/ale/dotfiles/apps/wezterm)",
+      "Bash(wsl.exe -l -v)",
+      "Bash(./install.sh)"
     ]
   }
 }
