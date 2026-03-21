@@ -15,7 +15,23 @@
       "Read(//proc/**)",
       "Bash(wslpath -w /home/ale/dotfiles/apps/wezterm)",
       "Bash(wsl.exe -l -v)",
-      "Bash(./install.sh)"
+      "Bash(./install.sh)",
+      "Bash(fc-list)",
+      "Bash(nvim --version)",
+      "Bash(curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage)",
+      "Bash(chmod u+x nvim-linux-x86_64.appimage)",
+      "Bash(sudo mv:*)",
+      "Bash(mkdir -p ~/.local/bin)",
+      "Bash(mv nvim-linux-x86_64.appimage ~/.local/bin/nvim)",
+      "Bash(echo $PATH)",
+      "Bash(grep -q \"$HOME/.local/bin\")",
+      "Bash(export PATH=\"$HOME/.local/bin:$PATH\")",
+      "Bash(chmod +x ~/.local/bin/nvim)",
+      "Bash(~/.local/bin/nvim --version)",
+      "Bash(zsh -c 'source ~/.zshrc; which fnm; fnm env --use-on-cd')",
+      "Bash(zsh -c 'source ~/.zshrc; which node; node --version')",
+      "Bash(zsh -ic 'echo $PATH')",
+      "Bash(zsh -ic 'which node; node --version; which fnm')"
     ]
   }
 }

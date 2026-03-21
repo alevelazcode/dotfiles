@@ -29,6 +29,9 @@ path_prepend "$HOME/bin"
 # Cargo (early — needed before prompt for starship on Linux)
 path_prepend "$HOME/.cargo/bin"
 
+# FNM (sync — must run before deferred modules so node/npm are in PATH)
+(( $+commands[fnm] )) && eval "$(fnm env --use-on-cd)"
+
 # Go
 path_append "$HOME/go/bin"
 
