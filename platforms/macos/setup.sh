@@ -146,12 +146,19 @@ install_dev_tools() {
         print_success "Node.js global packages installed"
     fi
 
-    # Cargo dev extensions only (CLI tools already installed via Brewfile)
+    # Cargo dev extensions (pre-compiled via binstall, falls back to compile)
     if command -v cargo &> /dev/null; then
-        for pkg in cargo-watch cargo-edit cargo-update; do
-            cargo install "$pkg" 2>/dev/null || print_warning "Failed to install $pkg (may already be installed)"
-        done
-        print_success "Cargo extensions installed"
+        # Install cargo-binstall for fast binary downloads
+        if ! command -v cargo-binstall &> /dev/null; then
+            curl -L --proto '=https' --tlsv1.2 -sSf \
+                https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash \
+                || print_warning "cargo-binstall not available, skipping cargo extensions"
+        fi
+        if command -v cargo-binstall &> /dev/null; then
+            cargo binstall -y cargo-watch cargo-edit cargo-update \
+                || print_warning "Some cargo extensions failed to install"
+            print_success "Cargo extensions installed"
+        fi
     fi
 }
 
