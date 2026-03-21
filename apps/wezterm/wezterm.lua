@@ -20,8 +20,12 @@ config.font_size = 19
 config.enable_tab_bar = false
 
 require("themes.monokai-pro").apply_to_config(config)
-config.window_background_opacity = 0.8
-config.macos_window_background_blur = 30
+
+-- macOS-specific transparency + blur
+if wezterm.target_triple == "x86_64-apple-darwin" or wezterm.target_triple == "aarch64-apple-darwin" then
+  config.window_background_opacity = 0.8
+  config.macos_window_background_blur = 30
+end
 
 config.enable_tab_bar = false
 config.default_cursor_style = 'BlinkingBar'
@@ -119,5 +123,18 @@ config.hyperlink_rules = {
 config.enable_wayland = false
 config.front_end = "OpenGL"
 -- config.front_end = "WebGpu"
+
+-- ---------------------------------------------------------------------------
+-- Windows / WSL: open WSL Ubuntu as the default domain
+-- Wezterm auto-detects installed WSL distros and creates WSL:<Name> domains.
+-- Using default_domain gives native integration (cwd tracking, multiplexing)
+-- instead of just spawning wsl.exe as a child process.
+-- ---------------------------------------------------------------------------
+if wezterm.target_triple == "x86_64-pc-windows-msvc" then
+  config.default_domain = "WSL:Ubuntu"
+
+  -- Windows-specific overrides (optional)
+  config.window_background_opacity = 1.0  -- acrylic not supported the same way
+end
 
 return config

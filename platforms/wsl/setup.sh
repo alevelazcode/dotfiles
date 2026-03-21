@@ -67,6 +67,9 @@ install_essential_packages() {
         python3-pip \
         python3-venv \
         openssh-client
+
+    # WSL utilities (wslopen, wslview, wslpath helpers, etc.)
+    sudo apt install -y wslu 2>/dev/null || print_warning "wslu not available — install manually if needed"
 }
 
 # Install Neovim
@@ -163,12 +166,62 @@ setup_shell() {
 # WSL-specific config
 setup_wsl_config() {
     print_status "Setting up WSL-specific configurations..."
-    print_status "Recommended .wslconfig (place in C:\\Users\\YourUsername\\.wslconfig):"
-    echo "  [wsl2]"
-    echo "  memory=8GB"
-    echo "  processors=4"
-    echo "  swap=2GB"
-    echo "  localhostForwarding=true"
+
+    # Try to create .wslconfig on the Windows side
+    local win_user
+    win_user=$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r' || echo "")
+    local wslconfig="/mnt/c/Users/${win_user}/.wslconfig"
+
+    if [[ -n "$win_user" ]] && [[ -d "/mnt/c/Users/${win_user}" ]]; then
+        if [[ ! -f "$wslconfig" ]]; then
+            cat > "$wslconfig" <<'WSLCONF'
+[wsl2]
+memory=8GB
+processors=4
+swap=2GB
+localhostForwarding=true
+WSLCONF
+            print_success ".wslconfig created at $wslconfig"
+        else
+            print_status ".wslconfig already exists at $wslconfig — skipping"
+        fi
+    else
+        print_warning "Could not detect Windows user. Create .wslconfig manually:"
+        echo "  [wsl2]"
+        echo "  memory=8GB"
+        echo "  processors=4"
+        echo "  swap=2GB"
+        echo "  localhostForwarding=true"
+    fi
+
+    # Ensure /etc/wsl.conf has sane defaults
+    if [[ ! -f /etc/wsl.conf ]]; then
+        sudo tee /etc/wsl.conf > /dev/null <<'WSLSYS'
+[automount]
+enabled = true
+options = "metadata,umask=22,fmask=11"
+
+[interop]
+enabled = true
+appendWindowsPath = true
+
+[network]
+generateResolvConf = true
+WSLSYS
+        print_success "/etc/wsl.conf created with sane defaults"
+    else
+        print_status "/etc/wsl.conf already exists — skipping"
+    fi
+}
+
+# Detect Docker Desktop WSL integration
+setup_docker_desktop() {
+    print_status "Checking Docker Desktop integration..."
+    if [[ -S /var/run/docker.sock ]] || command -v docker &> /dev/null; then
+        print_success "Docker is available (Docker Desktop WSL integration detected)"
+    else
+        print_status "Docker not found. Enable WSL integration in Docker Desktop settings if needed."
+    fi
 }
 
 # Install Rust CLI tools via cargo-binstall
@@ -246,18 +299,21 @@ main() {
     install_fnm
     setup_shell
     setup_wsl_config
+    setup_docker_desktop
     install_rust_tools
     install_dev_tools
     setup_windows_integration
 
     print_success "WSL2 setup complete!"
     echo "  - System packages and build tools"
+    echo "  - WSL utilities (wslu)"
     echo "  - ZSH + Zinit (plugin manager)"
     echo "  - FNM + Node.js LTS"
     echo "  - Rust toolchain + modern CLI tools"
-    echo "  - Neovim (custom NvChad config)"
+    echo "  - Neovim"
     echo "  - Starship prompt + Fastfetch"
-    echo "  - Windows integration"
+    echo "  - Windows integration (winhome, .wslconfig, wsl.conf)"
+    echo "  - No GUI apps (use Windows-side apps instead)"
     print_warning "Restart your terminal or run 'source ~/.zshrc'"
 }
 

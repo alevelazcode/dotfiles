@@ -31,6 +31,7 @@ return {
           "notify",
           "toggleterm",
           "renamer",
+          "nvim-tree",
         },
 
         plugins = {

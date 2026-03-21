@@ -372,6 +372,17 @@ return {
   -- VISUAL ENHANCEMENTS
   -- ============================================
 
+  -- nvim-notify - Notification manager
+  {
+    "rcarriga/nvim-notify",
+    opts = {
+      background_colour = function()
+        local hl = vim.api.nvim_get_hl(0, { name = "Normal", link = false })
+        return hl.bg and string.format("#%06x", hl.bg) or "#000000"
+      end,
+    },
+  },
+
   -- Noice - Fancy command line & notifications
   {
     "folke/noice.nvim",

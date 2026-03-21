@@ -90,12 +90,29 @@ ensure_link() {
     ln -sf "$target" "$link"
 }
 
+# Resolve Windows user home from WSL (/mnt/c/Users/<user>)
+get_win_home() {
+    local win_user
+    win_user=$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r' || echo "")
+    if [[ -n "$win_user" ]] && [[ -d "/mnt/c/Users/$win_user" ]]; then
+        echo "/mnt/c/Users/$win_user"
+    else
+        return 1
+    fi
+}
+
 # Function to create symlinks
 create_symlinks() {
     local platform=$1
 
     print_status "Creating symlinks..."
     mkdir -p ~/.config
+
+    # Resolve Windows home early for WSL symlinks
+    local win_home=""
+    if [[ "$platform" == "wsl" ]]; then
+        win_home=$(get_win_home) || print_warning "Could not detect Windows user home — GUI app configs will be skipped"
+    fi
 
     # Shell configuration
     if [[ -d "shell/zsh/modular" ]]; then
@@ -124,8 +141,14 @@ create_symlinks() {
 
     # Wezterm
     if [[ -d "apps/wezterm" ]]; then
-        ensure_link "$(pwd)/apps/wezterm" ~/.config/wezterm
-        print_success "Wezterm configuration linked"
+        if [[ "$platform" == "wsl" ]] && [[ -n "$win_home" ]]; then
+            # Wezterm on Windows reads from %USERPROFILE%\.config\wezterm\
+            ensure_link "$(pwd)/apps/wezterm" "$win_home/.config/wezterm"
+            print_success "Wezterm configuration linked (Windows-side)"
+        elif [[ "$platform" != "wsl" ]]; then
+            ensure_link "$(pwd)/apps/wezterm" ~/.config/wezterm
+            print_success "Wezterm configuration linked"
+        fi
     fi
 
     # VSCode
@@ -138,13 +161,29 @@ create_symlinks() {
         ensure_link "$(pwd)/apps/vscode/settings.json" "$vscode_dir/settings.json"
         ensure_link "$(pwd)/apps/vscode/keybindings.json" "$vscode_dir/keybindings.json"
         print_success "VSCode configuration linked"
+
+        # WSL: also link to Windows-side VS Code config
+        if [[ "$platform" == "wsl" ]] && [[ -n "$win_home" ]]; then
+            local win_vscode_dir="$win_home/AppData/Roaming/Code/User"
+            ensure_link "$(pwd)/apps/vscode/settings.json" "$win_vscode_dir/settings.json"
+            ensure_link "$(pwd)/apps/vscode/keybindings.json" "$win_vscode_dir/keybindings.json"
+            print_success "VSCode configuration linked (Windows-side)"
+        fi
     fi
 
     # Zed
     if [[ -d "apps/zed" ]]; then
-        ensure_link "$(pwd)/apps/zed/settings.json" ~/.config/zed/settings.json
-        ensure_link "$(pwd)/apps/zed/keymap.json" ~/.config/zed/keymap.json
-        print_success "Zed configuration linked"
+        if [[ "$platform" == "wsl" ]] && [[ -n "$win_home" ]]; then
+            # Zed on Windows reads from %APPDATA%\Zed\
+            local win_zed_dir="$win_home/AppData/Roaming/Zed"
+            ensure_link "$(pwd)/apps/zed/settings.json" "$win_zed_dir/settings.json"
+            ensure_link "$(pwd)/apps/zed/keymap.json" "$win_zed_dir/keymap.json"
+            print_success "Zed configuration linked (Windows-side)"
+        elif [[ "$platform" != "wsl" ]]; then
+            ensure_link "$(pwd)/apps/zed/settings.json" ~/.config/zed/settings.json
+            ensure_link "$(pwd)/apps/zed/keymap.json" ~/.config/zed/keymap.json
+            print_success "Zed configuration linked"
+        fi
     fi
 
     # Git

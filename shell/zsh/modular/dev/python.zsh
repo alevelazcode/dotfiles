@@ -6,10 +6,6 @@ export PYTHONDONTWRITEBYTECODE=1
 export PYTHONUNBUFFERED=1
 export PIP_DISABLE_PIP_VERSION_CHECK=1
 
-# pyenv - Add shims to PATH directly (NO eval, NO rehash = instant)
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d "$PYENV_ROOT/shims" ]] && path_prepend "$PYENV_ROOT/shims"
-[[ -d "$PYENV_ROOT/bin" ]] && path_prepend "$PYENV_ROOT/bin"
 
 # Aliases
 alias python='python3'

@@ -6,126 +6,115 @@
 # WSL Environment Variables
 # =============================================================================
 
-# WSL specific environment
 export OSTYPE="linux-gnu"
 export WSL="true"
+
+# Avoid slow Windows PATH lookups for tools we don't need
+export DONT_PROMPT_WSL_INSTALL=1
+
+# Use Linux browser opener via wslu if available
+if command -v wslview &> /dev/null; then
+    export BROWSER="wslview"
+fi
 
 # =============================================================================
 # WSL PATH Configuration
 # =============================================================================
 
-# WSL specific paths
-path_append "/snap/bin"
+# WSL specific paths (no snapd in WSL2 — it doesn't work)
 path_append "/usr/local/go/bin"
 
 # =============================================================================
 # WSL Aliases
 # =============================================================================
 
-# WSL specific aliases
+# Windows interop aliases
 alias explorer="explorer.exe"
-alias code="code.exe"
 alias clip="clip.exe"
-
-# Windows commands
 alias notepad="notepad.exe"
-alias calc="calc.exe"
-alias mspaint="mspaint.exe"
+
+# Use wslview (from wslu) for opening files/URLs if available,
+# otherwise fall back to cmd.exe start
+if command -v wslview &> /dev/null; then
+    alias open="wslview"
+    alias browse="wslview"
+else
+    alias open='cmd.exe /c start ""'
+    alias browse='cmd.exe /c start ""'
+fi
+
+# VS Code Remote — use the Windows binary which auto-connects to WSL
+alias code="code.exe"
 
 # =============================================================================
-# WSL Functions
+# WSL Clipboard Functions
 # =============================================================================
 
-# Function to copy to clipboard (WSL)
+# Copy text or stdin to Windows clipboard
 copy() {
-    if [[ -n "$1" ]]; then
-        echo "$1" | clip.exe
-        echo "Copied to clipboard: $1"
+    if [[ -n "${1:-}" ]]; then
+        printf '%s' "$1" | clip.exe
+    elif [[ ! -t 0 ]]; then
+        clip.exe  # pipe stdin directly
     else
-        echo "Usage: copy <text>"
+        echo "Usage: copy <text>  or  <command> | copy"
+        return 1
     fi
 }
 
-# Function to open Windows Explorer in current directory
+# Paste from Windows clipboard
+paste() {
+    powershell.exe -NoProfile -Command Get-Clipboard 2>/dev/null | tr -d '\r'
+}
+
+# =============================================================================
+# WSL Navigation
+# =============================================================================
+
+# Open Windows Explorer in current directory
 explore() {
-    explorer.exe .
+    explorer.exe "$(wslpath -w "${1:-.}")"
 }
 
-# Function to open file with Windows default application
-open() {
-    local file="$1"
-    if [[ -z "$file" ]]; then
-        echo "Usage: open <file>"
-        return 1
-    fi
-    
-    if [[ -f "$file" ]]; then
-        cmd.exe /c start "" "$file"
-    else
-        echo "File not found: $file"
-        return 1
-    fi
-}
-
-# Function to open URL in Windows browser
-browse() {
-    local url="$1"
-    if [[ -z "$url" ]]; then
-        echo "Usage: browse <url>"
-        return 1
-    fi
-    
-    cmd.exe /c start "" "$url"
-}
+# Quick access to Windows home
+if [[ -L ~/winhome ]] || [[ -d ~/winhome ]]; then
+    alias winhome="cd ~/winhome"
+fi
 
 # =============================================================================
 # WSL Development Environment
 # =============================================================================
 
-# WSL specific development tools
-if command -v code &> /dev/null; then
-    # VS Code in WSL
-    alias vscode="code ."
+# Docker Desktop WSL integration check
+if command -v docker &> /dev/null; then
+    alias docker-status="docker info --format '{{.OperatingSystem}}' 2>/dev/null || echo 'Docker not running — start Docker Desktop on Windows'"
 fi
 
 # =============================================================================
 # WSL System Information
 # =============================================================================
 
-# Function to show WSL system info
 wsl-info() {
     echo "=== WSL System Information ==="
     echo "WSL Version: $(uname -r)"
-    echo "Distribution: $(cat /etc/os-release | grep PRETTY_NAME | cut -d'"' -f2)"
+    echo "Distribution: $(. /etc/os-release && echo "$PRETTY_NAME")"
     echo "Architecture: $(uname -m)"
-    echo "Kernel: $(uname -r)"
-    
+
     echo ""
     echo "=== Windows Integration ==="
-    if command -v explorer.exe &> /dev/null; then
-        echo "Windows Explorer: Available"
-    else
-        echo "Windows Explorer: Not available"
-    fi
-    
-    if command -v clip.exe &> /dev/null; then
-        echo "Windows Clipboard: Available"
-    else
-        echo "Windows Clipboard: Not available"
-    fi
-    
+    for cmd in explorer.exe clip.exe powershell.exe docker wslview; do
+        if command -v "$cmd" &> /dev/null; then
+            echo "  $cmd: available"
+        else
+            echo "  $cmd: not found"
+        fi
+    done
+
     echo ""
     echo "=== WSL Paths ==="
     echo "WSL Home: $HOME"
-    echo "Windows User: /mnt/c/Users/$(whoami)"
+    [[ -L ~/winhome ]] && echo "Win Home: $(readlink ~/winhome)"
+    echo "Interop: /mnt/c"
 }
 
-# =============================================================================
-# WSL Performance Optimizations
-# =============================================================================
-
-# Disable Windows Defender real-time monitoring for WSL (if needed)
-# This can improve performance but should be used carefully
-# export WSLENV=WSLENV:WSL_DISABLE_WINDOWS_DEFENDER:1
-
-echo "✅ WSL configuration loaded" 
+echo "WSL configuration loaded"

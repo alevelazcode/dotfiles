@@ -1,39 +1,65 @@
-# -------------------------------
-# Window focus (move between windows)
-# -------------------------------
-cmd + ctrl + alt + shift - left  : yabai -m window --focus west   # focus window to the left
-cmd + ctrl + alt + shift - right : yabai -m window --focus east   # focus window to the right
-cmd + ctrl + alt + shift - up    : yabai -m window --focus north  # focus window above
-cmd + ctrl + alt + shift - down  : yabai -m window --focus south  # focus window below
+# --- Changing Focus ---
+# change window focus within space
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - h : yabai -m window --focus west
+alt - l : yabai -m window --focus east
+# change focus to display left and right
+alt - s: yabai -m display --focus west
+alt - g: yabai -m display --focus east
 
-# -------------------------------
-# Display focus (switch between monitors)
-# -------------------------------
-cmd + ctrl + alt + shift - g : yabai -m display --focus west   # move focus to display on the left
-cmd + ctrl + alt + shift - h : yabai -m display --focus east   # move focus to display on the right
+# --- Modify Layout ---
 
-# -------------------------------
-# Move windows between displays
-# -------------------------------
-cmd + ctrl + alt + shift - a : yabai -m window --display west; yabai -m display --focus west; # send window left & focus that display
-cmd + ctrl + alt + shift - d : yabai -m window --display east; yabai -m display --focus east; # send window right & focus that display
+# balance out tree 
+hyper - e : yabai -m space --balance
 
-# -------------------------------
-# Window management
-# -------------------------------
-cmd + ctrl + alt + shift - r : yabai -m window --toggle native-fullscreen  # toggle macOS native fullscreen
+# rotate layout clockwise
+hyper - r : yabai -m space --rotate 270
 
-# -------------------------------
-# Yabai service control
-# -------------------------------
-cmd + ctrl + alt + shift - q : yabai --stop-service   # stop yabai
-cmd + ctrl + alt + shift - e : yabai --start-service  # start yabai
+# flip along y-axis
+hyper - y : yabai -m space --mirror y-axis
 
-# -------------------------------
-# Quick app launch and focus
-# -------------------------------
-cmd + ctrl + alt + shift - i : open -a "Wezterm"              # launch Warp
-cmd + ctrl + alt + shift - c : open -a "Zed" # launch VS Code
-cmd + ctrl + alt + shift - b : open -a "Google Chrome"      # launch Chrome
-# cmd + ctrl + alt + shift - p : open -a "Podman Desktop"     # launch Podman Desktop
-# cmd + ctrl + alt + shift - o : open -a "OpenLens"           # launch OpenLens
+# flip along x-axis
+hyper - x : yabai -m space --mirror x-axis
+
+# --- Moving Windows Arround ---
+
+# swap windows within space
+hyper - j : yabai -m window --swap south
+hyper - k : yabai -m window --swap north
+hyper - h : yabai -m window --swap west
+hyper - l : yabai -m window --swap east
+
+# maximize a window
+hyper - m : yabai -m window --toggle zoom-fullscreen
+
+# toggle window float
+hyper - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
+
+# move window and split
+ctrl + alt - j : yabai -m window --warp south
+ctrl + alt - k : yabai -m window --warp north
+ctrl + alt - h : yabai -m window --warp west
+ctrl + alt - l : yabai -m window --warp east
+
+# move window to display left and right
+hyper - s : yabai -m window --display west; yabai -m display --focus west;
+hyper - g : yabai -m window --display east; yabai -m display --focus east;
+
+#move window to prev and next space
+hyper - p : yabai -m window --space prev;
+hyper - n : yabai -m window --space next;
+
+# move window to space #
+hyper - 1 : yabai -m window --space 1;
+hyper - 2 : yabai -m window --space 2; 
+hyper - 3 : yabai -m window --space 3;
+hyper - 4 : yabai -m window --space 4;
+hyper - 5 : yabai -m window --space 5;
+hyper - 6 : yabai -m window --space 6;
+hyper - 7 : yabai -m window --space 7;
+
+# stop/start/restart yabai
+ctrl + alt - q : brew services stop yabai
+ctrl + alt - s : brew services start yabai
+ctrl + alt - r : brew services restart yabai
