@@ -34,7 +34,7 @@ print_error() {
 detect_platform() {
     if [[ "$OSTYPE" == "darwin"* ]]; then
         echo "macos"
-    elif [[ -f /proc/version ]] && grep -q Microsoft /proc/version; then
+    elif [[ -f /proc/version ]] && grep -qi microsoft /proc/version; then
         echo "wsl"
     elif [[ -f /etc/os-release ]]; then
         . /etc/os-release
@@ -256,6 +256,20 @@ install_fonts() {
     print_success "Fonts: $installed installed, $skipped already present"
 }
 
+# Install zsh-defer (required by init.zsh for deferred module loading)
+install_zsh_defer() {
+    local dest="$HOME/.zsh/zsh-defer"
+    if [[ -d "$dest" ]]; then
+        print_success "zsh-defer already installed"
+        return 0
+    fi
+    print_status "Installing zsh-defer..."
+    mkdir -p "$HOME/.zsh"
+    git clone https://github.com/romkatv/zsh-defer.git "$dest" 2>/dev/null \
+        && print_success "zsh-defer installed" \
+        || print_warning "Failed to install zsh-defer (deferred loading will be disabled)"
+}
+
 # Function to install common development tools
 install_dev_tools() {
     print_status "Installing common development tools..."
@@ -298,6 +312,7 @@ main() {
 
     create_symlinks "$platform"
     install_platform_packages "$platform"
+    install_zsh_defer
     install_fonts "$platform"
     install_dev_tools
 

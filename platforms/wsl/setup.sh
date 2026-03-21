@@ -19,7 +19,7 @@ print_error()   { echo -e "${RED}[ERROR]${NC} $1"; }
 
 # Check WSL
 check_wsl() {
-    if [[ ! -f /proc/version ]] || ! grep -q Microsoft /proc/version; then
+    if [[ ! -f /proc/version ]] || ! grep -qi microsoft /proc/version; then
         print_error "This script is designed for WSL2. Use the Linux setup instead."
         exit 1
     fi
@@ -37,6 +37,7 @@ update_system() {
 install_essential_packages() {
     print_status "Installing essential packages..."
 
+    # CLI-only — no X11/GUI packages (use Windows-side apps instead)
     sudo apt install -y \
         git \
         curl \
@@ -52,14 +53,10 @@ install_essential_packages() {
         libsqlite3-dev \
         libncursesw5-dev \
         xz-utils \
-        tk-dev \
-        libxml2-dev \
-        libxmlsec1-dev \
         libffi-dev \
         liblzma-dev \
         unzip \
         htop \
-        tree \
         fzf \
         tmux \
         jq \
@@ -151,6 +148,19 @@ install_fnm() {
         fnm install --lts
         fnm default lts-latest
         print_success "Node.js LTS installed via FNM"
+    fi
+}
+
+# Install Java 17 JDK (required by React Native / Expo / Android)
+install_java() {
+    print_status "Installing Java 17 JDK..."
+    if ! command -v javac &> /dev/null || ! java -version 2>&1 | grep -q "17"; then
+        sudo apt install -y openjdk-17-jdk
+        sudo update-alternatives --set java  /usr/lib/jvm/java-17-openjdk-amd64/bin/java  2>/dev/null || true
+        sudo update-alternatives --set javac /usr/lib/jvm/java-17-openjdk-amd64/bin/javac 2>/dev/null || true
+        print_success "Java 17 JDK installed"
+    else
+        print_success "Java 17 JDK is already installed"
     fi
 }
 
@@ -291,6 +301,7 @@ main() {
     check_wsl
     update_system
     install_essential_packages
+    install_java
     install_neovim
     install_zinit
     install_starship
