@@ -33,9 +33,8 @@ install_homebrew() {
         print_success "Homebrew is already installed"
     fi
 
-    print_status "Updating Homebrew..."
+    print_status "Updating Homebrew package database..."
     brew update
-    brew upgrade
 }
 
 # Install packages from Brewfile
@@ -45,8 +44,11 @@ install_packages() {
     SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
     if [[ -f "$SCRIPT_DIR/Brewfile" ]]; then
-        brew bundle --file="$SCRIPT_DIR/Brewfile"
-        print_success "Packages installed from Brewfile"
+        # --no-upgrade: install missing packages only, don't upgrade existing ones
+        # Run 'brew upgrade' manually when you want to update everything
+        brew bundle --file="$SCRIPT_DIR/Brewfile" --no-upgrade \
+            || print_warning "Some Brewfile packages failed (non-critical)"
+        print_success "Brewfile packages processed"
     else
         print_error "Brewfile not found at $SCRIPT_DIR/Brewfile"
         exit 1
