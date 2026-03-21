@@ -70,7 +70,6 @@ brew "neovim", args: ["HEAD"]
 # DevOps & Containers
 # =============================================================================
 
-brew "docker"
 brew "lazydocker"
 brew "jesseduffield/lazygit/lazygit"
 
@@ -100,7 +99,6 @@ brew "asmvik/formulae/yabai"
 
 brew "glib"
 brew "pkg-config"
-brew "sf-symbols"
 brew "mas"
 brew "mackup"
 
@@ -110,7 +108,7 @@ brew "mackup"
 
 cask "android-studio"
 cask "1password"
-cask "docker"
+cask "docker-desktop"
 cask "github"
 cask "raycast"
 cask "rocket"

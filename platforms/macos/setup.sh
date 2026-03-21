@@ -61,6 +61,13 @@ setup_shell() {
 
     local zsh_path
     zsh_path="$(command -v zsh)"
+
+    # Add Homebrew zsh to /etc/shells if missing (required by chsh)
+    if ! grep -qxF "$zsh_path" /etc/shells; then
+        print_status "Adding $zsh_path to /etc/shells..."
+        echo "$zsh_path" | sudo tee -a /etc/shells >/dev/null
+    fi
+
     if [[ "$SHELL" != "$zsh_path" ]]; then
         print_status "Setting zsh as default shell..."
         chsh -s "$zsh_path"
