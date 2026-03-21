@@ -54,11 +54,11 @@ bindkey '^[[1;3D' backward-word
 bindkey '^[f' forward-word
 bindkey '^[[1;3C' forward-word
 
-# Ctrl+Left - Beginning of word
-bindkey '^[[1;5D' beginning-of-line
+# Ctrl+Left - Previous word
+bindkey '^[[1;5D' backward-word
 
-# Ctrl+Right - End of word
-bindkey '^[[1;5C' end-of-line
+# Ctrl+Right - Next word
+bindkey '^[[1;5C' forward-word
 
 # =============================================================================
 # Completion
@@ -104,18 +104,14 @@ bindkey '^X^L' clear-and-ls
 # Terminal-specific Key Bindings
 # =============================================================================
 
-# Handle different terminal types
+# Terminal-specific sequences (Home/End/Delete vary by terminal)
 case "$TERM" in
     xterm*|rxvt*|alacritty*|kitty*)
-        # Standard xterm sequences
         bindkey '^[[H' beginning-of-line
         bindkey '^[[F' end-of-line
         bindkey '^[[3~' delete-char
-        bindkey '^[[1;5C' forward-word
-        bindkey '^[[1;5D' backward-word
         ;;
     screen*|tmux*)
-        # Screen/tmux sequences
         bindkey '^[[1~' beginning-of-line
         bindkey '^[[4~' end-of-line
         bindkey '^[[3~' delete-char

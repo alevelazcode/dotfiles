@@ -59,7 +59,6 @@ dotfiles/
 │   └── wsl/            # WSL2 Ubuntu-specific setup
 ├── apps/               # Application-specific configurations
 │   ├── fastfetch/      # Fastfetch configuration
-│   ├── lazyvim/        # LazyVim documentation and configs
 │   ├── starship/       # Starship prompt configuration
 │   └── vscode/         # VSCode settings and keybindings
 ├── shell/              # Shell configurations (shared)
@@ -164,7 +163,4 @@ dotfiles/
 
 - [Shell Configuration](./shell/README.md)
 - [Fastfetch Setup](./apps/fastfetch/README.md)
-- [LazyVim Setup](./apps/lazyvim/README.md)
 - [Platform-Specific Notes](./platforms/README.md)
-- [Rust Tools Documentation](./shell/common/rust-tools.md)
-- [Python Setup Documentation](./shell/common/python-setup.md)

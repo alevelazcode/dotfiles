@@ -24,9 +24,6 @@ export _ZO_DATA_DIR="$HOME/.local/share/zoxide"
 # Starship
 export STARSHIP_CONFIG="$HOME/.config/starship.toml"
 
-# Console Ninja
-[[ -d "$HOME/.console-ninja/.bin" ]] && export PATH="$HOME/.console-ninja/.bin:$PATH"
-
 # Syntax highlighting theme — Tokyo Night Darker
 # Defined here (sync, global scope) so the plugin reads it correctly at load time
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main)

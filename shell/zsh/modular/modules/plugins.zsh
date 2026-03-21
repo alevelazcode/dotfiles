@@ -5,7 +5,6 @@
 # synchronously in init.zsh so ZLE hooks register correctly.
 # =============================================================================
 
-: ${HOMEBREW_PREFIX:=/opt/homebrew}
 local _cache="$HOME/.cache/zsh"
 
 # -----------------------------------------------------------------------------

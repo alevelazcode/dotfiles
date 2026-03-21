@@ -6,9 +6,6 @@
 
 set -euo pipefail
 
-# Allow non-critical commands to fail without killing the script
-safe_run() { "$@" || print_warning "Command failed (non-critical): $*"; }
-
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -207,26 +204,12 @@ create_symlinks() {
 
 # Function to install platform-specific packages
 install_platform_packages() {
-    local platform=$1
-    
-    print_status "Installing platform-specific packages for $platform..."
-    
-    if [[ "$platform" == "macos" ]]; then
-        if [[ -f "platforms/macos/setup.sh" ]]; then
-            bash "platforms/macos/setup.sh"
-        fi
-    elif [[ "$platform" == "linux" ]]; then
-        if [[ -f "platforms/linux/setup.sh" ]]; then
-            bash "platforms/linux/setup.sh"
-        fi
-    elif [[ "$platform" == "fedora" ]]; then
-        if [[ -f "platforms/fedora/setup.sh" ]]; then
-            bash "platforms/fedora/setup.sh"
-        fi
-    elif [[ "$platform" == "wsl" ]]; then
-        if [[ -f "platforms/wsl/setup.sh" ]]; then
-            bash "platforms/wsl/setup.sh"
-        fi
+    local script="platforms/$1/setup.sh"
+    print_status "Installing platform-specific packages for $1..."
+    if [[ -f "$script" ]]; then
+        bash "$script"
+    else
+        print_warning "No setup script found at $script"
     fi
 }
 
@@ -291,57 +274,35 @@ install_dev_tools() {
 
 # Main installation function
 main() {
-    print_status "Starting dotfiles installation..."
-    
     # Get the directory where this script is located
     SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     cd "$SCRIPT_DIR"
-    
-    # Detect platform
-    PLATFORM=$(detect_platform)
-    print_status "Detected platform: $PLATFORM"
-    
-    if [[ "$PLATFORM" == "unknown" ]]; then
-        print_error "Could not detect platform. Please run manually with platform argument."
-        print_status "Usage: $0 [macos|linux|wsl]"
-        exit 1
+
+    local platform="${1:-}"
+
+    if [[ -z "$platform" ]]; then
+        platform=$(detect_platform)
+        print_status "Detected platform: $platform"
+    else
+        print_status "Using specified platform: $platform"
     fi
-    
-    # Create symlinks
-    create_symlinks "$PLATFORM"
-    
-    # Install platform-specific packages
-    install_platform_packages "$PLATFORM"
 
-    # Install fonts
-    install_fonts "$PLATFORM"
+    case "$platform" in
+        macos|linux|fedora|wsl) ;;
+        *)
+            print_error "Invalid or unknown platform: $platform"
+            print_status "Usage: $0 [macos|linux|fedora|wsl]"
+            exit 1
+            ;;
+    esac
 
-    # Install common development tools
+    create_symlinks "$platform"
+    install_platform_packages "$platform"
+    install_fonts "$platform"
     install_dev_tools
 
     print_success "Installation complete!"
     print_status "Please restart your terminal or run 'source ~/.zshrc'"
 }
 
-# Check if platform argument is provided
-if [[ $# -eq 1 ]]; then
-    PLATFORM=$1
-    case $PLATFORM in
-        macos|linux|fedora|wsl)
-            print_status "Using specified platform: $PLATFORM"
-            create_symlinks "$PLATFORM"
-            install_platform_packages "$PLATFORM"
-            install_fonts "$PLATFORM"
-            install_dev_tools
-            print_success "Installation complete!"
-            print_status "Please restart your terminal or run 'source ~/.zshrc'"
-            ;;
-        *)
-            print_error "Invalid platform: $PLATFORM"
-            print_status "Valid platforms: macos, linux, fedora, wsl"
-            exit 1
-            ;;
-    esac
-else
-    main
-fi 
+main "$@" 

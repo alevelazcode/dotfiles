@@ -4,9 +4,7 @@
 # NO command -v checks, NO eval, NO brew --prefix calls
 # Everything hardcoded or lazy-loaded for MAXIMUM speed
 
-# Environment (instant)
-export OSTYPE="darwin"
-export MACOS="true"
+# Environment
 
 # HOMEBREW_PREFIX already set in init.zsh, but ensure it exists
 : ${HOMEBREW_PREFIX:=/opt/homebrew}
@@ -51,6 +49,17 @@ conda() {
         conda "$@"
     else
         echo "conda not found"; return 1
+    fi
+}
+
+# Mamba lazy loader
+mamba() {
+    unfunction mamba 2>/dev/null
+    if [[ -f "$HOME/miniforge3/bin/mamba" ]]; then
+        eval "$("$HOME/miniforge3/bin/mamba" shell hook --shell zsh --root-prefix "$HOME/miniforge3" 2>/dev/null)"
+        mamba "$@"
+    else
+        echo "mamba not found"; return 1
     fi
 }
 

@@ -31,3 +31,12 @@ path_prepend "$HOME/.cargo/bin"
 
 # Go
 path_append "$HOME/go/bin"
+
+# Console Ninja
+path_prepend "$HOME/.console-ninja/.bin"
+
+# Codeium / Windsurf CLI
+path_prepend "$HOME/.codeium/windsurf/bin"
+
+# Antigravity
+path_append "$HOME/.antigravity/antigravity/bin"

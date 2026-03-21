@@ -14,3 +14,10 @@ export PNPM_HOME="$HOME/.local/share/pnpm"
 export BUN_INSTALL="$HOME/.bun"
 [[ -d "$PNPM_HOME"       ]] && export PATH="$PNPM_HOME:$PATH"
 [[ -d "$BUN_INSTALL/bin" ]] && export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Angular CLI — lazy loaded (completion only on first use)
+ng() {
+    unfunction ng 2>/dev/null
+    source <(command ng completion script 2>/dev/null)
+    command ng "$@"
+}

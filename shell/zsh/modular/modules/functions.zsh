@@ -5,14 +5,27 @@
 q() { tmux kill-server }
 cx() { chmod +x "$@" }
 
-# Cross-platform copy
+# Cross-platform copy (supports args and piped input)
 copy() {
+    local _clip
     if [[ "$OSTYPE" == darwin* ]]; then
-        printf "%s" "$*" | tr -d "\n" | pbcopy
+        _clip="pbcopy"
     elif (( $+commands[clip.exe] )); then
-        printf "%s" "$*" | tr -d "\n" | clip.exe
+        _clip="clip.exe"
+    elif (( $+commands[wl-copy] )); then
+        _clip="wl-copy"
     elif (( $+commands[xclip] )); then
-        printf "%s" "$*" | tr -d "\n" | xclip -selection clipboard
+        _clip="xclip -selection clipboard"
+    else
+        echo "No clipboard tool available"; return 1
+    fi
+
+    if [[ -n "${1:-}" ]]; then
+        printf '%s' "$*" | ${=_clip}
+    elif [[ ! -t 0 ]]; then
+        ${=_clip}
+    else
+        echo "Usage: copy <text>  or  <command> | copy"; return 1
     fi
 }
 
@@ -64,10 +77,12 @@ zsh-update() {
 }
 
 dev-update() {
-    echo "🛠️ Updating system tools..."
-    brew update && brew upgrade && brew cleanup; brew doctor; brew missing; echo "Brewski Complete" | terminal-notifier -sound default -appIcon https://brew.sh/assets/img/homebrew-256x256.png -title "Homebrew"
-    rustup update
-    starship upgrade
+    if [[ "$OSTYPE" == darwin* ]]; then
+        brew update && brew upgrade && brew cleanup
+    elif (( $+commands[apt] )); then
+        sudo apt update && sudo apt upgrade -y
+    fi
+    (( $+commands[rustup] ))   && rustup update
+    (( $+commands[starship] )) && starship upgrade
     zsh-update
-    echo "🎉 Everything's fresh and clean!"
 }

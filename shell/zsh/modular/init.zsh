@@ -53,39 +53,33 @@ else
 fi
 
 # OS-specific (sync - contains PATH setup)
-case "$(uname -s)" in
-    Darwin*) source "$ZSH_CONFIG_DIR/os/macos.zsh" ;;
-    Linux*)
-        if [[ -f /proc/version ]] && grep -qi microsoft /proc/version 2>/dev/null; then
-            source "$ZSH_CONFIG_DIR/os/wsl.zsh"
-        else
-            source "$ZSH_CONFIG_DIR/os/linux.zsh"
-        fi
-        ;;
-esac
+if [[ "$OSTYPE" == darwin* ]]; then
+    source "$ZSH_CONFIG_DIR/os/macos.zsh"
+elif [[ -f /proc/version ]] && grep -qi microsoft /proc/version 2>/dev/null; then
+    source "$ZSH_CONFIG_DIR/os/wsl.zsh"
+else
+    source "$ZSH_CONFIG_DIR/os/linux.zsh"
+fi
 
 # Deferred loading (everything else loads AFTER prompt appears)
+# Add new modules here — single list, no duplication
+local -a _modules=(
+    modules/aliases
+    modules/functions
+    modules/completion
+    modules/plugins
+    dev/node
+    dev/python
+    dev/rust
+    dev/docker
+    dev/android
+)
+
 if (( $+functions[zsh-defer] )); then
-    zsh-defer source "$ZSH_CONFIG_DIR/modules/aliases.zsh"
-    zsh-defer source "$ZSH_CONFIG_DIR/modules/functions.zsh"
-    zsh-defer source "$ZSH_CONFIG_DIR/modules/completion.zsh"
-    zsh-defer source "$ZSH_CONFIG_DIR/modules/plugins.zsh"
-    zsh-defer source "$ZSH_CONFIG_DIR/dev/node.zsh"
-    zsh-defer source "$ZSH_CONFIG_DIR/dev/python.zsh"
-    zsh-defer source "$ZSH_CONFIG_DIR/dev/rust.zsh"
-    zsh-defer source "$ZSH_CONFIG_DIR/dev/docker.zsh"
-    zsh-defer source "$ZSH_CONFIG_DIR/dev/android.zsh"
+    for _m in $_modules; do zsh-defer source "$ZSH_CONFIG_DIR/$_m.zsh"; done
     [[ -f "$ZSH_CONFIG_DIR/local.zsh" ]] && zsh-defer source "$ZSH_CONFIG_DIR/local.zsh"
 else
-    source "$ZSH_CONFIG_DIR/modules/aliases.zsh"
-    source "$ZSH_CONFIG_DIR/modules/functions.zsh"
-    source "$ZSH_CONFIG_DIR/modules/completion.zsh"
-    source "$ZSH_CONFIG_DIR/modules/plugins.zsh"
-    source "$ZSH_CONFIG_DIR/dev/node.zsh"
-    source "$ZSH_CONFIG_DIR/dev/python.zsh"
-    source "$ZSH_CONFIG_DIR/dev/rust.zsh"
-    source "$ZSH_CONFIG_DIR/dev/docker.zsh"
-    source "$ZSH_CONFIG_DIR/dev/android.zsh"
+    for _m in $_modules; do source "$ZSH_CONFIG_DIR/$_m.zsh"; done
     [[ -f "$ZSH_CONFIG_DIR/local.zsh" ]] && source "$ZSH_CONFIG_DIR/local.zsh"
 fi
 
