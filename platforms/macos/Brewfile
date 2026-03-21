@@ -58,6 +58,7 @@ brew "oven-sh/bun/bun"
 brew "python"
 brew "go"
 brew "rustup-init"
+brew "openjdk@17"                  # Required by React Native / Android dev
 
 # =============================================================================
 # Editors
@@ -107,6 +108,7 @@ brew "mackup"
 # Cask Apps
 # =============================================================================
 
+cask "android-studio"
 cask "1password"
 cask "docker"
 cask "github"

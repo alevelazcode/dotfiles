@@ -17,15 +17,7 @@ export MACOS="true"
 [[ -d "$HOMEBREW_PREFIX/opt/python/libexec/bin" ]] && \
     export PATH="$HOMEBREW_PREFIX/opt/python/libexec/bin:$PATH"
 
-# Java - hardcoded path (NO /usr/libexec/java_home call)
-if [[ -d "/Library/Java/JavaVirtualMachines/openjdk-21.jdk/Contents/Home" ]]; then
-    export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk-21.jdk/Contents/Home"
-    export PATH="$JAVA_HOME/bin:$PATH"
-fi
-
-# Android
-export ANDROID_HOME="$HOME/Library/Android/sdk"
-[[ -d "$ANDROID_HOME/platform-tools" ]] && export PATH="$PATH:$ANDROID_HOME/platform-tools"
+# Java & Android — managed in dev/android.zsh (cross-platform)
 
 # Windsurf
 [[ -d "/Applications/Windsurf.app/Contents/MacOS" ]] && \
