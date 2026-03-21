@@ -68,6 +68,14 @@
     },
     "favorite_models": [],
     "model_parameters": [],
+    "inline_assistant_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-5",
+    },
+    "commit_message_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-5-mini",
+    },
   },
   "git_panel": {
     "sort_by_path": true,
