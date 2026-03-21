@@ -168,11 +168,53 @@ install_rust_tools() {
         installer=(cargo install)
     fi
 
-    for pkg in ripgrep fd-find bat eza zoxide dust procs sd tealdeer tokei bottom git-delta cargo-watch cargo-edit cargo-update; do
+    for pkg in ripgrep fd-find bat eza zoxide du-dust procs sd tealdeer tokei bottom git-delta cargo-watch cargo-edit cargo-update; do
         "${installer[@]}" "$pkg" || print_warning "Failed to install $pkg"
     done
 
     print_success "Rust CLI tools installed"
+}
+
+# Install Java 17 JDK (required by React Native / Expo / Android)
+install_java() {
+    print_status "Installing Java 17 JDK..."
+    if ! command -v javac &> /dev/null || ! java -version 2>&1 | grep -q "17"; then
+        sudo apt install -y openjdk-17-jdk
+        sudo update-alternatives --set java  /usr/lib/jvm/java-17-openjdk-amd64/bin/java  2>/dev/null || true
+        sudo update-alternatives --set javac /usr/lib/jvm/java-17-openjdk-amd64/bin/javac 2>/dev/null || true
+        print_success "Java 17 JDK installed"
+    else
+        print_success "Java 17 JDK is already installed"
+    fi
+}
+
+# Install snap apps (Android Studio, Teams, Telegram, Postman, MongoDB Compass)
+install_snap_apps() {
+    print_status "Installing snapd..."
+    if ! command -v snap &> /dev/null; then
+        sudo apt install -y snapd
+        sudo systemctl enable --now snapd.socket
+        sudo ln -sf /var/lib/snapd/snap /snap 2>/dev/null || true
+    fi
+
+    declare -A snaps=(
+        ["android-studio"]="--classic"
+        ["teams-for-linux"]=""
+        ["telegram-desktop"]=""
+        ["postman"]=""
+        ["mongodb-compass"]=""
+    )
+
+    for app in "${!snaps[@]}"; do
+        if snap list "$app" &>/dev/null; then
+            print_success "$app is already installed"
+        else
+            print_status "Installing $app..."
+            # shellcheck disable=SC2086
+            sudo snap install "$app" ${snaps[$app]} && print_success "$app installed" \
+                || print_warning "Failed to install $app (non-critical)"
+        fi
+    done
 }
 
 # Setup shell
@@ -217,6 +259,8 @@ main() {
 
     update_system
     install_essential_packages
+    install_java
+    install_snap_apps
     install_neovim
     install_zinit
     install_starship
@@ -229,6 +273,8 @@ main() {
 
     print_success "Linux setup complete!"
     echo "  - System packages and build tools"
+    echo "  - Java 17 JDK"
+    echo "  - Android Studio, Teams, Telegram, Postman, MongoDB Compass (snap)"
     echo "  - ZSH + Zinit (plugin manager)"
     echo "  - FNM + Node.js LTS"
     echo "  - Rust toolchain + modern CLI tools"

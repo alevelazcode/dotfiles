@@ -3,7 +3,6 @@
 # =============================================================================
 # ZSH Setup — Zinit-based (replaces Oh My Zsh)
 # =============================================================================
-
 # Set ZSH as default shell
 echo "Setting ZSH as default shell"
 local_zsh="$(which zsh)"
