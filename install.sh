@@ -282,17 +282,37 @@ install_fonts() {
     done < <(find "$fonts_dir" -type f \( -name "*.otf" -o -name "*.ttf" \) -print0)
 
     if [[ "$platform" == "wsl" ]] && (( installed > 0 )); then
-        # Register fonts in Windows registry via PowerShell
+        # Register fonts in Windows using Shell.Application (same as double-click install)
         print_status "Registering fonts in Windows..."
-        for font_file in "$dest"/*.{otf,ttf}; do
-            [[ -f "$font_file" ]] || continue
-            local fname
-            fname="$(basename "$font_file")"
-            powershell.exe -NoProfile -Command \
-                "New-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name '$fname' -Value '$fname' -PropertyType String -Force" \
-                2>/dev/null || true
-        done
-        print_success "Fonts registered (may need Windows restart to appear in all apps)"
+        local win_dest
+        win_dest=$(wslpath -w "$dest" 2>/dev/null || echo "")
+        if [[ -n "$win_dest" ]]; then
+            powershell.exe -NoProfile -Command "
+                \$fontsDir = '$win_dest'
+                \$shell = New-Object -ComObject Shell.Application
+                \$systemFonts = \$shell.Namespace(0x14)
+                Get-ChildItem \$fontsDir -Include *.otf,*.ttf -Recurse | ForEach-Object {
+                    \$systemFonts.CopyHere(\$_.FullName, 0x14)
+                }
+            " 2>/dev/null || {
+                # Fallback: register via HKCU registry
+                for font_file in "$dest"/*.{otf,ttf}; do
+                    [[ -f "$font_file" ]] || continue
+                    local fname
+                    fname="$(basename "$font_file")"
+                    local display_name="${fname%.*}"
+                    # Convert CamelCase filename to spaced display name
+                    display_name=$(echo "$display_name" | sed 's/\([a-z]\)\([A-Z]\)/\1 \2/g; s/\([A-Z]\)\([A-Z][a-z]\)/\1 \2/g')
+                    local ext="${fname##*.}"
+                    local type_label="OpenType"
+                    [[ "$ext" == "ttf" ]] && type_label="TrueType"
+                    powershell.exe -NoProfile -Command \
+                        "New-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name '$display_name ($type_label)' -Value '$fname' -PropertyType String -Force" \
+                        2>/dev/null || true
+                done
+            }
+        fi
+        print_success "Fonts registered (restart WezTerm or log out/in for changes to take effect)"
     elif [[ "$platform" != "macos" ]] && [[ "$platform" != "wsl" ]] && (( installed > 0 )); then
         fc-cache -fv "$dest" > /dev/null 2>&1
         print_success "Font cache refreshed"
