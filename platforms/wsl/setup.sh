@@ -183,25 +183,22 @@ setup_wsl_config() {
     local wslconfig="/mnt/c/Users/${win_user}/.wslconfig"
 
     if [[ -n "$win_user" ]] && [[ -d "/mnt/c/Users/${win_user}" ]]; then
-        if [[ ! -f "$wslconfig" ]]; then
-            cat > "$wslconfig" <<'WSLCONF'
+        # Always overwrite to keep mirrored networking + DNS settings current
+        cat > "$wslconfig" <<'WSLCONF'
 [wsl2]
 memory=8GB
 processors=4
 swap=2GB
-localhostForwarding=true
+networkingMode=mirrored
+dnsTunneling=true
+autoProxy=true
+
+[experimental]
+hostAddressLoopback=true
 WSLCONF
-            print_success ".wslconfig created at $wslconfig"
-        else
-            print_status ".wslconfig already exists at $wslconfig — skipping"
-        fi
+        print_success ".wslconfig written at $wslconfig (mirrored networking enabled)"
     else
-        print_warning "Could not detect Windows user. Create .wslconfig manually:"
-        echo "  [wsl2]"
-        echo "  memory=8GB"
-        echo "  processors=4"
-        echo "  swap=2GB"
-        echo "  localhostForwarding=true"
+        print_warning "Could not detect Windows user. Create .wslconfig manually with networkingMode=mirrored"
     fi
 
     # Ensure /etc/wsl.conf has sane defaults
@@ -282,6 +279,53 @@ install_dev_tools() {
     fi
 }
 
+# Install Android SDK (Linux-native for fast Gradle builds)
+install_android_sdk() {
+    print_status "Installing Android SDK (command-line tools)..."
+
+    local sdk_root="$HOME/Android/Sdk"
+    local cmdline_dir="$sdk_root/cmdline-tools"
+
+    if [[ -f "$cmdline_dir/latest/bin/sdkmanager" ]]; then
+        print_success "Android SDK command-line tools already installed"
+    else
+        # Download the latest command-line tools for Linux
+        local tmp_zip="/tmp/android-cmdline-tools.zip"
+        local dl_url="https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip"
+        wget -qO "$tmp_zip" "$dl_url" || {
+            print_warning "Failed to download Android command-line tools"
+            return 0
+        }
+        mkdir -p "$cmdline_dir"
+        unzip -qo "$tmp_zip" -d "$cmdline_dir"
+        # Google ships them under cmdline-tools/; sdkmanager expects cmdline-tools/latest/
+        if [[ -d "$cmdline_dir/cmdline-tools" ]]; then
+            mv "$cmdline_dir/cmdline-tools" "$cmdline_dir/latest"
+        fi
+        rm -f "$tmp_zip"
+        print_success "Android command-line tools installed"
+    fi
+
+    export ANDROID_HOME="$sdk_root"
+    export ANDROID_SDK_ROOT="$sdk_root"
+    export PATH="$cmdline_dir/latest/bin:$PATH"
+
+    # Accept licenses non-interactively
+    yes | sdkmanager --licenses > /dev/null 2>&1 || true
+
+    # Install required SDK components for React Native / Expo
+    print_status "Installing Android SDK packages (platform-tools, build-tools, platform)..."
+    sdkmanager --install \
+        "platform-tools" \
+        "platforms;android-35" \
+        "build-tools;35.0.0" \
+        "emulator" \
+        2>/dev/null || print_warning "Some SDK packages failed — run sdkmanager manually"
+
+    print_success "Android SDK ready at $sdk_root"
+    print_status "The Android emulator runs on Windows — use adb.exe alias (set in zsh config)"
+}
+
 # Windows integration
 setup_windows_integration() {
     print_status "Setting up Windows integration..."
@@ -313,6 +357,7 @@ main() {
     setup_docker_desktop
     install_rust_tools
     install_dev_tools
+    install_android_sdk
     setup_windows_integration
 
     print_success "WSL2 setup complete!"
@@ -323,7 +368,8 @@ main() {
     echo "  - Rust toolchain + modern CLI tools"
     echo "  - Neovim"
     echo "  - Starship prompt + Fastfetch"
-    echo "  - Windows integration (winhome, .wslconfig, wsl.conf)"
+    echo "  - Android SDK (Linux-native) + adb.exe alias"
+    echo "  - Windows integration (winhome, .wslconfig mirrored networking)"
     echo "  - No GUI apps (use Windows-side apps instead)"
     print_warning "Restart your terminal or run 'source ~/.zshrc'"
 }

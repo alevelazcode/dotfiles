@@ -62,7 +62,8 @@
       "Bash(curl -sL https://raw.githubusercontent.com/wez/wezterm/main/docs/config/lua/config/webgpu_preferred_adapter.md)",
       "Bash(curl -sL https://raw.githubusercontent.com/wez/wezterm/main/docs/config/lua/config/webgpu_force_fallback_adapter.md)",
       "Bash(curl -sL https://raw.githubusercontent.com/wez/wezterm/main/docs/config/lua/wezterm/font_with_fallback.md)",
-      "Bash(curl -sL https://raw.githubusercontent.com/wez/wezterm/main/docs/config/fonts.md)"
+      "Bash(curl -sL https://raw.githubusercontent.com/wez/wezterm/main/docs/config/fonts.md)",
+      "Bash(git -C /home/ale/dotfiles log --oneline --all\n\\\\22)"
     ]
   }
 }
