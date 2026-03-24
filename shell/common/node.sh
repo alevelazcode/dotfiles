@@ -6,8 +6,9 @@ if ! command -v fnm &> /dev/null; then
     return 0
 fi
 
-# Ensure FNM environment is loaded
-eval "$(fnm env --use-on-cd)"
+# Ensure FNM environment is loaded (--shell bash avoids zsh-only hooks
+# like autoload/add-zsh-hook that fail when sourced from install.sh)
+eval "$(fnm env --shell bash)"
 
 # Install Yarn and PNPM
 npm install -g yarn pnpm
