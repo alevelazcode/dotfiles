@@ -77,7 +77,11 @@
       "Bash(chmod +x /Users/alejandrovelazco/dotfiles/platforms/arch/setup.sh)",
       "Bash(tree /Users/alejandrovelazco/dotfiles/platforms/arch -L 2)",
       "WebSearch",
-      "Bash(tree /Users/alejandrovelazco/dotfiles/platforms/arch)"
+      "Bash(tree /Users/alejandrovelazco/dotfiles/platforms/arch)",
+      "Bash(zsh -n /Users/alejandrovelazco/dotfiles/shell/zsh/modular/os/linux.zsh)",
+      "Bash(zsh -n /Users/alejandrovelazco/dotfiles/shell/zsh/modular/modules/functions.zsh)",
+      "Bash(grep -n functions[ /Users/alejandrovelazco/dotfiles/shell/zsh/modular/**/*.zsh)",
+      "Bash(grep -n \"\\\\[[ ! -f\" /Users/alejandrovelazco/dotfiles/shell/zsh/modular/**/*.zsh)"
     ]
   }
 }

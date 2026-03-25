@@ -75,6 +75,10 @@ zsh-update() {
 dev-update() {
     if [[ "$OSTYPE" == darwin* ]]; then
         brew update && brew upgrade && brew cleanup
+    elif (( $+commands[paru] )); then
+        paru -Syu
+    elif (( $+commands[pacman] )); then
+        sudo pacman -Syu
     elif (( $+commands[apt] )); then
         sudo apt update && sudo apt upgrade -y
     fi
