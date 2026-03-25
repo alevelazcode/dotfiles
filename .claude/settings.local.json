@@ -63,7 +63,16 @@
       "Bash(curl -sL https://raw.githubusercontent.com/wez/wezterm/main/docs/config/lua/config/webgpu_force_fallback_adapter.md)",
       "Bash(curl -sL https://raw.githubusercontent.com/wez/wezterm/main/docs/config/lua/wezterm/font_with_fallback.md)",
       "Bash(curl -sL https://raw.githubusercontent.com/wez/wezterm/main/docs/config/fonts.md)",
-      "Bash(git -C /home/ale/dotfiles log --oneline --all\n\\\\22)"
+      "Bash(git -C /home/ale/dotfiles log --oneline --all\n\\\\22)",
+      "Bash(zsh -xc exit)",
+      "Bash(/usr/bin/time fnm:*)",
+      "Bash(zsh -i -c 'which node; which fnm; which starship; echo \"\"PATH ok\"\"; echo \"\"Zinit: $\\(zinit --version 2>/dev/null || echo loaded\\)\"\"')",
+      "Bash(zsh -i -c 'echo \"\"node: $\\(which node\\)\"\"; echo \"\"fnm: $\\(which fnm\\)\"\"; echo \"\"starship: $\\(which starship\\)\"\"; echo \"\"cargo: $\\(which cargo 2>/dev/null || echo not-installed\\)\"\"; echo \"\"eza: $\\(which eza\\)\"\"; echo \"\"FZF_DEFAULT_OPTS set: $\\([[ -n $FZF_DEFAULT_OPTS ]] && echo yes || echo no\\)\"\"; echo \"\"HISTSIZE: $HISTSIZE\"\"; echo \"\"ZSH_CACHE_DIR: $ZSH_CACHE_DIR\"\"')",
+      "Bash(starship --help)",
+      "Bash(docker version:*)",
+      "Bash(zsh -c 'source /Users/alejandrovelazco/dotfiles/shell/zsh/modular/modules/aliases.zsh 2>&1 && echo \"\"aliases OK\"\"')",
+      "Bash(zsh -c 'source /Users/alejandrovelazco/dotfiles/shell/zsh/modular/core/keybindings.zsh 2>&1 && echo \"\"keybindings OK\"\"')",
+      "Bash(starship config:*)"
     ]
   }
 }

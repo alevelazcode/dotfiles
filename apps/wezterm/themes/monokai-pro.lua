@@ -42,44 +42,8 @@ local function create_theme(name, palette)
 		foreground = palette.text,
 		background = palette.background,
 
-		-- Tab bar colors
-		tab_bar = {
-			background = palette.dark1,
-
-			active_tab = {
-				bg_color = palette.background,
-				fg_color = palette.accent3,
-				intensity = "Bold",
-				underline = "None",
-				italic = false,
-				strikethrough = false,
-			},
-
-			inactive_tab = {
-				bg_color = palette.dark1,
-				fg_color = palette.dimmed2,
-			},
-
-			inactive_tab_hover = {
-				bg_color = palette.dimmed5,
-				fg_color = palette.dimmed1,
-				italic = false,
-			},
-
-			new_tab = {
-				bg_color = palette.dark1,
-				fg_color = palette.dimmed2,
-			},
-
-			new_tab_hover = {
-				bg_color = palette.dimmed5,
-				fg_color = palette.dimmed1,
-				italic = false,
-			},
-		},
-
-		-- Scrollbar
-		scrollbar_thumb = palette.dimmed4,
+		-- Tab bar / scrollbar colors omitted — disabled in wezterm.lua
+		-- Re-add if enable_tab_bar or enable_scroll_bar are turned on.
 
 		-- Split colors (for pane splits)
 		split = palette.dimmed4,

@@ -47,7 +47,6 @@ config.enable_tab_bar = false
 config.enable_scroll_bar = false
 config.adjust_window_size_when_changing_font_size = false
 config.window_close_confirmation = "NeverPrompt"
-config.automatically_reload_config = true
 
 config.window_padding = {
   left = 30,
@@ -56,15 +55,16 @@ config.window_padding = {
   bottom = 20,
 }
 
+local border_color = "#3c4048"
 config.window_frame = {
   border_left_width = "1px",
   border_right_width = "1px",
   border_bottom_height = "1px",
   border_top_height = "1px",
-  border_left_color = "#3c4048",
-  border_right_color = "#3c4048",
-  border_bottom_color = "#3c4048",
-  border_top_color = "#3c4048",
+  border_left_color = border_color,
+  border_right_color = border_color,
+  border_bottom_color = border_color,
+  border_top_color = border_color,
 }
 
 -- ---------------------------------------------------------------------------
@@ -79,12 +79,6 @@ config.keys = {
   { key = "Enter", mods = "CTRL",  action = wezterm.action({ SendString = "\x1b[13;5u" }) },
   { key = "Enter", mods = "SHIFT", action = wezterm.action({ SendString = "\x1b[13;2u" }) },
 }
-
--- ---------------------------------------------------------------------------
--- Hyperlink rules
--- ---------------------------------------------------------------------------
--- Start from WezTerm's built-in defaults, then add custom patterns.
-config.hyperlink_rules = wezterm.default_hyperlink_rules()
 
 -- ---------------------------------------------------------------------------
 -- Windows / WSL

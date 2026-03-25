@@ -62,14 +62,10 @@ timezsh() {
 }
 
 zsh-clear-cache() {
-    local d="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
-    rm -f "$d"/*.zsh "$d"/evalcache_*.zsh "${ZDOTDIR:-$HOME}"/.zcompdump* 2>/dev/null
-    echo "ZSH caches cleared. Will regenerate on next startup."
+    rm -f "$ZSH_CACHE_DIR"/*.zsh "${ZDOTDIR:-$HOME}"/.zcompdump* 2>/dev/null
+    echo "ZSH caches cleared (fnm, starship, zoxide, completions). Will regenerate on next startup."
 }
 
-# -----------------------------------------------------------------------------
-# Zinit maintenance
-# -----------------------------------------------------------------------------
 zsh-update() {
     echo "🔄 Updating Zinit and plugins..."
     zinit self-update && zinit update --all
@@ -82,7 +78,6 @@ dev-update() {
     elif (( $+commands[apt] )); then
         sudo apt update && sudo apt upgrade -y
     fi
-    (( $+commands[rustup] ))   && rustup update
-    (( $+commands[starship] )) && starship upgrade
+    (( $+commands[rustup] )) && rustup update
     zsh-update
 }

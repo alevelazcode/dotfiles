@@ -1,9 +1,8 @@
 # =============================================================================
-# Prompt ULTRA-OPTIMIZED Configuration
+# Prompt Configuration (cached starship init)
 # =============================================================================
-# Uses cached starship init to avoid eval overhead (~40ms saved)
 
-local _starship_cache="$HOME/.cache/zsh/starship.zsh"
+local _starship_cache="$ZSH_CACHE_DIR/starship.zsh"
 
 # Priority: cached file > generate cache > fallback prompt
 if [[ -f "$_starship_cache" ]]; then

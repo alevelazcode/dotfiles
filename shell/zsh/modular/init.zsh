@@ -7,9 +7,9 @@
 [[ -f "$HOME/.zsh/zsh-defer/zsh-defer.plugin.zsh" ]] && \
     source "$HOME/.zsh/zsh-defer/zsh-defer.plugin.zsh"
 
-# Essential variables
-export ZSH_CONFIG_DIR="${ZSH_CONFIG_DIR:-$HOME/.config/zsh}"
-export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+# Internal variables (no export needed — only used by zsh config files)
+: ${ZSH_CONFIG_DIR:=$HOME/.config/zsh}
+: ${ZSH_CACHE_DIR:=${XDG_CACHE_HOME:-$HOME/.cache}/zsh}
 [[ ! -d "$ZSH_CACHE_DIR" ]] && mkdir -p "$ZSH_CACHE_DIR"
 
 # Homebrew (hardcoded to avoid subprocess)
@@ -43,19 +43,19 @@ setopt NO_BEEP INTERACTIVE_COMMENTS PROMPT_SUBST
 bindkey -v
 source "$ZSH_CONFIG_DIR/core/keybindings.zsh"
 
-# Compinit (cached, rebuild once per day)
+# Compinit (cached, rebuild once per day, skip compaudit for speed)
 autoload -Uz compinit
 local zcompdump="$HOME/.zcompdump"
 if [[ -n $zcompdump(#qN.mh+24) ]]; then
-    compinit
+    compinit -u -d "$zcompdump"
 else
-    compinit -C
+    compinit -C -d "$zcompdump"
 fi
 
 # OS-specific (sync - contains PATH setup)
 if [[ "$OSTYPE" == darwin* ]]; then
     source "$ZSH_CONFIG_DIR/os/macos.zsh"
-elif [[ -f /proc/version ]] && grep -qi microsoft /proc/version 2>/dev/null; then
+elif [[ -f /proc/version ]] && [[ "$(</proc/version)" == *[Mm]icrosoft* ]]; then
     source "$ZSH_CONFIG_DIR/os/wsl.zsh"
 else
     source "$ZSH_CONFIG_DIR/os/linux.zsh"

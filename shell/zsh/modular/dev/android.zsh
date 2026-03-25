@@ -15,14 +15,12 @@ fi
 # Only set JAVA_HOME if the JDK is actually installed
 if [[ -d "$_java_dir" ]]; then
     export JAVA_HOME="$_java_dir"
-    path=("$JAVA_HOME/bin" $path)
+    path_prepend "$JAVA_HOME/bin"
 fi
 
-export ANDROID_SDK_ROOT="$ANDROID_HOME"
-
-[[ -d "$ANDROID_HOME/emulator" ]]                 && path+=("$ANDROID_HOME/emulator")
-[[ -d "$ANDROID_HOME/platform-tools" ]]           && path+=("$ANDROID_HOME/platform-tools")
-[[ -d "$ANDROID_HOME/cmdline-tools/latest/bin" ]]  && path+=("$ANDROID_HOME/cmdline-tools/latest/bin")
+path_append "$ANDROID_HOME/emulator"
+path_append "$ANDROID_HOME/platform-tools"
+path_append "$ANDROID_HOME/cmdline-tools/latest/bin"
 
 # -----------------------------------------------------------------------------
 # WSL2: use Windows-side adb.exe so it talks to the same ADB server as the
@@ -32,7 +30,7 @@ export ANDROID_SDK_ROOT="$ANDROID_HOME"
 # We create wrapper SCRIPTS in ~/.local/bin/ instead of shell aliases because
 # Expo/React Native spawn adb as a subprocess — aliases are invisible there.
 # -----------------------------------------------------------------------------
-if [[ -f /proc/version ]] && grep -qi microsoft /proc/version 2>/dev/null; then
+if [[ -f /proc/version ]] && [[ "$(</proc/version)" == *[Mm]icrosoft* ]]; then
     local _win_user
     _win_user=$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')
     local _win_sdk="/mnt/c/Users/${_win_user}/AppData/Local/Android/Sdk"

@@ -11,7 +11,7 @@ setopt AUTO_LIST AUTO_MENU COMPLETE_IN_WORD
 # -----------------------------------------------------------------------------
 zstyle ':completion:*' menu select
 zstyle ':completion::complete:*' use-cache 1
-zstyle ':completion::complete:*' cache-path "$HOME/.cache/zsh"
+zstyle ':completion::complete:*' cache-path "$ZSH_CACHE_DIR"
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion:*' completer _complete _match _approximate
 zstyle ':completion:*:approximate:*' max-errors 1 numeric

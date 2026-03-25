@@ -1,14 +1,13 @@
 # =============================================================================
-# Aliases Configuration
+# Aliases
 # =============================================================================
-# No command -v checks - if a tool isn't installed, the alias just won't work.
-# This avoids subprocess overhead on every shell startup.
 
 # Modern CLI tools (Rust replacements)
-alias ls='eza --icons -F -H --group-directories-first --git -1 -a'
-alias ll='eza --icons -F -H --group-directories-first --git -la'
-alias la='eza --icons -F -H --group-directories-first --git -a'
-alias l='eza --icons -F -H --group-directories-first --git -1'
+local _eza='eza --icons -F -H --group-directories-first --git'
+alias ls="$_eza -1 -a"
+alias ll="$_eza -la"
+alias la="$_eza -a"
+alias l="$_eza -1"
 alias tree='eza --tree'
 alias cat="bat --style=plain"
 
@@ -24,7 +23,7 @@ alias v="nvim"
 
 # Git
 alias g='git'
-alias ga="git add ."
+alias ga="git add"
 alias gs="git status -s"
 alias gp="git push"
 alias gpl="git pull"

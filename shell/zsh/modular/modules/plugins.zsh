@@ -1,11 +1,8 @@
 # =============================================================================
 # Plugins Configuration (deferred via zsh-defer)
 # =============================================================================
-# zsh-syntax-highlighting is intentionally NOT here — it must load
-# synchronously in init.zsh so ZLE hooks register correctly.
-# =============================================================================
 
-local _cache="$HOME/.cache/zsh"
+local _cache="$ZSH_CACHE_DIR"
 
 # -----------------------------------------------------------------------------
 # Autosuggestions — inline history hints
@@ -13,9 +10,11 @@ local _cache="$HOME/.cache/zsh"
 zinit light zsh-users/zsh-autosuggestions
 
 # -----------------------------------------------------------------------------
-# FZF — shell integration managed by zinit (binary still from Homebrew)
-# atinit sources key-bindings and completion from the cloned repo directory
+# FZF — shell integration via zinit
 # -----------------------------------------------------------------------------
+export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --preview 'bat --style=numbers --color=always --line-range :500 {}'"
+export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git --exclude node_modules --exclude .cache"
+
 zinit ice wait lucid atinit"source shell/key-bindings.zsh; source shell/completion.zsh"
 zinit light junegunn/fzf
 

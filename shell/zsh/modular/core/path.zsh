@@ -22,17 +22,23 @@ path_prepend "$HOME/bin"
 
 # -----------------------------------------------------------------------------
 # Development tools
-# (Bun and pnpm are managed in dev/node.zsh alongside their env vars)
-# (Cargo is managed in dev/rust.zsh alongside CARGO_HOME)
 # -----------------------------------------------------------------------------
 
 # Cargo (early — needed before prompt for starship on Linux)
 path_prepend "$HOME/.cargo/bin"
 
 # FNM (sync — must run before deferred modules so node/npm are in PATH)
-(( $+commands[fnm] )) && eval "$(fnm env --use-on-cd)"
+# Cached to avoid subprocess on every shell start
+if (( $+commands[fnm] )); then
+    local _fnm_cache="$ZSH_CACHE_DIR/fnm.zsh"
+    if [[ ! -f "$_fnm_cache" ]]; then
+        command fnm env --use-on-cd > "$_fnm_cache" 2>/dev/null
+    fi
+    source "$_fnm_cache"
+fi
 
-# Go
+# Go (system install + user workspace)
+path_append "/usr/local/go/bin"
 path_append "$HOME/go/bin"
 
 # Console Ninja

@@ -36,37 +36,8 @@ local function create_theme(palette)
     foreground = palette.fg,
     background = palette.bg,
 
-    tab_bar = {
-      background = palette.bgAlt,
-      active_tab = {
-        bg_color = palette.bg,
-        fg_color = palette.cyan,
-        intensity = "Bold",
-        underline = "None",
-        italic = false,
-        strikethrough = false,
-      },
-      inactive_tab = {
-        bg_color = palette.bgAlt,
-        fg_color = palette.grey,
-      },
-      inactive_tab_hover = {
-        bg_color = palette.bgHighlight,
-        fg_color = palette.fg,
-        italic = false,
-      },
-      new_tab = {
-        bg_color = palette.bgAlt,
-        fg_color = palette.grey,
-      },
-      new_tab_hover = {
-        bg_color = palette.bgHighlight,
-        fg_color = palette.fg,
-        italic = false,
-      },
-    },
+    -- Tab bar / scrollbar colors omitted — disabled in wezterm.lua
 
-    scrollbar_thumb = palette.bgHighlight,
     split = palette.bgHighlight,
     visual_bell = palette.bgHighlight,
     compose_cursor = palette.orange,

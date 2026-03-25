@@ -6,7 +6,6 @@ export PYTHONDONTWRITEBYTECODE=1
 export PYTHONUNBUFFERED=1
 export PIP_DISABLE_PIP_VERSION_CHECK=1
 
-
 # Aliases
 alias python='python3'
 alias pip='pip3'
