@@ -68,6 +68,45 @@ This directory contains platform-specific configurations and setup scripts for d
 
 - `setup.sh` - Main setup script
 
+### Arch Linux (`arch/`)
+
+**Features:**
+
+- Pacman + paru (AUR helper) package management
+- Performance-optimized configurations
+- SOLID principles implementation
+- Arch/EndeavourOS/Manjaro support
+- Parallel downloads enabled
+- Modern CLI tools from repos and AUR
+
+**Setup:**
+
+```bash
+./install.sh arch
+```
+
+**Supported Distributions:**
+
+- Arch Linux (official)
+- EndeavourOS
+- Manjaro
+- Garuda Linux
+- Artix Linux
+- Any Arch-based distribution
+
+**Key Files:**
+
+- `setup.sh` - Main setup script (SOLID principles)
+- `README.md` - Detailed documentation
+
+**Performance Features:**
+
+- ✓ Automatic paru installation and configuration
+- ✓ Parallel package downloads
+- ✓ Pre-compiled binaries via cargo-binstall
+- ✓ Optimized pacman configuration
+- ✓ Smart package caching
+
 ### WSL2 Ubuntu (`wsl/`)
 
 **Features:**
@@ -93,6 +132,7 @@ The main installation script automatically detects your platform:
 
 - **macOS**: Detected by `$OSTYPE == "darwin*"`
 - **WSL2**: Detected by checking `/proc/version` for Microsoft
+- **Arch Linux**: Detected by checking `/etc/os-release` for `ID=arch|endeavouros|manjaro|garuda|artix` or `ID_LIKE=*arch*`
 - **Fedora/RHEL**: Detected by checking `/etc/os-release` for `ID=fedora|centos|rhel|rocky|almalinux` or `ID_LIKE=*rhel*|*fedora*`
 - **Linux Ubuntu/Debian**: Detected by checking `/etc/os-release` for `ID=ubuntu|debian` or `ID_LIKE=*debian*|*ubuntu*`
 
@@ -104,6 +144,7 @@ You can also manually specify a platform:
 ./install.sh macos    # Force macOS setup
 ./install.sh linux    # Force Ubuntu/Debian setup
 ./install.sh fedora   # Force Fedora/RHEL setup
+./install.sh arch     # Force Arch Linux setup
 ./install.sh wsl      # Force WSL setup
 ```
 

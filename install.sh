@@ -51,12 +51,17 @@ detect_platform() {
             "debian")
                 echo "linux"  # Use Ubuntu/Debian setup for Debian-based distros
                 ;;
+            "arch"|"endeavouros"|"manjaro"|"garuda"|"artix")
+                echo "arch"  # Use Arch setup for Arch-based distros
+                ;;
             *)
                 # Fallback: check ID_LIKE for family compatibility
                 if [[ "${ID_LIKE:-}" == *"rhel"* ]] || [[ "${ID_LIKE:-}" == *"fedora"* ]]; then
                     echo "fedora"
                 elif [[ "${ID_LIKE:-}" == *"debian"* ]] || [[ "${ID_LIKE:-}" == *"ubuntu"* ]]; then
                     echo "linux"
+                elif [[ "${ID_LIKE:-}" == *"arch"* ]]; then
+                    echo "arch"
                 else
                     echo "linux"  # Default to linux for unknown distributions
                 fi
@@ -367,10 +372,10 @@ main() {
     fi
 
     case "$platform" in
-        macos|linux|fedora|wsl) ;;
+        macos|linux|fedora|wsl|arch) ;;
         *)
             print_error "Invalid or unknown platform: $platform"
-            print_status "Usage: $0 [macos|linux|fedora|wsl]"
+            print_status "Usage: $0 [macos|linux|fedora|wsl|arch]"
             exit 1
             ;;
     esac

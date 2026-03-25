@@ -72,7 +72,12 @@
       "Bash(docker version:*)",
       "Bash(zsh -c 'source /Users/alejandrovelazco/dotfiles/shell/zsh/modular/modules/aliases.zsh 2>&1 && echo \"\"aliases OK\"\"')",
       "Bash(zsh -c 'source /Users/alejandrovelazco/dotfiles/shell/zsh/modular/core/keybindings.zsh 2>&1 && echo \"\"keybindings OK\"\"')",
-      "Bash(starship config:*)"
+      "Bash(starship config:*)",
+      "Bash(mkdir -p /Users/alejandrovelazco/dotfiles/platforms/arch)",
+      "Bash(chmod +x /Users/alejandrovelazco/dotfiles/platforms/arch/setup.sh)",
+      "Bash(tree /Users/alejandrovelazco/dotfiles/platforms/arch -L 2)",
+      "WebSearch",
+      "Bash(tree /Users/alejandrovelazco/dotfiles/platforms/arch)"
     ]
   }
 }

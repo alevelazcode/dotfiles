@@ -77,9 +77,10 @@ brew "jesseduffield/lazygit/lazygit"
 # =============================================================================
 # Databases
 # =============================================================================
+# Note: Database servers (PostgreSQL, MySQL, MongoDB) are NOT installed here
+# to avoid conflicts with Docker-based development environments.
 
-brew "pgcli"
-brew "postgresql"
+brew "pgcli"       # PostgreSQL CLI client only (no server)
 
 # =============================================================================
 # Terminal Multiplexer
