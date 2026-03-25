@@ -1,25 +1,17 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
--- ---------------------------------------------------------------------------
 -- Font
--- ---------------------------------------------------------------------------
--- Use font_with_fallback so WezTerm's built-in fallback chain
--- (JetBrains Mono, Nerd Font Symbols, Noto Color Emoji) is appended automatically.
 config.font = wezterm.font_with_fallback({
   { family = "DankMono Nerd Font Mono", weight = "Regular" },
 })
 config.font_size = 19
 config.line_height = 1.7
 
--- ---------------------------------------------------------------------------
 -- Theme
--- ---------------------------------------------------------------------------
 require("themes.monokai-pro").apply_to_config(config)
 
--- ---------------------------------------------------------------------------
 -- Transparency + blur (platform-aware)
--- ---------------------------------------------------------------------------
 local is_mac = wezterm.target_triple:find("apple") ~= nil
 local is_win = wezterm.target_triple:find("windows") ~= nil
 
@@ -37,11 +29,7 @@ else
   config.kde_window_background_blur = true
 end
 
--- ---------------------------------------------------------------------------
--- Window chrome
--- ---------------------------------------------------------------------------
--- RESIZE alone removes the title bar but keeps the ability to resize/minimize.
--- Docs warn against using NONE (breaks resize and minimize).
+-- Window chrome (RESIZE = no title bar, keeps resize/minimize)
 config.window_decorations = "RESIZE"
 config.enable_tab_bar = false
 config.enable_scroll_bar = false
@@ -67,27 +55,16 @@ config.window_frame = {
   border_top_color = border_color,
 }
 
--- ---------------------------------------------------------------------------
 -- Cursor
--- ---------------------------------------------------------------------------
 config.default_cursor_style = "BlinkingBar"
 
--- ---------------------------------------------------------------------------
 -- Keys
--- ---------------------------------------------------------------------------
 config.keys = {
   { key = "Enter", mods = "CTRL",  action = wezterm.action({ SendString = "\x1b[13;5u" }) },
   { key = "Enter", mods = "SHIFT", action = wezterm.action({ SendString = "\x1b[13;2u" }) },
 }
 
--- ---------------------------------------------------------------------------
--- Windows / WSL
--- ---------------------------------------------------------------------------
--- WezTerm auto-detects installed WSL distros via `wsl -l -v` and creates
--- WSL:<Name> domains. Using default_domain gives native shell integration
--- (cwd tracking when splitting panes/tabs) instead of spawning wsl.exe.
--- wsl_domains can be customised if needed (username, default_cwd, etc.),
--- but the auto-detected defaults (with default_cwd = "~") are fine.
+-- Windows / WSL (auto-detected domain for native shell integration)
 if is_win then
   config.default_domain = "WSL:Ubuntu"
 end

@@ -52,7 +52,6 @@ end
 local palettes = {
   default = {
     bg = "#16181a",
-    bgAlt = "#1e2124",
     bgHighlight = "#3c4048",
     fg = "#ffffff",
     grey = "#7b8496",
@@ -61,14 +60,11 @@ local palettes = {
     cyan = "#5ef1ff",
     red = "#ff6e5e",
     yellow = "#f1ff5e",
-    magenta = "#ff5ef1",
-    pink = "#ff5ea0",
     orange = "#ffbd5e",
     purple = "#bd5eff",
   },
   light = {
     bg = "#ffffff",
-    bgAlt = "#eaeaea",
     bgHighlight = "#d0d0d0",
     fg = "#16181a",
     grey = "#7b8496",
@@ -77,8 +73,6 @@ local palettes = {
     cyan = "#0087bd",
     red = "#d10000",
     yellow = "#b17b00",
-    magenta = "#a500d1",
-    pink = "#d1006b",
     orange = "#c47200",
     purple = "#7100d1",
   },
@@ -104,10 +98,5 @@ function module.apply_to_config(config, variant)
     brightness = 0.7,
   }
 end
-
-module.variants = {
-  "default",
-  "light",
-}
 
 return module

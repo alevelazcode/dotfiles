@@ -1,11 +1,8 @@
--- colors.lua - Monokai Pro Theme Module for WezTerm
--- Based on loctvl842/monokai-pro.nvim
+-- Monokai Pro Theme for WezTerm (based on loctvl842/monokai-pro.nvim)
 
-local wezterm = require("wezterm")
 local module = {}
 
--- Helper function to create a theme variant
-local function create_theme(name, palette)
+local function create_theme(palette)
 	return {
 		-- Cursor colors
 		cursor_bg = palette.text,
@@ -56,10 +53,8 @@ local function create_theme(name, palette)
 	}
 end
 
--- Define color palettes for each variant
 local palettes = {
 	pro = {
-		dark2 = "#19181a",
 		dark1 = "#221f22",
 		background = "#2d2a2e",
 		text = "#fcfcfa",
@@ -77,7 +72,6 @@ local palettes = {
 	},
 
 	octagon = {
-		dark2 = "#161821",
 		dark1 = "#1e1f2b",
 		background = "#282a3a",
 		text = "#eaf2f1",
@@ -95,7 +89,6 @@ local palettes = {
 	},
 
 	machine = {
-		dark2 = "#161b1e",
 		dark1 = "#1d2528",
 		background = "#273136",
 		text = "#f2fffc",
@@ -113,7 +106,6 @@ local palettes = {
 	},
 
 	ristretto = {
-		dark2 = "#191515",
 		dark1 = "#211c1c",
 		background = "#2c2525",
 		text = "#fff1f3",
@@ -131,7 +123,6 @@ local palettes = {
 	},
 
 	spectrum = {
-		dark2 = "#131313",
 		dark1 = "#191919",
 		background = "#222222",
 		text = "#f7f1ff",
@@ -149,7 +140,6 @@ local palettes = {
 	},
 
 	classic = {
-		dark2 = "#161613",
 		dark1 = "#1d1e19",
 		background = "#272822",
 		text = "#fdfff1",
@@ -167,7 +157,6 @@ local palettes = {
 	},
 
 	light = {
-		dark2 = "#d3cdcc",
 		dark1 = "#ede7e5",
 		background = "#faf4f2",
 		text = "#29242a",
@@ -185,47 +174,21 @@ local palettes = {
 	},
 }
 
--- Register all color schemes
 function module.register_color_schemes(config)
 	if not config.color_schemes then
 		config.color_schemes = {}
 	end
-
 	for name, palette in pairs(palettes) do
 		local scheme_name = "Monokai Pro (" .. name:gsub("^%l", string.upper) .. ")"
-		config.color_schemes[scheme_name] = create_theme(scheme_name, palette)
+		config.color_schemes[scheme_name] = create_theme(palette)
 	end
 end
 
--- Apply the color scheme
 function module.apply_to_config(config, variant)
-	-- Register all color schemes first
 	module.register_color_schemes(config)
-
-	-- Set the default variant (if not specified, use "pro")
 	variant = variant or "pro"
-	local scheme_name = "Monokai Pro (" .. variant:gsub("^%l", string.upper) .. ")"
-
-	-- Apply the color scheme
-	config.color_scheme = scheme_name
-
-	-- Optional: Add inactive pane dimming for better visibility when using splits
-	config.inactive_pane_hsb = {
-		saturation = 0.8,
-		brightness = 0.7,
-	}
+	config.color_scheme = "Monokai Pro (" .. variant:gsub("^%l", string.upper) .. ")"
+	config.inactive_pane_hsb = { saturation = 0.8, brightness = 0.7 }
 end
 
--- Export available variants for easy reference
-module.variants = {
-	"pro", -- Default Monokai Pro
-	"octagon", -- Filter Octagon
-	"machine", -- Filter Machine
-	"ristretto", -- Filter Ristretto
-	"spectrum", -- Filter Spectrum
-	"classic", -- Classic Monokai
-	"light", -- Light theme
-}
-
 return module
-

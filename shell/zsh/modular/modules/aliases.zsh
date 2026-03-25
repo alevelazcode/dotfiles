@@ -58,4 +58,4 @@ alias gce='gh copilot explain'
 
 # Misc
 alias c="clear"
-alias bd="exit" 
+alias bd="exit"
