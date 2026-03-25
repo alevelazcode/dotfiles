@@ -67,9 +67,7 @@ zsh-clear-cache() {
 }
 
 zsh-update() {
-    echo "🔄 Updating Zinit and plugins..."
     zinit self-update && zinit update --all
-    echo "✅ All Zinit plugins updated!"
 }
 
 dev-update() {

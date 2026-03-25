@@ -35,7 +35,7 @@ autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '^X^E' edit-command-line
 
-# Copy current command to clipboard (reuses cross-platform copy() from functions.zsh)
+# Copy current command to clipboard (copy() from deferred functions.zsh)
 function copy-command() {
     copy "$BUFFER" 2>/dev/null
     zle -M "Command copied to clipboard"

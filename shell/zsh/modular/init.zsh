@@ -22,10 +22,16 @@ elif [[ -d "/usr/local/Homebrew" ]]; then
 fi
 
 # Zinit plugin manager (before compinit so it can register its completions dir)
-if [[ -f "$HOMEBREW_PREFIX/opt/zinit/zinit.zsh" ]]; then
-    source "$HOMEBREW_PREFIX/opt/zinit/zinit.zsh"
+local _zinit_path=""
+if [[ -n "$HOMEBREW_PREFIX" && -f "$HOMEBREW_PREFIX/opt/zinit/zinit.zsh" ]]; then
+    _zinit_path="$HOMEBREW_PREFIX/opt/zinit/zinit.zsh"
 elif [[ -f "$HOME/.local/share/zinit/zinit.git/zinit.zsh" ]]; then
-    source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+    _zinit_path="$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+elif [[ -f /usr/share/zinit/zinit.zsh ]]; then
+    _zinit_path="/usr/share/zinit/zinit.zsh"
+fi
+if [[ -n "$_zinit_path" ]]; then
+    source "$_zinit_path"
     autoload -Uz _zinit
     (( ${+_comps} )) && _comps[zinit]=_zinit
 fi
@@ -83,8 +89,7 @@ else
     [[ -f "$ZSH_CONFIG_DIR/local.zsh" ]] && source "$ZSH_CONFIG_DIR/local.zsh"
 fi
 
-# Syntax highlighting — loaded sync, LAST, as required by the plugin
-# (ZLE hooks must be registered before user input; zsh-defer context breaks this)
+# Syntax highlighting — loaded sync, LAST (ZLE hooks need registration before user input)
 zinit light zsh-users/zsh-syntax-highlighting
 
 # Prompt (sync - must appear instantly)

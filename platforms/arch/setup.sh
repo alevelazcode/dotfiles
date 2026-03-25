@@ -32,30 +32,36 @@ update_system() {
     print_success "System updated"
 }
 
-# Install base-devel and prerequisites for AUR
+# Install base-devel, zsh, and prerequisites for AUR
+# zsh MUST be installed early so chsh and symlinks work even if later steps fail
 install_build_prerequisites() {
-    print_status "Installing build prerequisites..."
+    print_status "Installing build prerequisites + zsh..."
 
     local prerequisites=(
         base-devel
         git
         curl
         wget
+        zsh
     )
 
     sudo pacman -S --needed --noconfirm "${prerequisites[@]}"
-    print_success "Build prerequisites installed"
+    print_success "Build prerequisites + zsh installed"
 }
 
 # =============================================================================
 # Package Manager Functions (DIP: Dependency Inversion Principle)
 # =============================================================================
 
-# Install paru AUR helper if not present
+# Install paru AUR helper if not present or broken (e.g. libalpm mismatch)
 install_paru() {
-    if command -v paru &> /dev/null; then
+    if command -v paru &> /dev/null && paru --version &> /dev/null; then
         print_success "paru is already installed"
         return 0
+    fi
+
+    if command -v paru &> /dev/null; then
+        print_warning "paru exists but is broken (likely libalpm version mismatch), rebuilding..."
     fi
 
     print_status "Installing paru AUR helper..."
@@ -105,8 +111,9 @@ EOF
     fi
 }
 
-# Generic package installer (ISP: Interface Segregation Principle)
-# Uses paru if available, falls back to pacman
+# Generic package installer
+# Tests that paru actually works (not just exists) before using it — avoids
+# silent failures when paru is broken (e.g. libalpm.so version mismatch).
 install_packages() {
     local -a packages=("$@")
 
@@ -115,7 +122,7 @@ install_packages() {
         return 0
     fi
 
-    if command -v paru &> /dev/null; then
+    if command -v paru &> /dev/null && paru --version &> /dev/null; then
         paru -S --needed --noconfirm "${packages[@]}" 2>&1 | grep -v "warning: database file" || true
     else
         sudo pacman -S --needed --noconfirm "${packages[@]}" 2>&1 | grep -v "warning: database file" || true
@@ -130,11 +137,7 @@ install_essential_packages() {
     print_status "Installing essential packages..."
 
     local essential_packages=(
-        # Core utilities
-        git
-        curl
-        wget
-        zsh
+        # Core utilities (zsh/git/curl already in build prerequisites)
         htop
         tree
         unzip
@@ -165,23 +168,57 @@ install_essential_packages() {
         python-pip
         python-pipx
 
-        # Modern CLI tools (all available in official repos!)
+        # Modern CLI tools (all available in official repos)
         ripgrep
-        fd              # Note: fd-find in Debian
+        fd
         bat
         eza
         zoxide
-        dust            # Note: du-dust in cargo
+        dust
         procs
         sd
         tealdeer
         tokei
         bottom
         git-delta
+
+        # Package managers (flatpak from official repos)
+        flatpak
     )
 
     install_packages "${essential_packages[@]}"
     print_success "Essential packages installed"
+}
+
+# Enable flatpak + snapd services after installation
+setup_package_managers() {
+    # Flatpak: add Flathub remote + install flatpak apps
+    if command -v flatpak &> /dev/null; then
+        flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo 2>/dev/null || true
+        print_success "Flatpak + Flathub configured"
+
+        # WezTerm — AUR package is abandoned, flatpak is the maintained source
+        if ! flatpak list --app 2>/dev/null | grep -q org.wezfurlong.wezterm; then
+            print_status "Installing WezTerm via Flatpak..."
+            flatpak install -y flathub org.wezfurlong.wezterm && print_success "WezTerm installed" \
+                || print_warning "Failed to install WezTerm via Flatpak"
+        else
+            print_success "WezTerm is already installed"
+        fi
+    fi
+
+    # Snapd: install from AUR + enable service + create symlink
+    if ! command -v snap &> /dev/null; then
+        print_status "Installing snapd from AUR..."
+        install_packages snapd
+    fi
+    if command -v snap &> /dev/null; then
+        sudo systemctl enable --now snapd.socket
+        sudo systemctl enable --now snapd.apparmor 2>/dev/null || true
+        # Classic snap support requires this symlink
+        [[ -L /snap ]] || sudo ln -sf /var/lib/snapd/snap /snap
+        print_success "Snapd enabled"
+    fi
 }
 
 # =============================================================================
@@ -525,11 +562,12 @@ enable_multilib() {
 main() {
     print_status "Starting Arch Linux setup..."
 
-    # System optimization and prerequisites
+    # System optimization and prerequisites (zsh installed here)
     optimize_pacman
     enable_multilib
     update_system
     install_build_prerequisites
+    setup_shell
 
     # Package manager setup
     install_paru
@@ -537,6 +575,7 @@ main() {
 
     # Core packages
     install_essential_packages
+    setup_package_managers
 
     # Development environments
     install_neovim
@@ -549,7 +588,6 @@ main() {
     install_zinit
     install_starship
     install_fastfetch
-    setup_shell
 
     # Cargo development tools
     install_cargo_tools
@@ -568,6 +606,7 @@ main() {
     echo "  ✓ paru AUR helper (optimized for performance)"
     echo "  ✓ base-devel + essential build tools"
     echo "  ✓ All modern CLI tools (ripgrep, fd, bat, eza, zoxide, etc.) via pacman"
+    echo "  ✓ Flatpak + Snapd package managers"
     echo "  ✓ ZSH + Zinit plugin manager"
     echo "  ✓ FNM + Node.js LTS"
     echo "  ✓ Rust toolchain + cargo development tools"

@@ -163,11 +163,15 @@ create_symlinks() {
     # Wezterm
     if [[ -d "apps/wezterm" ]]; then
         if [[ "$platform" == "wsl" ]] && [[ -n "$win_home" ]]; then
-            # Wezterm on Windows reads from %USERPROFILE%\.config\wezterm\
             ensure_win_copy "$(pwd)/apps/wezterm" "$win_home/.config/wezterm"
             print_success "Wezterm configuration linked (Windows-side)"
         elif [[ "$platform" != "wsl" ]]; then
             ensure_link "$(pwd)/apps/wezterm" ~/.config/wezterm
+            # Flatpak WezTerm config path (Arch uses flatpak install)
+            local flatpak_wezterm="$HOME/.var/app/org.wezfurlong.wezterm/config/wezterm"
+            if [[ -d "$HOME/.var/app/org.wezfurlong.wezterm" ]]; then
+                ensure_link "$(pwd)/apps/wezterm" "$flatpak_wezterm"
+            fi
             print_success "Wezterm configuration linked"
         fi
     fi
