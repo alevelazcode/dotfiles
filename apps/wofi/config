@@ -1,0 +1,60 @@
+# Wofi configuration - macOS Spotlight style
+# Place in ~/.config/wofi/config
+
+# Show desktop applications
+show=drun
+
+# Window dimensions (centered Spotlight-like bar)
+width=680
+height=460
+
+# Always show as overlay on top
+layer=overlay
+
+# Prompt text (mimicking Spotlight)
+prompt=Search...
+
+# Number of visible result lines
+lines=8
+
+# Allow application icons
+allow_images=true
+
+# Image size for app icons
+image_size=28
+
+# Single column layout
+columns=1
+
+# Case insensitive matching
+insensitive=true
+
+# Fuzzy matching for better search results
+matching=fuzzy
+
+# Hide scrollbar for cleaner look
+hide_scroll=true
+
+# No actions row (cleaner single-click behavior)
+no_actions=true
+
+# Use GTK dark theme
+gtk_dark=true
+
+# Content alignment
+content_halign=fill
+halign=center
+valign=center
+orientation=vertical
+
+# Location: center of screen
+location=center
+
+# Sort by most recently used
+sort_order=default
+
+# Close when clicking outside
+# (Hyprland handles this via focus loss)
+
+# Filter rate in ms (responsive typing)
+filter_rate=50

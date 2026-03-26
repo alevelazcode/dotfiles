@@ -1,0 +1,115 @@
+/* ==========================================================================
+   Wofi macOS Spotlight Theme
+   A clean, dark-mode theme inspired by macOS Spotlight / Raycast
+   Designed for use with Hyprland blur (layerrule = blur, wofi)
+   ========================================================================== */
+
+/* ---------- Main Window ---------- */
+window {
+    background: transparent;
+    color: #f0f0f0;
+    font-family: "SF Pro Display", "Inter", "Helvetica Neue", "Segoe UI", sans-serif;
+    font-size: 15px;
+}
+
+/* ---------- Outer Container ---------- */
+#outer-box {
+    background: rgba(30, 30, 30, 0.72);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+        0 24px 80px rgba(0, 0, 0, 0.45),
+        0 0 0 1px rgba(255, 255, 255, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    padding: 8px;
+}
+
+/* ---------- Search Input ---------- */
+#input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 0;
+    color: #fafafa;
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+    margin: 4px 8px;
+    padding: 12px 8px;
+}
+
+#input:focus {
+    box-shadow: none;
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Hide the default search icon to keep it minimal */
+#input > image.left {
+    -gtk-icon-transform: scale(0);
+    margin-left: -24px;
+}
+
+/* Subtle clear-text button on the right */
+#input > image.right {
+    color: rgba(255, 255, 255, 0.35);
+    -gtk-icon-transform: scale(0.8);
+}
+
+/* ---------- Scrollable Results Area ---------- */
+#scroll {
+    margin-top: 6px;
+    padding: 0 4px;
+}
+
+/* ---------- Inner Box (results container) ---------- */
+#inner-box {
+    background: transparent;
+    padding: 0;
+}
+
+/* ---------- Individual Entries ---------- */
+#entry {
+    padding: 8px 12px;
+    margin: 2px 4px;
+    border-radius: 12px;
+    min-height: 36px;
+    transition: background 150ms ease;
+}
+
+/* ---------- Selected / Hovered Entry ---------- */
+#entry:selected {
+    background: rgba(255, 255, 255, 0.08);
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+/* ---------- Entry Text ---------- */
+#text {
+    color: rgba(255, 255, 255, 0.88);
+    font-weight: 400;
+    font-size: 15px;
+    margin-left: 4px;
+}
+
+#entry:selected #text {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+/* ---------- Application Icons ---------- */
+#img {
+    margin-right: 8px;
+    -gtk-icon-transform: scale(0.65);
+}
+
+/* ---------- Unselected entries (dimmed) ---------- */
+#unselected {
+    /* Slight dimming for non-focused items */
+}
+
+/* ---------- Expander (sub-menus if any) ---------- */
+#expander-box {
+    background: transparent;
+    border: none;
+}

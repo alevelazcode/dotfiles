@@ -225,6 +225,14 @@ create_symlinks() {
             ensure_link "$(pwd)/apps/hyprland/hyprpaper.conf" ~/.config/hypr/hyprpaper.conf
             print_success "Hyprland configuration linked"
         fi
+        if [[ -d "apps/wofi" ]]; then
+            ensure_link "$(pwd)/apps/wofi" ~/.config/wofi
+            print_success "Wofi configuration linked"
+        fi
+        if [[ -d "apps/waybar" ]]; then
+            ensure_link "$(pwd)/apps/waybar" ~/.config/waybar
+            print_success "Waybar configuration linked"
+        fi
         if [[ -d "apps/pictures" ]]; then
             mkdir -p ~/Pictures
             for img in "$(pwd)/apps/pictures"/*; do

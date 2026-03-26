@@ -87,7 +87,21 @@
       "Read(//home/ale/Pictures/**)",
       "Bash(cp /home/ale/.config/hypr/hyprland.conf /home/ale/dotfiles/apps/hyprland/)",
       "Bash(cp /home/ale/.config/hypr/hyprpaper.conf /home/ale/dotfiles/apps/hyprland/)",
-      "Bash(cp /home/ale/Pictures/wallpaper.jpg /home/ale/dotfiles/apps/pictures/)"
+      "Bash(cp /home/ale/Pictures/wallpaper.jpg /home/ale/dotfiles/apps/pictures/)",
+      "WebFetch(domain:man.archlinux.org)",
+      "WebFetch(domain:gist.github.com)",
+      "Bash(ln -sfn /home/ale/dotfiles/apps/wofi /home/ale/.config/wofi)",
+      "WebFetch(domain:hydeproject.pages.dev)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(gh api:*)",
+      "Bash(jq -r .[].name)",
+      "WebFetch(domain:itsfoss.com)",
+      "Bash(rm -rf /home/ale/.config/waybar)",
+      "Bash(ln -sfn /home/ale/dotfiles/apps/waybar /home/ale/.config/waybar)",
+      "WebFetch(domain:wiki.hypr.land)",
+      "WebFetch(domain:wiki.garudalinux.org)",
+      "WebFetch(domain:end-4.github.io)",
+      "WebFetch(domain:deepwiki.com)"
     ]
   }
 }

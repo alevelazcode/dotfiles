@@ -1,0 +1,225 @@
+/* =========================================================================
+   Waybar - macOS-inspired dark floating pill bar
+   Font requirement: Any Nerd Font (e.g. JetBrainsMono Nerd Font)
+   ========================================================================= */
+
+/* -- Colour tokens -- */
+@define-color bg-bar    rgba(24, 24, 37, 0.0);    /* fully transparent bar bg - blur does the work */
+@define-color bg-pill   rgba(30, 30, 46, 0.65);   /* pill background - semi-transparent for blur */
+@define-color bg-hover  rgba(49, 50, 68, 0.75);   /* hover state */
+@define-color bg-active rgba(69, 71, 90, 0.80);   /* active / pressed */
+@define-color fg        #cdd6f4;                   /* Catppuccin Mocha text */
+@define-color fg-dim    #a6adc8;                   /* subdued text */
+@define-color accent    #89b4fa;                   /* blue accent */
+@define-color green     #a6e3a1;
+@define-color peach     #fab387;
+@define-color red       #f38ba8;
+@define-color yellow    #f9e2af;
+@define-color mauve     #cba6f7;
+@define-color teal      #94e2d5;
+@define-color border    rgba(108, 112, 134, 0.35); /* subtle border */
+
+/* -- Global bar -- */
+window#waybar {
+    background: @bg-bar;
+    color: @fg;
+    font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* Remove default button styling */
+window#waybar * {
+    border: none;
+    border-radius: 0;
+}
+
+/* -- Tooltip -- */
+tooltip {
+    background: rgba(30, 30, 46, 0.90);
+    border: 1px solid @border;
+    border-radius: 12px;
+    color: @fg;
+    font-size: 12px;
+}
+
+tooltip label {
+    color: @fg;
+    padding: 4px 8px;
+}
+
+/* -- Pill containers (the core macOS look) -- */
+#left-pill,
+#center-pill,
+#right-pill {
+    background: @bg-pill;
+    border: 1px solid @border;
+    border-radius: 14px;
+    padding: 0 4px;
+    margin: 4px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.30);
+}
+
+/* -- Hardware and controls sub-pills -- */
+#hardware-pill,
+#controls-pill {
+    background: rgba(30, 30, 46, 0.30);
+    border-radius: 11px;
+    padding: 0 2px;
+    margin: 3px 2px;
+}
+
+/* -- All child modules: uniform padding + transitions -- */
+#left-pill > *,
+#center-pill > *,
+#right-pill > *,
+#hardware-pill > *,
+#controls-pill > * {
+    padding: 0 10px;
+    margin: 3px 2px;
+    border-radius: 10px;
+    transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+#left-pill > *:hover,
+#center-pill > *:hover,
+#right-pill > *:hover,
+#hardware-pill > *:hover,
+#controls-pill > *:hover {
+    background: @bg-hover;
+}
+
+/* -- Apple logo -- */
+#custom-logo {
+    font-size: 17px;
+    color: @fg;
+    padding: 0 10px 0 12px;
+}
+
+#custom-logo:hover {
+    color: @accent;
+}
+
+/* -- Workspaces -- */
+#workspaces {
+    padding: 0 4px;
+}
+
+#workspaces button {
+    color: @fg-dim;
+    font-size: 10px;
+    min-width: 18px;
+    min-height: 18px;
+    padding: 0 6px;
+    margin: 4px 2px;
+    border-radius: 8px;
+    background: transparent;
+    transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+#workspaces button:hover {
+    background: @bg-hover;
+    color: @fg;
+}
+
+#workspaces button.active {
+    background: @accent;
+    color: rgba(30, 30, 46, 1.0);
+    min-width: 28px;
+    border-radius: 8px;
+    font-weight: 700;
+    box-shadow: 0 0 8px rgba(137, 180, 250, 0.35);
+}
+
+#workspaces button.empty {
+    color: rgba(108, 112, 134, 0.50);
+}
+
+/* -- Clock (centre pill) -- */
+#clock {
+    color: @fg;
+    font-weight: 600;
+    padding: 0 16px;
+    letter-spacing: 0.3px;
+}
+
+/* -- Hardware drawer icon -- */
+#custom-hardware-icon {
+    color: @mauve;
+    font-size: 15px;
+    padding: 0 8px;
+}
+
+/* -- CPU -- */
+#cpu {
+    color: @teal;
+}
+
+/* -- Memory -- */
+#memory {
+    color: @mauve;
+}
+
+/* -- Network -- */
+#network {
+    color: @accent;
+}
+
+#network.disconnected {
+    color: @fg-dim;
+}
+
+/* -- Wireplumber / Volume -- */
+#wireplumber {
+    color: @green;
+}
+
+#wireplumber.muted {
+    color: @fg-dim;
+}
+
+/* -- Backlight -- */
+#backlight {
+    color: @yellow;
+}
+
+/* -- Battery -- */
+#battery {
+    color: @green;
+}
+
+#battery.warning {
+    color: @peach;
+}
+
+#battery.critical {
+    color: @red;
+    animation: blink 1.2s ease-in-out infinite alternate;
+}
+
+#battery.charging,
+#battery.plugged {
+    color: @green;
+}
+
+/* -- Tray -- */
+#tray {
+    padding: 0 8px;
+    margin: 3px 4px 3px 2px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    color: @red;
+}
+
+/* -- Blink animation for critical battery -- */
+@keyframes blink {
+    to {
+        color: @fg;
+    }
+}
