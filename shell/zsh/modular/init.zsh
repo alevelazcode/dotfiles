@@ -50,9 +50,11 @@ bindkey -v
 source "$ZSH_CONFIG_DIR/core/keybindings.zsh"
 
 # Compinit (cached, rebuild once per day, skip compaudit for speed)
+# Strip non-existent directories from fpath (e.g. vendor-completions on Arch)
+fpath=( ${^fpath}(N/) )
 autoload -Uz compinit
 local zcompdump="$HOME/.zcompdump"
-if [[ -n $zcompdump(#qN.mh+24) ]]; then
+if [[ -n $zcompdump(#qN.mh+24) ]] || [[ ! -f "$zcompdump" ]]; then
     compinit -u -d "$zcompdump"
 else
     compinit -C -d "$zcompdump"
