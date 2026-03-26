@@ -81,7 +81,11 @@
       "Bash(zsh -n /Users/alejandrovelazco/dotfiles/shell/zsh/modular/os/linux.zsh)",
       "Bash(zsh -n /Users/alejandrovelazco/dotfiles/shell/zsh/modular/modules/functions.zsh)",
       "Bash(grep -n functions[ /Users/alejandrovelazco/dotfiles/shell/zsh/modular/**/*.zsh)",
-      "Bash(grep -n \"\\\\[[ ! -f\" /Users/alejandrovelazco/dotfiles/shell/zsh/modular/**/*.zsh)"
+      "Bash(grep -n \"\\\\[[ ! -f\" /Users/alejandrovelazco/dotfiles/shell/zsh/modular/**/*.zsh)",
+      "Bash(find /home/ale/dotfiles -type f -name *.conf -o -name *.toml -o -name *.yaml -o -name *.yml -o -name *.json2)",
+      "Bash(grep -r \"windows.*terminal\\\\|wt\\\\.exe\\\\|Terminal.*config\" /home/ale/dotfiles --include=*.sh --include=*.md --include=*.lua)",
+      "Bash(find /home/ale/dotfiles -type f \\\\\\(-name *config* -o -name *rc -o -name *conf \\\\\\) ! -path */.git/* ! -path */fonts/*)",
+      "Bash(grep -r tmux /home/ale/dotfiles --include=*.sh --include=*.md --include=*.zsh)"
     ]
   }
 }

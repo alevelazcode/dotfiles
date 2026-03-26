@@ -29,8 +29,12 @@ else
   config.kde_window_background_blur = true
 end
 
--- Window chrome (RESIZE = no title bar, keeps resize/minimize)
-config.window_decorations = "RESIZE"
+-- Window chrome
+if is_win then
+  config.window_decorations = "TITLE | RESIZE"
+else
+  config.window_decorations = "NONE"
+end
 config.enable_tab_bar = false
 config.enable_scroll_bar = false
 config.adjust_window_size_when_changing_font_size = false
