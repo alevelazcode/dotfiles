@@ -1,4 +1,7 @@
 {
+  "show_completions_on_input": true,
+  "format_on_save": "on",
+  "formatter": "language_server",
   "minimap": {
     "show": "always",
     "thumb": "always",
@@ -16,11 +19,6 @@
   },
   "edit_predictions": {
     "provider": "copilot",
-    "copilot": {
-      "proxy": null,
-      "proxy_no_verify": null,
-      "enterprise_uri": null,
-    },
     "enabled_in_text_threads": false,
   },
   "toolbar": {
@@ -31,7 +29,9 @@
   "vim": {
     "use_smartcase_find": true,
     "use_system_clipboard": "always",
+    "use_multiline_find": true,
   },
+  "relative_line_numbers": true,
   "show_wrap_guides": true,
   "selection_highlight": true,
   "hard_tabs": false,
@@ -45,7 +45,7 @@
     "coloring": "fixed",
     "background_coloring": "indent_aware",
   },
-  "always_treat_brackets_as_autoclosed": false,
+  "always_treat_brackets_as_autoclosed": true,
   "show_whitespaces": "none",
   "inlay_hints": {
     "enabled": true,
@@ -66,8 +66,6 @@
       "model": "gpt-5-mini",
       "enable_thinking": true,
     },
-    "favorite_models": [],
-    "model_parameters": [],
     "inline_assistant_model": {
       "provider": "copilot_chat",
       "model": "gpt-5",
@@ -89,7 +87,7 @@
     "hide_root": true,
     "auto_fold_dirs": false,
     "starts_open": false,
-    "git_status": false,
+    "git_status": true,
     "sticky_scroll": false,
     "scrollbar": {
       "show": "never",
@@ -102,7 +100,6 @@
     "syntax": {
       "keyword": {
         "font_style": "italic",
-        "font_weight": null,
       },
       "operator": {
         "font_style": "italic",
@@ -117,8 +114,6 @@
         "font_style": "italic",
       },
     },
-    // "background.appearance": "blurred",
-    // "background": "#303446e0",
   },
   "outline_panel": {
     "default_width": 300,
@@ -131,7 +126,7 @@
   "file_finder": {
     "modal_max_width": "large",
   },
-  "cursor_shape": "bar",
+  "cursor_shape": "block",
   "cursor_blink": false,
   "text_rendering_mode": "platform_default",
   "buffer_font_family": "DankMono Nerd Font Mono",
@@ -156,8 +151,10 @@
     "show_nav_history_buttons": false,
   },
   "vim_mode": true,
-  "buffer_line_height": { "custom": 2 },
-  "current_line_highlight": "none",
+  "buffer_line_height": {
+    "custom": 2
+  },
+  "current_line_highlight": "gutter",
   "icon_theme": {
     "mode": "dark",
     "light": "Zed (Default)",
@@ -169,11 +166,6 @@
   "theme": "Monokai Reversed",
   "scrollbar": {
     "show": "never",
-    "cursors": false,
-    "git_diff": true,
-    "search_results": true,
-    "selected_symbol": true,
-    "diagnostics": "all",
   },
   "diagnostics": {
     "inline": {
@@ -181,7 +173,6 @@
       "update_debounce_ms": 150,
       "padding": 4,
       "min_column": 0,
-      "max_severity": null,
     },
   },
   "preview_tabs": {
@@ -204,23 +195,18 @@
   "languages": {
     "Python": {
       "language_servers": ["pylsp", "ruff"],
-      "format_on_save": "on",
     },
     "TypeScript": {
-      "language_servers": ["tsserver", "prettier", "!eslint"],
-      "format_on_save": "on",
+      "language_servers": ["typescript-language-server", "prettier", "!eslint"],
     },
     "TSX": {
-      "language_servers": ["tsserver", "prettier", "!eslint"],
-      "format_on_save": "on",
+      "language_servers": ["typescript-language-server", "prettier", "!eslint"],
     },
     "JavaScript": {
-      "language_servers": ["tsserver", "prettier", "!eslint"],
-      "format_on_save": "on",
+      "language_servers": ["typescript-language-server", "prettier", "!eslint"],
     },
     "HTML": {
-      "language_servers": ["tsserver", "prettier", "!eslint"],
-      "format_on_save": "on",
+      "language_servers": ["vscode-html-language-server", "prettier", "!eslint"],
     },
   },
   "lsp": {
@@ -232,11 +218,6 @@
         "pylsp.plugins.jedi_completion": {
           "include_params": true,
         },
-      },
-    },
-    "ruff": {
-      "initialization_options": {
-        "settings": {},
       },
     },
   },

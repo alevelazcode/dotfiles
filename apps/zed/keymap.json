@@ -18,11 +18,11 @@
       "space c": "pane::CloseActiveItem",
       "space t": "workspace::NewCenterTerminal",
       "space e": "project_panel::ToggleFocus",
-      "space p e": "workspace::ToggleLeftDock",
+      "space p r": "workspace::ToggleRightDock",
+      "space p t": "workspace::ToggleBottomDock",
       "space q": "pane::CloseAllItems",
       "space h": "buffer_search::Dismiss",
-      "space a": "workspace::SaveAll",
-      "ctrl-space": "workspace::ToggleBottomDock",
+      "space shift-w": "workspace::SaveAll",
       "space l s": "project_symbols::Toggle",
       "space l i": "editor::GoToImplementationSplit",
       "space s s": "pane::SplitDown",
@@ -32,9 +32,13 @@
       "space b l": "pane::CloseItemsToTheRight",
       "space b h": "pane::CloseItemsToTheLeft",
       "space b a": "pane::ReopenClosedItem",
+      "space o s": "outline_panel::ToggleFocus",
       "space g g": "git_panel::ToggleFocus",
       "space g m": "git::GenerateCommitMessage",
-      "space z f": ["workspace::SendKeystrokes", "shift-v shift-f ctrl-c"],
+      "space z f": [
+        "workspace::SendKeystrokes",
+        "shift-v shift-f ctrl-c"
+      ],
       "space z a": [
         "workspace::SendKeystrokes",
         "g g shift-v shift-g shift-f ctrl-c g g",
@@ -46,24 +50,60 @@
       "space /": "editor::ToggleComments",
       "space r": "command_palette::Toggle",
       "space w": "workspace::Save",
-      "space 1": ["pane::ActivateItem", 0],
-      "space 2": ["pane::ActivateItem", 1],
-      "space 3": ["pane::ActivateItem", 2],
-      "space 4": ["pane::ActivateItem", 3],
-      "space 5": ["pane::ActivateItem", 4],
-      "space 6": ["pane::ActivateItem", 5],
-      "space 7": ["pane::ActivateItem", 6],
-      "space 8": ["pane::ActivateItem", 7],
+      "space 1": [
+        "pane::ActivateItem",
+        0
+      ],
+      "space 2": [
+        "pane::ActivateItem",
+        1
+      ],
+      "space 3": [
+        "pane::ActivateItem",
+        2
+      ],
+      "space 4": [
+        "pane::ActivateItem",
+        3
+      ],
+      "space 5": [
+        "pane::ActivateItem",
+        4
+      ],
+      "space 6": [
+        "pane::ActivateItem",
+        5
+      ],
+      "space 7": [
+        "pane::ActivateItem",
+        6
+      ],
+      "space 8": [
+        "pane::ActivateItem",
+        7
+      ],
       "space g b": "git::Branch",
       "ctrl-n": "menu::SelectNext",
       "ctrl-p": "menu::SelectPrevious",
       "space a c": [
         "agent::NewExternalAgentThread",
-        { "agent": { "custom": { "name": "claude-acp" } } },
+        {
+          "agent": {
+            "custom": {
+              "name": "claude-acp"
+            }
+          }
+        },
       ],
       "cmd-alt-c": [
         "agent::NewExternalAgentThread",
-        { "agent": { "custom": { "name": "claude-acp" } } },
+        {
+          "agent": {
+            "custom": {
+              "name": "claude-acp"
+            }
+          }
+        },
       ],
     },
   },
@@ -76,12 +116,13 @@
       "ctrl-j": "workspace::ActivatePaneDown",
       "ctrl-n": "menu::SelectNext",
       "ctrl-p": "menu::SelectPrevious",
+      "space o p": "projects::OpenRecent",
     },
   },
   {
     "context": "Terminal",
     "bindings": {
-      "ctrl-space": "workspace::ToggleBottomDock",
+      "ctrl-shift-space": "workspace::ToggleBottomDock",
       "ctrl-o": "workspace::NewTerminal",
       "ctrl-n": "pane::ActivateNextItem",
       "ctrl-p": "pane::ActivatePreviousItem",
@@ -113,8 +154,20 @@
       "kj": "vim::NormalBefore",
       "j k": "vim::NormalBefore",
       "k j": "vim::NormalBefore",
+      "ctrl-space": "editor::ShowCompletions",
       "ctrl-n": "menu::SelectNext",
       "ctrl-p": "menu::SelectPrevious",
+    },
+  },
+  {
+    "context": "Editor && showing_completions",
+    "bindings": {
+      "tab": "editor::ContextMenuNext",
+      "shift-tab": "editor::ContextMenuPrev",
+      "ctrl-j": "editor::ContextMenuNext",
+      "ctrl-k": "editor::ContextMenuPrev",
+      "enter": "editor::ConfirmCompletion",
+      "escape": "editor::Cancel",
     },
   },
   {
@@ -123,15 +176,9 @@
       "a": "project_panel::NewFile",
       "d": "project_panel::Delete",
       "r": "project_panel::Rename",
-      "space e": "workspace::ActivatePaneRight",
+      "space e": "project_panel::ToggleFocus",
       "ctrl-n": "menu::SelectNext",
       "ctrl-p": "menu::SelectPrevious",
-    },
-  },
-  {
-    "context": "Workspace && !VimWaiting && vim_mode != insert",
-    "bindings": {
-      "space r p": "projects::OpenRecent",
     },
   },
   {
@@ -146,15 +193,23 @@
   {
     "context": "Editor && vim_mode != insert && !VimWaiting",
     "bindings": {
+      "shift-k": "editor::Hover",
+      "space l a": "editor::ToggleCodeActions",
+      "space l d": "diagnostics::Deploy",
       "space l j": "editor::GoToDiagnostic",
+      "space l k": "editor::GoToPreviousDiagnostic",
+      "] d": "editor::GoToDiagnostic",
+      "[ d": "editor::GoToPreviousDiagnostic",
     },
   },
   {
     "context": "Editor && vim_mode != insert && !VimWaiting && mode != single_line",
     "bindings": {
       "g d": "editor::GoToDefinition",
+      "g shift-d": "editor::GoToDefinitionSplit",
       "g i": "editor::GoToImplementation",
       "g r": "editor::FindAllReferences",
+      "g t": "editor::GoToTypeDefinition",
     },
   },
   {
