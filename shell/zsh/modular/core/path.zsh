@@ -25,16 +25,19 @@ path_prepend "$HOME/bin"
 # -----------------------------------------------------------------------------
 
 # Cargo (early — needed before prompt for starship on Linux)
+# On Arch, rustup is installed via pacman but cargo/rustc still live in ~/.cargo/bin
 path_prepend "$HOME/.cargo/bin"
 
 # FNM (sync — must run before deferred modules so node/npm are in PATH)
-# Cached to avoid subprocess on every shell start
+# Cached to avoid subprocess on every shell start; invalidated when fnm binary changes
 if (( $+commands[fnm] )); then
     local _fnm_cache="$ZSH_CACHE_DIR/fnm.zsh"
-    if [[ ! -f "$_fnm_cache" ]]; then
+    local _fnm_bin="${commands[fnm]}"
+    # Regenerate cache if missing or older than the fnm binary (covers upgrades)
+    if [[ ! -f "$_fnm_cache" || "$_fnm_bin" -nt "$_fnm_cache" ]]; then
         command fnm env --use-on-cd > "$_fnm_cache" 2>/dev/null
     fi
-    source "$_fnm_cache"
+    [[ -s "$_fnm_cache" ]] && source "$_fnm_cache"
 fi
 
 # Go (system install + user workspace)

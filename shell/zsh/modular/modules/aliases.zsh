@@ -2,14 +2,18 @@
 # Aliases
 # =============================================================================
 
-# Modern CLI tools (Rust replacements)
-local _eza='eza --icons -F -H --group-directories-first --git'
-alias ls="$_eza -1 -a"
-alias ll="$_eza -la"
-alias la="$_eza -a"
-alias l="$_eza -1"
-alias tree='eza --tree'
-alias cat="bat --style=plain"
+# Modern CLI tools (Rust replacements — guarded for systems without them)
+if (( $+commands[eza] )); then
+    local _eza='eza --icons -F -H --group-directories-first --git'
+    alias ls="$_eza -1 -a"
+    alias ll="$_eza -la"
+    alias la="$_eza -a"
+    alias l="$_eza -1"
+    alias tree='eza --tree'
+fi
+if (( $+commands[bat] )); then
+    alias cat="bat --style=plain"
+fi
 
 # Navigation
 alias ..="cd .."
