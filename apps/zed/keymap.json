@@ -152,8 +152,6 @@
     "bindings": {
       "jk": "vim::NormalBefore",
       "kj": "vim::NormalBefore",
-      "j k": "vim::NormalBefore",
-      "k j": "vim::NormalBefore",
       "ctrl-space": "editor::ShowCompletions",
       "ctrl-n": "menu::SelectNext",
       "ctrl-p": "menu::SelectPrevious",
@@ -182,7 +180,7 @@
     },
   },
   {
-    "context": "(Editor || ProjectPanel || Terminal || OutLinePanel) && vim_mode != insert && !VimWaiting && !editing",
+    "context": "(Editor || ProjectPanel || Terminal || OutlinePanel) && vim_mode != insert && !VimWaiting && !editing",
     "bindings": {
       "ctrl-right": "vim::ResizePaneRight",
       "ctrl-left": "vim::ResizePaneLeft",
