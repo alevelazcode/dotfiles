@@ -318,12 +318,43 @@ install_android_sdk() {
     sdkmanager --install \
         "platform-tools" \
         "platforms;android-35" \
+        "platforms;android-36" \
         "build-tools;35.0.0" \
+        "build-tools;36.0.0" \
         "emulator" \
         2>/dev/null || print_warning "Some SDK packages failed — run sdkmanager manually"
 
     print_success "Android SDK ready at $sdk_root"
-    print_status "The Android emulator runs on Windows — use adb.exe alias (set in zsh config)"
+    print_status "The Android emulator runs on Windows — use adb.exe wrapper (set in zsh config)"
+    print_status "Run the Windows-side setup first: platforms/wsl/windows-setup.ps1"
+}
+
+# Prompt to run Windows-side Android setup
+setup_windows_android() {
+    local script_dir
+    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    local ps1_script="$script_dir/windows-setup.ps1"
+
+    if [[ -f "$ps1_script" ]]; then
+        local win_path
+        win_path=$(wslpath -w "$ps1_script" 2>/dev/null)
+        print_status "Windows-side Android setup script available at:"
+        echo "  $win_path"
+        echo ""
+        read -rp "Run Windows setup now? (requires Admin PowerShell) [y/N] " answer
+        if [[ "$answer" =~ ^[Yy]$ ]]; then
+            powershell.exe -ExecutionPolicy Bypass -File "$win_path" || {
+                print_warning "Windows setup failed or was not run as Admin."
+                print_status "Run manually from an elevated PowerShell:"
+                echo "  powershell -ExecutionPolicy Bypass -File \"$win_path\""
+            }
+        else
+            print_status "Skipped. Run manually when ready:"
+            echo "  powershell -ExecutionPolicy Bypass -File \"$win_path\""
+        fi
+    else
+        print_warning "windows-setup.ps1 not found at $ps1_script"
+    fi
 }
 
 # Windows integration
@@ -358,6 +389,7 @@ main() {
     install_rust_tools
     install_dev_tools
     install_android_sdk
+    setup_windows_android
     setup_windows_integration
 
     print_success "WSL2 setup complete!"

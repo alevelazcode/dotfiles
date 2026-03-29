@@ -94,7 +94,26 @@ WRAP
             (( tries++ ))
         done
         echo "Timeout: emulator started but ADB didn't detect it." >&2
-        echo "Try: adb kill-server && adb start-server && adb devices" >&2
+        echo "Try: android-adb-restart" >&2
         return 1
+    }
+
+    # Restart ADB server (kills Windows-side server, restarts, lists devices)
+    android-adb-restart() {
+        echo "Restarting ADB server..."
+        adb kill-server 2>/dev/null
+        sleep 1
+        adb start-server 2>/dev/null
+        sleep 1
+        adb devices -l
+    }
+
+    # Quick status: show connected devices and available AVDs
+    android-status() {
+        echo "=== ADB Devices ==="
+        adb devices -l 2>/dev/null
+        echo ""
+        echo "=== Available AVDs ==="
+        "$_android_win_sdk/emulator/emulator.exe" -list-avds 2>/dev/null
     }
 fi
