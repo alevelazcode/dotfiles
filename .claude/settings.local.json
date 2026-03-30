@@ -87,7 +87,10 @@
       "Bash(find /home/ale/dotfiles -type f \\\\\\(-name *config* -o -name *rc -o -name *conf \\\\\\) ! -path */.git/* ! -path */fonts/*)",
       "Bash(grep -r tmux /home/ale/dotfiles --include=*.sh --include=*.md --include=*.zsh)",
       "Read(//usr/share/zsh/vendor-completions/**)",
-      "Read(//usr/share/zsh/site-functions/**)"
+      "Read(//usr/share/zsh/site-functions/**)",
+      "Bash(wezterm --version)",
+      "WebFetch(domain:dasroot.net)",
+      "WebFetch(domain:wezterm.org)"
     ]
   }
 }

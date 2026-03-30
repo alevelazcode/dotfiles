@@ -1,6 +1,11 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
+-- OpenGL is the only backend that supports transparency + Acrylic/blur on all platforms.
+-- prefer_egl avoids "OpenGL too old" panic on Windows (uses EGL instead of WGL).
+config.front_end = "OpenGL"
+config.prefer_egl = true
+
 -- Font
 config.font = wezterm.font_with_fallback({
   { family = "DankMono Nerd Font Mono", weight = "Regular" },
