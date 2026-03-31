@@ -10,8 +10,14 @@ local _cache="$ZSH_CACHE_DIR"
 zinit light zsh-users/zsh-autosuggestions
 
 # FZF
-export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --preview 'bat --style=numbers --color=always --line-range :500 {}'"
-export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git --exclude node_modules --exclude .cache"
+if (( $+commands[bat] )); then
+    export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --preview 'bat --style=numbers --color=always --line-range :500 {}'"
+else
+    export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
+fi
+if (( $+commands[fd] )); then
+    export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git --exclude node_modules --exclude .cache"
+fi
 
 zinit ice wait lucid atinit"source shell/key-bindings.zsh; source shell/completion.zsh"
 zinit light junegunn/fzf

@@ -1,6 +1,11 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
+-- OpenGL is the only backend that supports transparency + Acrylic/blur on all platforms.
+-- prefer_egl avoids "OpenGL too old" panic on Windows (uses EGL instead of WGL).
+config.front_end = "OpenGL"
+config.prefer_egl = true
+
 -- Font
 config.font = wezterm.font_with_fallback({
   { family = "DankMono Nerd Font Mono", weight = "Regular" },
@@ -29,8 +34,12 @@ else
   config.kde_window_background_blur = true
 end
 
--- Window chrome (RESIZE = no title bar, keeps resize/minimize)
-config.window_decorations = "RESIZE"
+-- Window chrome
+if is_win then
+  config.window_decorations = "TITLE | RESIZE"
+else
+  config.window_decorations = "NONE"
+end
 config.enable_tab_bar = false
 config.enable_scroll_bar = false
 config.adjust_window_size_when_changing_font_size = false

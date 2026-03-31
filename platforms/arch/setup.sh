@@ -294,6 +294,9 @@ install_rust() {
     # Initialize default toolchain
     rustup default stable
 
+    # Make cargo available for the rest of this script
+    export PATH="$HOME/.cargo/bin:$PATH"
+
     print_success "Rust installed"
 }
 
@@ -308,8 +311,7 @@ install_fnm() {
         print_success "FNM installed"
     fi
 
-    # Setup FNM environment
-    export PATH="$HOME/.local/share/fnm:$PATH"
+    # Setup FNM environment (on Arch, fnm is in /usr/bin/ via pacman)
     if command -v fnm &> /dev/null; then
         eval "$(fnm env --use-on-cd)"
 
@@ -331,13 +333,7 @@ install_fnm() {
 install_cargo_tools() {
     print_status "Installing Cargo development tools..."
 
-    if ! command -v cargo &> /dev/null; then
-        print_warning "Cargo not found, skipping cargo tools"
-        return 0
-    fi
-
-    # All cargo tools are now in official Arch repos! (moved from AUR)
-    # Much faster than cargo install and better integrated with pacman
+    # All cargo tools are in official Arch repos — installed via pacman, not cargo
     local cargo_tools=(
         cargo-watch      # Auto-recompile on file changes
         cargo-edit       # Add/remove dependencies from CLI

@@ -1,225 +1,156 @@
-/* =========================================================================
-   Waybar - macOS-inspired dark floating pill bar
-   Font requirement: Any Nerd Font (e.g. JetBrainsMono Nerd Font)
-   ========================================================================= */
-
-/* -- Colour tokens -- */
-@define-color bg-bar    rgba(24, 24, 37, 0.0);    /* fully transparent bar bg - blur does the work */
-@define-color bg-pill   rgba(30, 30, 46, 0.65);   /* pill background - semi-transparent for blur */
-@define-color bg-hover  rgba(49, 50, 68, 0.75);   /* hover state */
-@define-color bg-active rgba(69, 71, 90, 0.80);   /* active / pressed */
-@define-color fg        #cdd6f4;                   /* Catppuccin Mocha text */
-@define-color fg-dim    #a6adc8;                   /* subdued text */
-@define-color accent    #89b4fa;                   /* blue accent */
-@define-color green     #a6e3a1;
-@define-color peach     #fab387;
-@define-color red       #f38ba8;
-@define-color yellow    #f9e2af;
-@define-color mauve     #cba6f7;
-@define-color teal      #94e2d5;
-@define-color border    rgba(108, 112, 134, 0.35); /* subtle border */
-
-/* -- Global bar -- */
-window#waybar {
-    background: @bg-bar;
-    color: @fg;
-    font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font", sans-serif;
-    font-size: 13px;
-    font-weight: 500;
+* {
+  font-family: JetbrainsMono Nerd Font;
+  font-size: 10px;
+  min-height: 0;
+  padding-right: 2px;
+  padding-left: 2px;
+  padding-bottom: 0px;
 }
 
-/* Remove default button styling */
-window#waybar * {
-    border: none;
-    border-radius: 0;
+#waybar {
+  background: transparent;
+  color: #c6d0f5;
+  margin: 2px 2px;
 }
 
-/* -- Tooltip -- */
-tooltip {
-    background: rgba(30, 30, 46, 0.90);
-    border: 1px solid @border;
-    border-radius: 12px;
-    color: @fg;
-    font-size: 12px;
-}
-
-tooltip label {
-    color: @fg;
-    padding: 4px 8px;
-}
-
-/* -- Pill containers (the core macOS look) -- */
-#left-pill,
-#center-pill,
-#right-pill {
-    background: @bg-pill;
-    border: 1px solid @border;
-    border-radius: 14px;
-    padding: 0 4px;
-    margin: 4px 0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.30);
-}
-
-/* -- Hardware and controls sub-pills -- */
-#hardware-pill,
-#controls-pill {
-    background: rgba(30, 30, 46, 0.30);
-    border-radius: 11px;
-    padding: 0 2px;
-    margin: 3px 2px;
-}
-
-/* -- All child modules: uniform padding + transitions -- */
-#left-pill > *,
-#center-pill > *,
-#right-pill > *,
-#hardware-pill > *,
-#controls-pill > * {
-    padding: 0 10px;
-    margin: 3px 2px;
-    border-radius: 10px;
-    transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-#left-pill > *:hover,
-#center-pill > *:hover,
-#right-pill > *:hover,
-#hardware-pill > *:hover,
-#controls-pill > *:hover {
-    background: @bg-hover;
-}
-
-/* -- Apple logo -- */
-#custom-logo {
-    font-size: 17px;
-    color: @fg;
-    padding: 0 10px 0 12px;
-}
-
-#custom-logo:hover {
-    color: @accent;
-}
-
-/* -- Workspaces -- */
 #workspaces {
-    padding: 0 4px;
+  border-radius: 5px;
+  margin: 5px;
+  background: #101010;
+  margin-left: 2px;
 }
 
 #workspaces button {
-    color: @fg-dim;
-    font-size: 10px;
-    min-width: 18px;
-    min-height: 18px;
-    padding: 0 6px;
-    margin: 4px 2px;
-    border-radius: 8px;
-    background: transparent;
-    transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-#workspaces button:hover {
-    background: @bg-hover;
-    color: @fg;
+  color: #babbf1;
+  border-radius: 5px;
+  padding: 0.4rem;
 }
 
 #workspaces button.active {
-    background: @accent;
-    color: rgba(30, 30, 46, 1.0);
-    min-width: 28px;
-    border-radius: 8px;
-    font-weight: 700;
-    box-shadow: 0 0 8px rgba(137, 180, 250, 0.35);
+  color: #99d1db;
+  border-radius: 5px;
 }
 
-#workspaces button.empty {
-    color: rgba(108, 112, 134, 0.50);
+button {
+  background: transparent;
 }
 
-/* -- Clock (centre pill) -- */
+#workspaces button:hover {
+  background: #1e1e1e;
+  border: 0px solid transparent;
+}
+
+#custom-music,
+#tray,
+#backlight,
+#clock,
+#battery,
+#pulseaudio,
+#network,
+#cpu,
+#memory,
+#custom-lock,
+#custom-power,
+#custom-weather,
+#custom-uptime,
+#custom-docker {
+  background-color: #101010;
+  padding: 0.5rem 1rem;
+  margin: 5px 0;
+}
+
 #clock {
-    color: @fg;
-    font-weight: 600;
-    padding: 0 16px;
-    letter-spacing: 0.3px;
+  color: #8caaee;
+  border-radius: 5px;
 }
 
-/* -- Hardware drawer icon -- */
-#custom-hardware-icon {
-    color: @mauve;
-    font-size: 15px;
-    padding: 0 8px;
+#custom-weather {
+  color: #8caaee;
+  margin-left: 0.5rem;
+  border-radius: 5px;
 }
 
-/* -- CPU -- */
-#cpu {
-    color: @teal;
-}
-
-/* -- Memory -- */
-#memory {
-    color: @mauve;
-}
-
-/* -- Network -- */
-#network {
-    color: @accent;
-}
-
-#network.disconnected {
-    color: @fg-dim;
-}
-
-/* -- Wireplumber / Volume -- */
-#wireplumber {
-    color: @green;
-}
-
-#wireplumber.muted {
-    color: @fg-dim;
-}
-
-/* -- Backlight -- */
-#backlight {
-    color: @yellow;
-}
-
-/* -- Battery -- */
 #battery {
-    color: @green;
+  color: #a6d189;
 }
 
-#battery.warning {
-    color: @peach;
+#battery.charging {
+  color: #a6d189;
 }
 
-#battery.critical {
-    color: @red;
-    animation: blink 1.2s ease-in-out infinite alternate;
+#battery.warning:not(.charging) {
+  color: #e78284;
 }
 
-#battery.charging,
-#battery.plugged {
-    color: @green;
+#backlight {
+  color: #e5c890;
 }
 
-/* -- Tray -- */
-#tray {
-    padding: 0 8px;
-    margin: 3px 4px 3px 2px;
+#backlight,
+#battery {
+  border-radius: 0;
 }
 
-#tray > .passive {
-    -gtk-icon-effect: dim;
+#pulseaudio {
+  color: #ea999c;
+  border-radius: 5px 0px 0px 5px;
 }
 
-#tray > .needs-attention {
-    -gtk-icon-effect: highlight;
-    color: @red;
+#custom-docker {
+  color: #85c1dc;
 }
 
-/* -- Blink animation for critical battery -- */
-@keyframes blink {
-    to {
-        color: @fg;
-    }
+#custom-music {
+  color: #ca9ee6;
+  border-radius: 5px;
+}
+
+#custom-lock {
+  color: #babbf1;
+}
+
+#custom-power {
+  margin-right: 1rem;
+  border-radius: 0px 5px 5px 0px;
+  color: #e78284;
+}
+
+#custom-docker.docker {
+  color: #85c1dc;
+}
+
+#custom-docker.docker-none {
+  color: #737994;
+}
+
+#custom-docker.docker-error {
+  color: #e78284;
+}
+
+#custom-weather.clear {
+  color: #e5c890; /* Sunny yellow */
+}
+
+#custom-weather.cloud {
+  color: #99d1db; /* Light blue */
+}
+
+#custom-weather.rain {
+  color: #8caaee; /* Blue */
+}
+
+#custom-weather.snow {
+  color: #c6d0f5; /* White-ish */
+}
+
+#custom-weather.thunder {
+  color: #ca9ee6; /* Purple */
+}
+
+#custom-weather.fog {
+  color: #b0b4bc; /* Gray */
+}
+
+#custom-weather.error {
+  color: #e78284; /* Red */
 }
