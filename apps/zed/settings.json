@@ -159,14 +159,18 @@
   "buffer_line_height": { "custom": 2 },
   "current_line_highlight": "none",
   "icon_theme": {
-    "mode": "dark",
+    "mode": "light",
     "light": "Zed (Default)",
     "dark": "Catppuccin Mocha",
   },
   "ui_font_size": 18,
   "buffer_font_size": 18.0,
   "agent_buffer_font_size": 18,
-  "theme": "Dark Violet (Transparent)",
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "Monokai Vibrant Amped"
+  },
   "scrollbar": {
     "show": "never",
     "cursors": false,

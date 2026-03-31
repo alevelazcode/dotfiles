@@ -101,7 +101,31 @@
       "WebFetch(domain:wiki.hypr.land)",
       "WebFetch(domain:wiki.garudalinux.org)",
       "WebFetch(domain:end-4.github.io)",
-      "WebFetch(domain:deepwiki.com)"
+      "WebFetch(domain:deepwiki.com)",
+      "Bash(grep -r \"grimblast\\\\|cliphist\\\\|wl-paste\\\\|wpctl\\\\|brightnessctl\\\\|playerctl\\\\|hyprlock\\\\|wlogout\" /home/ale/dotfiles --include=*.sh --include=*.zsh --include=*.bash)",
+      "Bash(hyprctl version:*)",
+      "Bash(hyprctl keyword:*)",
+      "Bash(hyprctl binds:*)",
+      "Bash(hyprctl --help)",
+      "Bash(hyprctl configerrors:*)",
+      "Read(//tmp/**)",
+      "Bash(echo \"$HYPRLAND_INSTANCE_SIGNATURE\")",
+      "Bash(HYPRLAND_INSTANCE_SIGNATURE=59f9f2688ac508a0584d1462151195a6c4992f99_1774537926_113470251 hyprctl configerrors 2>&1)",
+      "Bash(HYPRLAND_INSTANCE_SIGNATURE=59f9f2688ac508a0584d1462151195a6c4992f99_1774537926_113470251 hyprctl binds)",
+      "Bash(HYPRLAND_INSTANCE_SIGNATURE=59f9f2688ac508a0584d1462151195a6c4992f99_1774537926_113470251 hyprctl clients)",
+      "Bash(HYPRLAND_INSTANCE_SIGNATURE=59f9f2688ac508a0584d1462151195a6c4992f99_1774537926_113470251 hyprctl -j binds)",
+      "Bash(HYPRLAND_INSTANCE_SIGNATURE=59f9f2688ac508a0584d1462151195a6c4992f99_1774537926_113470251 hyprctl rollinglog)",
+      "Bash(HYPRLAND_INSTANCE_SIGNATURE=59f9f2688ac508a0584d1462151195a6c4992f99_1774537926_113470251 hyprctl configerrors)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(f''''{len\\(d\\)} binds loaded''''\\)\")",
+      "Bash(HYPRLAND_INSTANCE_SIGNATURE=59f9f2688ac508a0584d1462151195a6c4992f99_1774537926_113470251 hyprctl dispatch exec \"wofi --show drun\" 2>&1)",
+      "Bash(HYPRLAND_INSTANCE_SIGNATURE=59f9f2688ac508a0584d1462151195a6c4992f99_1774537926_113470251 hyprctl reload)",
+      "Bash(curl -sL https://raw.githubusercontent.com/hyprwm/Hyprland/refs/tags/v0.54.2/example/hyprland.conf)",
+      "Bash(curl -sL https://raw.githubusercontent.com/hyprwm/Hyprland/refs/tags/v0.54.2/src/config/ConfigDescriptions.hpp)",
+      "Bash(curl -sL https://raw.githubusercontent.com/hyprwm/Hyprland/refs/tags/v0.54.2/src/config/ConfigManager.cpp)",
+      "Bash(curl -sL https://raw.githubusercontent.com/hyprwm/Hyprland/refs/tags/v0.54.2/src/desktop/Rule.cpp)",
+      "Bash(curl -sL https://raw.githubusercontent.com/hyprwm/Hyprland/refs/tags/v0.54.2/src/desktop/Rule.hpp)",
+      "Bash(curl -sL https://api.github.com/repos/hyprwm/Hyprland/git/trees/v0.54.2?recursive=1)",
+      "Bash(curl:*)"
     ]
   }
 }
