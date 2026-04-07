@@ -17,7 +17,17 @@
       "Bash(hyprctl keyword:*)",
       "Bash(hyprctl --help)",
       "Bash(hyprctl reload:*)",
-      "Bash(hyprctl configerrors:*)"
+      "Bash(hyprctl configerrors:*)",
+      "Bash(curl -s \"https://wiki.hyprland.org/Configuring/Variables/\")",
+      "Read(//usr/bin/**)",
+      "Read(//usr/share/applications/**)",
+      "Bash(flatpak list:*)",
+      "Bash(vicinae --help)",
+      "Bash(systemctl --user status vicinae)",
+      "WebFetch(domain:bbs.archlinux.org)",
+      "Bash(gsettings get:*)",
+      "Bash(curl -sL \"https://docs.vicinae.com/quickstart/hyprland\")",
+      "WebFetch(domain:docs.vicinae.com)"
     ]
   }
 }
