@@ -161,9 +161,9 @@
     "context": "Editor && showing_completions",
     "bindings": {
       "tab": "editor::ContextMenuNext",
-      "shift-tab": "editor::ContextMenuPrev",
+      "shift-tab": "editor::ContextMenuPrevious",
       "ctrl-j": "editor::ContextMenuNext",
-      "ctrl-k": "editor::ContextMenuPrev",
+      "ctrl-k": "editor::ContextMenuPrevious",
       "enter": "editor::ConfirmCompletion",
       "escape": "editor::Cancel",
     },

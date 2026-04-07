@@ -16,6 +16,8 @@ copy() {
         _clip="wl-copy"
     elif (( $+commands[xclip] )); then
         _clip="xclip -selection clipboard"
+    elif (( $+commands[xsel] )); then
+        _clip="xsel --clipboard --input"
     else
         echo "No clipboard tool available"; return 1
     fi

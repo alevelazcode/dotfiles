@@ -168,6 +168,11 @@ install_essential_packages() {
         python-pip
         python-pipx
 
+        # Clipboard tools (needed by copy() shell function)
+        xclip
+        xsel
+        wl-clipboard     # wl-copy/wl-paste for Wayland sessions
+
         # Modern CLI tools (all available in official repos)
         ripgrep
         fd
@@ -602,6 +607,7 @@ main() {
     echo "  ✓ paru AUR helper (optimized for performance)"
     echo "  ✓ base-devel + essential build tools"
     echo "  ✓ All modern CLI tools (ripgrep, fd, bat, eza, zoxide, etc.) via pacman"
+    echo "  ✓ Clipboard tools (xclip, xsel, wl-clipboard)"
     echo "  ✓ Flatpak + Snapd package managers"
     echo "  ✓ ZSH + Zinit plugin manager"
     echo "  ✓ FNM + Node.js LTS"

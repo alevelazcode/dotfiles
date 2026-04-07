@@ -25,9 +25,9 @@ monitor=,preferred,auto,auto
 # See https://wiki.hypr.land/Configuring/Keywords/
 
 # Set programs that you use
-$terminal = kitty
-$fileManager = dolphin
-$menu = hyprlauncher
+$terminal = wezterm
+$fileManager = yazi
+$menu = wofi
 
 
 #################
@@ -37,9 +37,16 @@ $menu = hyprlauncher
 # Autostart necessary processes (like notifications daemons, status bars, etc.)
 # Or execute your favorite apps at launch like this:
 
-# exec-once = $terminal
+exec-once = $terminal
 # exec-once = nm-applet &
-# exec-once = waybar & hyprpaper & firefox
+exec-once = hyprpaper & firefox & vicinae server
+
+layerrule {
+    name = vicinae-blur
+    blur = on
+    ignore_alpha = 0
+    match:namespace = vicinae
+}
 
 
 #############################
@@ -92,7 +99,7 @@ general {
     # Please see https://wiki.hypr.land/Configuring/Tearing/ before you turn this on
     allow_tearing = false
 
-    layout = dwindle
+    layout = master
 }
 
 # https://wiki.hypr.land/Configuring/Variables/#decoration
@@ -103,6 +110,7 @@ decoration {
     # Change transparency of focused and unfocused windows
     active_opacity = 1.0
     inactive_opacity = 1.0
+    dim_inactive = false
 
     shadow {
         enabled = true
@@ -114,10 +122,16 @@ decoration {
     # https://wiki.hypr.land/Configuring/Variables/#blur
     blur {
         enabled = true
-        size = 3
-        passes = 1
+        size = 15
+        passes = 3
+        ignore_opacity = true
 
+        noise = 0.05
+        contrast = 1.5
         vibrancy = 0.1696
+
+        xray = false
+        new_optimizations = true
     }
 }
 
@@ -194,6 +208,9 @@ misc {
     disable_hyprland_logo = false # If true disables the random hyprland logo / anime girl background. :(
 }
 
+xwayland {
+    force_zero_scaling = true
+  }
 
 #############
 ### INPUT ###
@@ -281,6 +298,14 @@ bind = $mainMod SHIFT, S, movetoworkspace, special:magic
 # Scroll through existing workspaces with mainMod + scroll
 bind = $mainMod, mouse_down, workspace, e+1
 bind = $mainMod, mouse_up, workspace, e-1
+
+bind = $mainMod, Space, exec, vicinae toggle
+
+bind = $mainMod, PRINT, exec, hyprshot -m window
+# Screenshot a monitor
+bind = , PRINT, exec, hyprshot -m output
+
+bind = $mainMod SHIFT, S, exec, hyprshot -m region
 
 # Move/resize windows with mainMod + LMB/RMB and dragging
 bindm = $mainMod, mouse:272, movewindow

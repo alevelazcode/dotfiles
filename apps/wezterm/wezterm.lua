@@ -11,7 +11,7 @@ config.font = wezterm.font_with_fallback({
   { family = "DankMono Nerd Font Mono", weight = "Regular" },
 })
 config.font_size = 19
-config.line_height = 1.7
+config.line_height = 1.3
 
 -- Theme
 require("themes.monokai-pro").apply_to_config(config)
@@ -20,7 +20,7 @@ require("themes.monokai-pro").apply_to_config(config)
 local is_mac = wezterm.target_triple:find("apple") ~= nil
 local is_win = wezterm.target_triple:find("windows") ~= nil
 
-config.window_background_opacity = 0.8
+config.window_background_opacity = 0.7
 
 if is_mac then
   config.macos_window_background_blur = 30
@@ -34,12 +34,9 @@ else
   config.kde_window_background_blur = true
 end
 
--- Window chrome
-if is_win then
-  config.window_decorations = "TITLE | RESIZE"
-else
-  config.window_decorations = "NONE"
-end
+config.enable_wayland = true
+-- Window chrome – hide title bar on every platform
+config.window_decorations = "NONE"
 config.enable_tab_bar = false
 config.enable_scroll_bar = false
 config.adjust_window_size_when_changing_font_size = false
@@ -78,4 +75,5 @@ if is_win then
   config.default_domain = "WSL:Ubuntu"
 end
 
+config.color_scheme = "Noctalia"
 return config

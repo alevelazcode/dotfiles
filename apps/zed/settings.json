@@ -148,7 +148,7 @@
   "current_line_highlight": "gutter",
   "icon_theme": {
     "mode": "light",
-    "light": "Zed (Default)",
+    "light": "FantastIcons Icon Theme",
     "dark": "Catppuccin Mocha",
   },
   "ui_font_size": 18,
