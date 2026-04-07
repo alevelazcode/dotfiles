@@ -152,14 +152,18 @@
   },
   "current_line_highlight": "gutter",
   "icon_theme": {
-    "mode": "dark",
-    "light": "Zed (Default)",
-    "dark": "FantastIcons Icon Theme",
+    "mode": "light",
+    "light": "FantastIcons Icon Theme",
+    "dark": "Catppuccin Mocha",
   },
   "ui_font_size": 18,
   "buffer_font_size": 18.0,
   "agent_buffer_font_size": 18,
-  "theme": "Monokai Reversed",
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "Monokai Vibrant Amped"
+  },
   "scrollbar": {
     "show": "never",
   },

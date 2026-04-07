@@ -217,6 +217,31 @@ create_symlinks() {
         print_success "Git configuration linked"
     fi
 
+    # Arch-only: Hyprland and Pictures (wallpaper)
+    if [[ "$platform" == "arch" ]]; then
+        if [[ -d "apps/hyprland" ]]; then
+            mkdir -p ~/.config/hypr
+            ensure_link "$(pwd)/apps/hyprland/hyprland.conf" ~/.config/hypr/hyprland.conf
+            ensure_link "$(pwd)/apps/hyprland/hyprpaper.conf" ~/.config/hypr/hyprpaper.conf
+            print_success "Hyprland configuration linked"
+        fi
+        if [[ -d "apps/wofi" ]]; then
+            ensure_link "$(pwd)/apps/wofi" ~/.config/wofi
+            print_success "Wofi configuration linked"
+        fi
+        if [[ -d "apps/waybar" ]]; then
+            ensure_link "$(pwd)/apps/waybar" ~/.config/waybar
+            print_success "Waybar configuration linked"
+        fi
+        if [[ -d "apps/pictures" ]]; then
+            mkdir -p ~/Pictures
+            for img in "$(pwd)/apps/pictures"/*; do
+                ensure_link "$img" ~/Pictures/"$(basename "$img")"
+            done
+            print_success "Pictures linked"
+        fi
+    fi
+
     # macOS-only: skhd and yabai
     if [[ "$platform" == "macos" ]]; then
         if [[ -f "apps/skhd/skhdrc" ]]; then

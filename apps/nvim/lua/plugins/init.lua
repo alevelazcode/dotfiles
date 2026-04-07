@@ -285,7 +285,11 @@ return {
       local rainbow_delimiters = require "rainbow-delimiters"
       vim.g.rainbow_delimiters = {
         strategy = {
-          [""] = rainbow_delimiters.strategy["global"],
+          [""] = function(bufnr)
+            local ok = pcall(vim.treesitter.get_parser, bufnr)
+            if not ok then return nil end
+            return rainbow_delimiters.strategy["global"]
+          end,
           vim = rainbow_delimiters.strategy["local"],
         },
         query = {
