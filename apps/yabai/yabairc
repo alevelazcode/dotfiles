@@ -4,9 +4,12 @@
 
 config_dir="${HOME}/.config/yabai"
 
+# NOTE: app -> space routing is NOT here. macOS 26 Tahoe + SIP-on runs yabai
+# in basic mode, which cannot move windows between spaces (scripting addition
+# is broken on Tahoe). App->space is handled natively: Dock icon > Options >
+# Assign To > This Desktop.
 source "${config_dir}/settings.sh"     # tiling layout, padding, gaps
 source "${config_dir}/mouse.sh"        # pointer behavior
 source "${config_dir}/rules.sh"        # unmanaged apps
-source "${config_dir}/workspaces.sh"   # app -> space routing
 
 echo "yabai configuration loaded"

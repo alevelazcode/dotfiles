@@ -1,11 +1,9 @@
-# focus.skhd — move focus (SRP: focus navigation only)
+# focus.skhd — move focus within space (SRP: focus navigation only)
+# Works in basic mode. Cross-display / cross-space focus needs the scripting
+# addition (broken on Tahoe) so those binds are intentionally omitted.
 
 # focus window within space (vim keys)
 alt - j : yabai -m window --focus south
 alt - k : yabai -m window --focus north
 alt - h : yabai -m window --focus west
 alt - l : yabai -m window --focus east
-
-# focus display left / right
-alt - s : yabai -m display --focus west
-alt - g : yabai -m display --focus east
