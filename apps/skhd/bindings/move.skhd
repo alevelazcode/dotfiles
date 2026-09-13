@@ -1,0 +1,32 @@
+# move.skhd — relocate windows (SRP: window movement only)
+
+# swap window within space (vim keys)
+hyper - j : yabai -m window --swap south
+hyper - k : yabai -m window --swap north
+hyper - h : yabai -m window --swap west
+hyper - l : yabai -m window --swap east
+
+# warp window (re-split) within space
+ctrl + alt - j : yabai -m window --warp south
+ctrl + alt - k : yabai -m window --warp north
+ctrl + alt - h : yabai -m window --warp west
+ctrl + alt - l : yabai -m window --warp east
+
+# move window to display left / right and follow
+hyper - s : yabai -m window --display west; yabai -m display --focus west
+hyper - g : yabai -m window --display east; yabai -m display --focus east
+
+# move window to prev / next space
+hyper - p : yabai -m window --space prev
+hyper - n : yabai -m window --space next
+
+# move window to space N
+hyper - 1 : yabai -m window --space 1
+hyper - 2 : yabai -m window --space 2
+hyper - 3 : yabai -m window --space 3
+hyper - 4 : yabai -m window --space 4
+hyper - 5 : yabai -m window --space 5
+hyper - 6 : yabai -m window --space 6
+hyper - 7 : yabai -m window --space 7
+hyper - 8 : yabai -m window --space 8
+hyper - 9 : yabai -m window --space 9

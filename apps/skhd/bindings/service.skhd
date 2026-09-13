@@ -1,0 +1,5 @@
+# service.skhd — control yabai service (SRP: lifecycle only)
+
+ctrl + alt - q : yabai --stop-service
+ctrl + alt - w : yabai --start-service
+ctrl + alt - r : yabai --restart-service

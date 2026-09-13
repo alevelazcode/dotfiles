@@ -1,0 +1,17 @@
+# layout.skhd — reshape current space (SRP: layout transforms only)
+
+# balance tree (equal splits)
+hyper - e : yabai -m space --balance
+
+# rotate layout clockwise
+hyper - r : yabai -m space --rotate 270
+
+# mirror tree
+hyper - y : yabai -m space --mirror y-axis
+hyper - x : yabai -m space --mirror x-axis
+
+# maximize focused window
+hyper - m : yabai -m window --toggle zoom-fullscreen
+
+# float + center focused window
+hyper - t : yabai -m window --toggle float --grid 4:4:1:1:2:2

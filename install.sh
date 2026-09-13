@@ -242,14 +242,14 @@ create_symlinks() {
         fi
     fi
 
-    # macOS-only: skhd and yabai
+    # macOS-only: skhd and yabai (link whole dir — configs are modular)
     if [[ "$platform" == "macos" ]]; then
-        if [[ -f "apps/skhd/skhdrc" ]]; then
-            ensure_link "$(pwd)/apps/skhd/skhdrc" ~/.config/skhd/skhdrc
+        if [[ -d "apps/skhd" ]]; then
+            ensure_link "$(pwd)/apps/skhd" ~/.config/skhd
             print_success "skhd configuration linked"
         fi
-        if [[ -f "apps/yabai/yabairc" ]]; then
-            ensure_link "$(pwd)/apps/yabai/yabairc" ~/.config/yabai/yabairc
+        if [[ -d "apps/yabai" ]]; then
+            ensure_link "$(pwd)/apps/yabai" ~/.config/yabai
             print_success "yabai configuration linked"
         fi
     fi
